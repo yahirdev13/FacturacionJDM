@@ -2,8 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';//yarn add react-router-dom
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'typeface-roboto';
+import 'admin-lte/dist/css/AdminLTE.min.css';
+import 'admin-lte/dist/css/skins/_all-skins.min.css';
 
-//pantallas admin
+
+//Pantallas admin
 import LoginScreen from './screens/admin/LoginScreen';
 import HomeAdminScreen from './screens/admin/HomeAdminScreen';
 
