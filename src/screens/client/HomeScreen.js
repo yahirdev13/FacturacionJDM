@@ -1,15 +1,22 @@
 import React from 'react'
 import Nav from '../../common/Nav'
+import '../client/HomeStyle.css'
+import Footer from '../../common/Footer'
+
+//imagnes
+import jdm from '../../images/jdm.png'
+import jdmBoda from '../../images/jdmBoda.png'
+import jdmEsc from '../../images/jdmEsc.png'
 
 
 export default function HomeScreen() {
   return (
     <div>
-      <Nav/>
+      <Nav />
       <div class="saludos">
-        <h1>Bienvenidos al sistema de facturacion electronica</h1>
+        <h1>Bienvenidos al sistema de facturacion electrónica</h1>
       </div>
-      <div>x``
+      <div>
         <div class="container">
           <div class="box">
             <h2>Disposiciones Fiscales</h2>
@@ -34,11 +41,11 @@ export default function HomeScreen() {
       </div>
 
       <div class="containerimg ">
-        <img class="img1" src="imagenes/jdm.png" alt="Jardines"/>
-          <img class="img1" src="imagenes/escj.jpeg" alt="Escuela Jdm"/>
-            <img class="img1" src="imagenes/bds.png" alt="Bodas Jdm"/>
-            </div>
-
-          </div>
-          )
+        <img class="img1" src={jdm} alt="Jardines de México" />
+        <img class="img1" src={jdmEsc} alt="Escuela de Jardinería" />
+        <img class="img1" src={jdmBoda} alt="Jardines de México Bodas" />
+      </div>
+    <Footer />
+    </div>
+  )
 }
