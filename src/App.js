@@ -5,6 +5,7 @@ import 'typeface-roboto';
 
 //pantallas admin
 import LoginScreen from './screens/admin/LoginScreen';
+import HomeAdminScreen from './screens/admin/HomeAdminScreen';
 
 //Pantallas cliente
 import HomeScreen from './screens/client/HomeScreen';
@@ -20,6 +21,7 @@ function App() {
     <Router>{/*se crea el router, el cual controla las rutas*/}
         <Routes> {/* se crea el espacio donde se van a colocar las rutas */} 
           <Route path={"/admin"} element={<LoginScreen/>}/>{/* se crea la ruta, la cual se va a mostrar en el path especificado y renderizara el elemento especificado */}
+          <Route path={"/adminHome"} element={<HomeAdminScreen/>}/>
           <Route path={"/inicio"} element={<HomeScreen/>}/>
           <Route path={"/factura"} element={<FacturaScreen/>}/>
           <Route path={"/consulta"} element={<ConsultaScreen/>}/>
