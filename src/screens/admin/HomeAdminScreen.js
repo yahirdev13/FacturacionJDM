@@ -7,9 +7,9 @@ import MenuAdmin from '../../common/MenuAdmin'
 export default function HomeAdminScreen() {
     return (
         <div>
-            <NavAdmin/>
+            {/* <NavAdmin/> */}
             <MenuAdmin/>
-            <Footer/>
+            {/* <Footer/> */}
         </div>
     )
 }

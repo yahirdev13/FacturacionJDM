@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'typeface-roboto';
 
-//pantallas admin
+
+
+//Pantallas admin
 import LoginScreen from './screens/admin/LoginScreen';
 import HomeAdminScreen from './screens/admin/HomeAdminScreen';
 
