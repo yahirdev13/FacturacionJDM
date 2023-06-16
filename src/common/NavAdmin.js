@@ -6,6 +6,8 @@ import '../common/NavAdminStyle.css'
 
 export default function NavAdmin() {
     return (
-        <div></div>
+        <div>
+            
+        </div>
     )
 }
