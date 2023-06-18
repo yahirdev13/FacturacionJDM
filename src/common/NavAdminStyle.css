@@ -4,13 +4,13 @@
     src: url("../tipografia/Roboto/Roboto-Bold.ttf");
   } */
 
-nav {
+nav-admin {
     padding: 20px;
     font-family: "Roboto";
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-#nav-3 {
+#nav-admin {
     background: #2c497f;
     height: auto;
 }

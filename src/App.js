@@ -8,6 +8,10 @@ import 'typeface-roboto';
 //Pantallas admin
 import LoginScreen from './screens/admin/LoginScreen';
 import HomeAdminScreen from './screens/admin/HomeAdminScreen';
+import UsersScreen from './screens/admin/UsersScreen';
+import RolScreen from './screens/admin/RolScreen';
+import ContactScreen from './screens/admin/ContactScreen';
+import FacturaAdminScreen from './screens/admin/FacturaAdminScreen';
 
 //Pantallas cliente
 import HomeScreen from './screens/client/HomeScreen';
@@ -23,7 +27,13 @@ function App() {
     <Router>{/*se crea el router, el cual controla las rutas*/}
         <Routes> {/* se crea el espacio donde se van a colocar las rutas */} 
           <Route path={"/admin"} element={<LoginScreen/>}/>{/* se crea la ruta, la cual se va a mostrar en el path especificado y renderizara el elemento especificado */}
-          <Route path={"/adminHome"} element={<HomeAdminScreen/>}/>
+          <Route path={"/profile"} element={<HomeAdminScreen/>}/>
+          <Route path={"/users"} element={<UsersScreen/>}/>
+          <Route path={"/rol"} element={<RolScreen/>}/>
+          <Route path={"/contact"} element={<ContactScreen/>}/>
+          <Route path={"/factura"} element={<FacturaAdminScreen/>}/>
+
+          
           <Route path={"/inicio"} element={<HomeScreen/>}/>
           <Route path={"/factura"} element={<FacturaScreen/>}/>
           <Route path={"/consulta"} element={<ConsultaScreen/>}/>
