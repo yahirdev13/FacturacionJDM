@@ -1,5 +1,5 @@
 import React from 'react'
-import MenuAdmin from '../../common/MenuAdmin'
+import MenuAdmin from '../../common/Admin/MenuAdmin'
 
 export default function RolScreen() {
   return (
