@@ -49,13 +49,8 @@ export default function MenuAdmin() {
                             <NavIcon><i style={{ fontSize: "1.5em" }}><BsFillEnvelopeFill /></i></NavIcon>
                             <NavText style={{ fontSize: "20px" }}>Contactanos</NavText>
                         </NavItem>
+                        
                     </SideNav.Nav>
-          
-
-
-
-
-
 
             </SideNav>
         </div >
