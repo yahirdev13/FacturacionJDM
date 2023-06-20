@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';//yarn add react-router-dom
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'typeface-roboto';
 
 
@@ -23,6 +24,8 @@ import PreguntasScreen from './screens/client/PreguntasScreen';
 
 
 function App() {
+
+  
   return (
     <Router>{/*se crea el router, el cual controla las rutas*/}
         <Routes> {/* se crea el espacio donde se van a colocar las rutas */} 
@@ -31,7 +34,7 @@ function App() {
           <Route path={"/users"} element={<UsersScreen/>}/>
           <Route path={"/rol"} element={<RolScreen/>}/>
           <Route path={"/contact"} element={<ContactScreen/>}/>
-          <Route path={"/factura"} element={<FacturaAdminScreen/>}/>
+          <Route path={"/facturaControl"} element={<FacturaAdminScreen/>}/>
 
           
           <Route path={"/inicio"} element={<HomeScreen/>}/>

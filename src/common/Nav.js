@@ -11,7 +11,7 @@ export default function Nav() {
       <switch>
         <a class="" href="#"><img src={logo} aling="right" width="50" height="50" /></a>
         <Link id="inicio" class="link-3" to="/inicio">Inicio</Link>
-        <Link id="factura" class="link-3" to="/factura">Factura</Link>
+        <Link class="link-3" to="/factura">Factura</Link>
         <Link class="link-3" to="/consulta">Consulta</Link>
         <Link class="link-3" to="/nosotros">Nosotros</Link>
         <Link class="link-3" to="/contactanos">Contáctanos</Link>

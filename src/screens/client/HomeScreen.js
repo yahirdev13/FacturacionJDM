@@ -3,6 +3,8 @@ import Nav from '../../common/Nav'
 import '../client/HomeStyle.css'
 import Footer from '../../common/Footer'
 
+import Carousel from '../../common/Carousel/Carousel'
+
 //imagnes
 import jdm from '../../images/jdm.png'
 import jdmBoda from '../../images/jdmBoda.png'
@@ -16,6 +18,11 @@ export default function HomeScreen() {
       <div class="saludos">
         <h1>Bienvenidos al sistema de facturacion electrónica</h1>
       </div>
+      
+      <center>
+        <Carousel />
+      </center>
+
       <div>
         <div class="container">
           <div class="box">
@@ -27,13 +34,10 @@ export default function HomeScreen() {
             <h2>¡Importante!</h2>
             <p>Ahora tienes 15 días para facturar después de la compra. Evita problemas y cumple con el plazo establecido. Utiliza nuestro sistema en línea para generar tu factura fácilmente.</p>
 
-
           </div>
           <div class="box">
             <h2>¡Atención!</h2>
             <p>Solo se podrán facturar las compras realizadas dentro del restaurante. No se aceptarán solicitudes de facturación de cualquier otra compra</p>
-
-
           </div>
 
         </div>
@@ -45,7 +49,7 @@ export default function HomeScreen() {
         <img class="img1" src={jdmEsc} alt="Escuela de Jardinería" />
         <img class="img1" src={jdmBoda} alt="Jardines de México Bodas" />
       </div>
-    <Footer />
+      <Footer />
     </div>
   )
 }
