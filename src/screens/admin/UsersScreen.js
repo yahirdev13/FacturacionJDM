@@ -5,39 +5,7 @@ import "../admin/UserScreenStyle.css"
 import MenuAdmin from '../../common/Admin/MenuAdmin'
 import NavAdmin from '../../common/Admin/NavAdmin'
 
-
 export default function UsersScreen() {
-
-
-    function verificarPasswords() {
-
-        // Ontenemos los valores de los campos de contraseñas 
-        pass1 = document.getElementById('pass1');
-        pass2 = document.getElementById('pass2');
-
-
-        if (pass1.value != pass2.value) {   // Verificamos si las constraseñas no coinciden
-
-            document.getElementById("error").classList.add("mostrar");// Si las constraseñas no coinciden mostramos un mensaje
-            return false;
-        }
-        else {
-
-            document.getElementById("error").classList.remove("mostrar");  // Si las contraseñas coinciden ocultamos el mensaje de error
-
-
-            document.getElementById("ok").classList.remove("ocultar"); // Mostramos un mensaje mencionando que las Contraseñas coinciden
-
-
-            document.getElementById("login").disabled = true;  // Desabilitamos el botón de login
-
-
-            setTimeout(function () { // Refrescamos la página (Simulación de envío del formulario)
-                location.reload();
-            }, 3000);
-            return true;
-        }
-    }
 
     return (
         <div>
@@ -98,18 +66,24 @@ export default function UsersScreen() {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id='registrarUsuario' name='registrarUsuario' onsubmit="verificarPasswords(); return false">
+                            <form id='registrarUsuario needs-validation novalidate' name='registrarUsuario' onsubmit="verificarPasswords()">
                                 <div class="mb-3">
                                     <label class="form-label">Nombre/s</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" />
+                                    <input type="text" class="form-control" aria-describedby="textHelp" required />
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Apellido/s</label>
                                     <input type="text" class="form-control" aria-describedby="textHelp" />
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Usuario</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" />
+                                    <label class="form-label">nombre de suario</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required></input>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Correo Electrónico</label>
@@ -151,7 +125,7 @@ export default function UsersScreen() {
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Guadar Usuario</button>
+                                <button type="submit" class="btn btn-primary" >Guadar Usuario</button>
                             </form>
                         </div>
                         <div class="modal-footer">
