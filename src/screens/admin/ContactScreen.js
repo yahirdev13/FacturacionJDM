@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MenuAdmin from '../../common/Admin/MenuAdmin'
 import NavAdmin from '../../common/Admin/NavAdmin'
+import ToastComponent from '../../common/Admin/Toast'
+
+
 
 //gif
 import advertencia from '../../gifs/alerta.gif'
 
+
+
 export default function ContactScreen() {
+
+  const [showToast, setShowToast] = useState(false);
+
+  const handleShowToast = () => {
+    setShowToast(true);
+  };
+
+  const handleCloseToast = () => {
+    setShowToast(false);
+  };
+
+
   return (
     <div>
       <NavAdmin />
@@ -49,6 +66,12 @@ export default function ContactScreen() {
         </div>
       </div>
 
+      <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <ToastComponent showToast={showToast} onClose={handleCloseToast} />
+      </div>
+
+
+
       {/* modal detalles de contacto */}
 
       <div class="modal fade" id="detallesContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -62,7 +85,7 @@ export default function ContactScreen() {
               <p>Dudas sobre la facturacion</p>
 
               <h4>Mensaje</h4>
-              <p style={{textAlign:"justify"}}>loremansnais aJSOIIJASDIOJASAAID   iajsdijasd as dajsdiaj sid  iojisasjisj ijaisjdIJ OIJIJASOIDJ IA SDASDH OASHDAI HHDAIS  asiduaisudais uaiusdioa sdjdaufihasd</p>
+              <p style={{ textAlign: "justify" }}>loremansnais aJSOIIJASDIOJASAAID   iajsdijasd as dajsdiaj sid  iojisasjisj ijaisjdIJ OIJIJASOIDJ IA SDASDH OASHDAI HHDAIS  asiduaisudais uaiusdioa sdjdaufihasd</p>
 
             </div>
             <div class="modal-footer">
@@ -81,16 +104,22 @@ export default function ContactScreen() {
               <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de contacto</h1>
             </div>
             <div class="modal-body text-center">
-              <img class="img-fluid" src={advertencia} style={{width:"50%"}} ></img>
+              <img class="img-fluid" src={advertencia} style={{ width: "50%" }} ></img>
               <h5>¿Está seguro de eliminar permanentemente este contacto?</h5>
+              <div id="liveAlertPlaceholder"></div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={handleShowToast}>Eliminar</button>
             </div>
           </div>
         </div>
       </div>
+
+
     </div>
+
+
+
   )
 }
