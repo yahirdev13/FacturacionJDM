@@ -15,13 +15,13 @@ export default function UsersScreen() {
             <MenuAdmin />
             <div style={{ paddingLeft: "8%", paddingRight: "5%" }}>
                 <h1 class="mt-5">Control de Usuarios</h1>
-                <div>
-                    <button type="button" class="btn btn-primary" style={{ float: "right" }}
-                        data-bs-toggle="modal"
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#crearUsuario"
                     >Agregar Usuario</button>
                 </div>
-                <div style={{ left: "250px" }} className='container-fluid'>
+
+                <div style={{ left: "250px" }}  class="table-responsive" className='container-fluid'>
                     <table class="table">
                         <thead>
                             <tr>
@@ -63,9 +63,8 @@ export default function UsersScreen() {
             <div class="modal fade" id="crearUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header lign-items-center justify-content-center">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar un nuevo usuario</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form id='registrarUsuario needs-validation novalidate' name='registrarUsuario' onsubmit="verificarPasswords()">
@@ -147,8 +146,8 @@ export default function UsersScreen() {
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de usuario</h1>
                         </div>
                         <div class="modal-body text-center">
-                            <img class="img-fluid" src={advertencia} ></img>
-                            <h5>¿Esta seguro de eliminar permanentemente este usuario?</h5>
+                            <img class="img-fluid" src={advertencia} style={{width:"50%"}}></img>
+                            <h5>¿Está seguro de eliminar permanentemente este usuario?</h5>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

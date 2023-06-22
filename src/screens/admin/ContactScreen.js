@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MenuAdmin from '../../common/Admin/MenuAdmin'
 import NavAdmin from '../../common/Admin/NavAdmin'
+import ToastComponent from '../../common/Admin/Toast'
+
+
+
+//gif
+import advertencia from '../../gifs/alerta.gif'
+
+
 
 export default function ContactScreen() {
+
+  const [showToast, setShowToast] = useState(false);
+
+  const handleShowToast = () => {
+    setShowToast(true);
+  };
+
+  const handleCloseToast = () => {
+    setShowToast(false);
+  };
+
+
   return (
     <div>
       <NavAdmin />
@@ -27,8 +47,8 @@ export default function ContactScreen() {
                 <td>7271083065</td>
                 <td>yahird59@gmail.com</td>
                 <td>
-                  <button type="button" class="btn btn-primary " style={{ marginRight: "10px" }}>Detalles</button>
-                  <button type="button" class="btn btn-danger ">Eliminar</button>
+                  <button type="button" class="btn btn-primary " style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#detallesContacto">Detalles</button>
+                  <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#eliminarContacto">Eliminar</button>
                 </td>
               </tr>
               <tr style={{ verticalAlign: "middle" }}>
@@ -45,6 +65,61 @@ export default function ContactScreen() {
           </table>
         </div>
       </div>
+
+      <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <ToastComponent showToast={showToast} onClose={handleCloseToast} />
+      </div>
+
+
+
+      {/* modal detalles de contacto */}
+
+      <div class="modal fade" id="detallesContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header lign-items-center justify-content-center">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Detalles de contacto</h1>
+            </div>
+            <div class="modal-body">
+              <h4>Asunto</h4>
+              <p>Dudas sobre la facturacion</p>
+
+              <h4>Mensaje</h4>
+              <p style={{ textAlign: "justify" }}>loremansnais aJSOIIJASDIOJASAAID   iajsdijasd as dajsdiaj sid  iojisasjisj ijaisjdIJ OIJIJASOIDJ IA SDASDH OASHDAI HHDAIS  asiduaisudais uaiusdioa sdjdaufihasd</p>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* modal para la eliminacion de un contacto */}
+
+      <div class="modal fade" id="eliminarContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header lign-items-center justify-content-center">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de contacto</h1>
+            </div>
+            <div class="modal-body text-center">
+              <img class="img-fluid" src={advertencia} style={{ width: "50%" }} ></img>
+              <h5>¿Está seguro de eliminar permanentemente este contacto?</h5>
+              <div id="liveAlertPlaceholder"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={handleShowToast}>Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
+
+
+
   )
 }
