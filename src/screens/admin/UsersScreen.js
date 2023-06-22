@@ -146,7 +146,7 @@ export default function UsersScreen() {
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de usuario</h1>
                         </div>
                         <div class="modal-body text-center">
-                            <img class="img-fluid" src={advertencia} ></img>
+                            <img class="img-fluid" src={advertencia} style={{width:"50%"}}></img>
                             <h5>¿Está seguro de eliminar permanentemente este usuario?</h5>
                         </div>
                         <div class="modal-footer">

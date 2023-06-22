@@ -71,7 +71,7 @@ export default function RolScreen() {
               <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de rol</h1>
             </div>
             <div class="modal-body text-center">
-              <img class="img-fluid" src={advertencia} ></img>
+              <img class="img-fluid" src={advertencia} style={{width:"50%"}} ></img>
               <h5>¿Está seguro de eliminar permanentemente este rol?</h5>
             </div>
             <div class="modal-footer">

@@ -30,7 +30,7 @@ export default function ContactScreen() {
                 <td>7271083065</td>
                 <td>yahird59@gmail.com</td>
                 <td>
-                  <button type="button" class="btn btn-primary " style={{ marginRight: "10px" }}>Detalles</button>
+                  <button type="button" class="btn btn-primary " style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#detallesContacto">Detalles</button>
                   <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#eliminarContacto">Eliminar</button>
                 </td>
               </tr>
@@ -49,6 +49,29 @@ export default function ContactScreen() {
         </div>
       </div>
 
+      {/* modal detalles de contacto */}
+
+      <div class="modal fade" id="detallesContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header lign-items-center justify-content-center">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Detalles de contacto</h1>
+            </div>
+            <div class="modal-body">
+              <h4>Asunto</h4>
+              <p style={{textAlign:"justify"}}>Dudas sobre la facturacion</p>
+
+              <h4>Mensaje</h4>
+              <p style={{textAlign:"justify"}}>loremansnais aJSOIIJASDIOJASAAID   iajsdijasd as dajsdiaj sid  iojisasjisj ijaisjdIJ OIJIJASOIDJ IA SDASDH OASHDAI HHDAIS  asiduaisudais uaiusdioa sdjdaufihasd fs</p>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* modal para la eliminacion de un contacto */}
 
       <div class="modal fade" id="eliminarContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -58,7 +81,7 @@ export default function ContactScreen() {
               <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de contacto</h1>
             </div>
             <div class="modal-body text-center">
-              <img class="img-fluid" src={advertencia} ></img>
+              <img class="img-fluid" src={advertencia}style={{width:"50%"}}></img>
               <h5>¿Está seguro de eliminar permanentemente este contacto?</h5>
             </div>
             <div class="modal-footer">
