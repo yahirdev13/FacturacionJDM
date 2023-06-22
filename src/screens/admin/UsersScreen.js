@@ -5,8 +5,10 @@ import "../admin/UserScreenStyle.css"
 import MenuAdmin from '../../common/Admin/MenuAdmin'
 import NavAdmin from '../../common/Admin/NavAdmin'
 
-export default function UsersScreen() {
+//gif
+import advertencia from '../../gifs/alerta.gif'
 
+export default function UsersScreen() {
     return (
         <div>
             <NavAdmin />
@@ -16,7 +18,7 @@ export default function UsersScreen() {
                 <div>
                     <button type="button" class="btn btn-primary" style={{ float: "right" }}
                         data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop"
+                        data-bs-target="#crearUsuario"
                     >Agregar Usuario</button>
                 </div>
                 <div style={{ left: "250px" }} className='container-fluid'>
@@ -38,7 +40,7 @@ export default function UsersScreen() {
                                 <td>Administrador</td>
                                 <td>
                                     <button type="button" class="btn btn-warning " style={{ marginRight: "10px" }}>Editar</button>
-                                    <button type="button" class="btn btn-danger ">Eliminar</button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarUsuario" >Eliminar</button>
                                 </td>
                             </tr>
                             <tr style={{ verticalAlign: "middle" }}>
@@ -56,9 +58,9 @@ export default function UsersScreen() {
                 </div>
             </div>
 
-            {/* modales */}
+            {/* modal para la creacion de un nuevo usuario*/}
 
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="crearUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -99,12 +101,12 @@ export default function UsersScreen() {
                                 </div>
 
                                 {/* mensajes de confirmacion de contraseña */}
-                                <div id="error" class="alert alert-danger ocultar" role="alert">
+                                {/* <div id="error" class="alert alert-danger ocultar" role="alert">
                                     Las Contraseñas no coinciden, vuelve a intentar !
                                 </div>
                                 <div id="ok" class="alert alert-success ocultar" role="alert">
                                     Contraseña válida
-                                </div>
+                                </div> */}
 
 
                                 <div class="mb-3">
@@ -136,6 +138,27 @@ export default function UsersScreen() {
             </div>
 
 
-        </div>
+            {/* modal para la eliminacion de un usuario */}
+
+            <div class="modal fade" id="eliminarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header lign-items-center justify-content-center">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de usuario</h1>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img class="img-fluid" src={advertencia} ></img>
+                            <h5>¿Esta seguro de eliminar permanentemente este usuario?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div >
     )
 }
