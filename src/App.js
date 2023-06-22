@@ -5,7 +5,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'typeface-roboto';
 
 
-
 //Pantallas admin
 import LoginScreen from './screens/admin/LoginScreen';
 import HomeAdminScreen from './screens/admin/HomeAdminScreen';

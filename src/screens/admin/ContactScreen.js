@@ -59,10 +59,10 @@ export default function ContactScreen() {
             </div>
             <div class="modal-body">
               <h4>Asunto</h4>
-              <p style={{textAlign:"justify"}}>Dudas sobre la facturacion</p>
+              <p>Dudas sobre la facturacion</p>
 
               <h4>Mensaje</h4>
-              <p style={{textAlign:"justify"}}>loremansnais aJSOIIJASDIOJASAAID   iajsdijasd as dajsdiaj sid  iojisasjisj ijaisjdIJ OIJIJASOIDJ IA SDASDH OASHDAI HHDAIS  asiduaisudais uaiusdioa sdjdaufihasd fs</p>
+              <p style={{textAlign:"justify"}}>loremansnais aJSOIIJASDIOJASAAID   iajsdijasd as dajsdiaj sid  iojisasjisj ijaisjdIJ OIJIJASOIDJ IA SDASDH OASHDAI HHDAIS  asiduaisudais uaiusdioa sdjdaufihasd</p>
 
             </div>
             <div class="modal-footer">
@@ -81,7 +81,7 @@ export default function ContactScreen() {
               <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de contacto</h1>
             </div>
             <div class="modal-body text-center">
-              <img class="img-fluid" src={advertencia}style={{width:"50%"}}></img>
+              <img class="img-fluid" src={advertencia} style={{width:"50%"}} ></img>
               <h5>¿Está seguro de eliminar permanentemente este contacto?</h5>
             </div>
             <div class="modal-footer">

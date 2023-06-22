@@ -15,13 +15,13 @@ export default function UsersScreen() {
             <MenuAdmin />
             <div style={{ paddingLeft: "8%", paddingRight: "5%" }}>
                 <h1 class="mt-5">Control de Usuarios</h1>
-                <div>
-                    <button type="button" class="btn btn-primary" style={{ float: "right" }}
-                        data-bs-toggle="modal"
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#crearUsuario"
                     >Agregar Usuario</button>
                 </div>
-                <div style={{ left: "250px" }} className='container-fluid'>
+
+                <div style={{ left: "250px" }}  class="table-responsive" className='container-fluid'>
                     <table class="table">
                         <thead>
                             <tr>
