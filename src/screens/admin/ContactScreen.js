@@ -2,6 +2,9 @@ import React from 'react'
 import MenuAdmin from '../../common/Admin/MenuAdmin'
 import NavAdmin from '../../common/Admin/NavAdmin'
 
+//gif
+import advertencia from '../../gifs/alerta.gif'
+
 export default function ContactScreen() {
   return (
     <div>
@@ -28,7 +31,7 @@ export default function ContactScreen() {
                 <td>yahird59@gmail.com</td>
                 <td>
                   <button type="button" class="btn btn-primary " style={{ marginRight: "10px" }}>Detalles</button>
-                  <button type="button" class="btn btn-danger ">Eliminar</button>
+                  <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#eliminarContacto">Eliminar</button>
                 </td>
               </tr>
               <tr style={{ verticalAlign: "middle" }}>
@@ -43,6 +46,26 @@ export default function ContactScreen() {
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* modal para la eliminacion de un contacto */}
+
+      <div class="modal fade" id="eliminarContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header lign-items-center justify-content-center">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de contacto</h1>
+            </div>
+            <div class="modal-body text-center">
+              <img class="img-fluid" src={advertencia} ></img>
+              <h5>¿Está seguro de eliminar permanentemente este contacto?</h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

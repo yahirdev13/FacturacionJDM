@@ -2,6 +2,9 @@ import React from 'react'
 import MenuAdmin from '../../common/Admin/MenuAdmin'
 import NavAdmin from '../../common/Admin/NavAdmin'
 
+//gif
+import advertencia from '../../gifs/alerta.gif'
+
 export default function RolScreen() {
   return (
     <div>
@@ -24,7 +27,7 @@ export default function RolScreen() {
                 <td>Administrador</td>
                 <td>
                   <button type="button" class="btn btn-primary " style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#staticBackdrop">Detalles</button>
-                  <button type="button" class="btn btn-danger ">Eliminar</button>
+                  <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#eliminarRol">Eliminar</button>
                 </td>
               </tr>
               <tr style={{ verticalAlign: "middle" }}>
@@ -32,7 +35,7 @@ export default function RolScreen() {
                 <td>Gerente</td>
                 <td>
                   <button type="button" class="btn btn-primary " style={{ marginRight: "10px" }}>Detalles</button>
-                  <button type="button" class="btn btn-danger ">Eliminar</button>
+                  <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#eliminarRol">Eliminar</button>
                 </td>
               </tr>
             </tbody>
@@ -57,7 +60,31 @@ export default function RolScreen() {
           </div>
         </div>
       </div>
+
+
+      {/* modal para la eliminacion de un rol */}
+
+      <div class="modal fade" id="eliminarRol" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header lign-items-center justify-content-center">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de rol</h1>
+            </div>
+            <div class="modal-body text-center">
+              <img class="img-fluid" src={advertencia} ></img>
+              <h5>¿Está seguro de eliminar permanentemente este rol?</h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+
+
 
   )
 }
