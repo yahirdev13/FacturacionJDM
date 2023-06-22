@@ -5,40 +5,10 @@ import "../admin/UserScreenStyle.css"
 import MenuAdmin from '../../common/Admin/MenuAdmin'
 import NavAdmin from '../../common/Admin/NavAdmin'
 
+//gif
+import advertencia from '../../gifs/alerta.gif'
 
 export default function UsersScreen() {
-
-
-    function verificarPasswords() {
-
-        // Ontenemos los valores de los campos de contraseñas 
-        pass1 = document.getElementById('pass1');
-        pass2 = document.getElementById('pass2');
-
-
-        if (pass1.value != pass2.value) {   // Verificamos si las constraseñas no coinciden
-
-            document.getElementById("error").classList.add("mostrar");// Si las constraseñas no coinciden mostramos un mensaje
-            return false;
-        }
-        else {
-
-            document.getElementById("error").classList.remove("mostrar");  // Si las contraseñas coinciden ocultamos el mensaje de error
-
-
-            document.getElementById("ok").classList.remove("ocultar"); // Mostramos un mensaje mencionando que las Contraseñas coinciden
-
-
-            document.getElementById("login").disabled = true;  // Desabilitamos el botón de login
-
-
-            setTimeout(function () { // Refrescamos la página (Simulación de envío del formulario)
-                location.reload();
-            }, 3000);
-            return true;
-        }
-    }
-
     return (
         <div>
             <NavAdmin />
@@ -48,7 +18,7 @@ export default function UsersScreen() {
                 <div>
                     <button type="button" class="btn btn-primary" style={{ float: "right" }}
                         data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop"
+                        data-bs-target="#crearUsuario"
                     >Agregar Usuario</button>
                 </div>
                 <div style={{ left: "250px" }} className='container-fluid'>
@@ -70,7 +40,7 @@ export default function UsersScreen() {
                                 <td>Administrador</td>
                                 <td>
                                     <button type="button" class="btn btn-warning " style={{ marginRight: "10px" }}>Editar</button>
-                                    <button type="button" class="btn btn-danger ">Eliminar</button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarUsuario" >Eliminar</button>
                                 </td>
                             </tr>
                             <tr style={{ verticalAlign: "middle" }}>
@@ -88,9 +58,9 @@ export default function UsersScreen() {
                 </div>
             </div>
 
-            {/* modales */}
+            {/* modal para la creacion de un nuevo usuario*/}
 
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="crearUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -98,18 +68,24 @@ export default function UsersScreen() {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id='registrarUsuario' name='registrarUsuario' onsubmit="verificarPasswords(); return false">
+                            <form id='registrarUsuario needs-validation novalidate' name='registrarUsuario' onsubmit="verificarPasswords()">
                                 <div class="mb-3">
                                     <label class="form-label">Nombre/s</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" />
+                                    <input type="text" class="form-control" aria-describedby="textHelp" required />
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Apellido/s</label>
                                     <input type="text" class="form-control" aria-describedby="textHelp" />
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Usuario</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" />
+                                    <label class="form-label">nombre de suario</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required></input>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Correo Electrónico</label>
@@ -125,12 +101,12 @@ export default function UsersScreen() {
                                 </div>
 
                                 {/* mensajes de confirmacion de contraseña */}
-                                <div id="error" class="alert alert-danger ocultar" role="alert">
+                                {/* <div id="error" class="alert alert-danger ocultar" role="alert">
                                     Las Contraseñas no coinciden, vuelve a intentar !
                                 </div>
                                 <div id="ok" class="alert alert-success ocultar" role="alert">
                                     Contraseña válida
-                                </div>
+                                </div> */}
 
 
                                 <div class="mb-3">
@@ -151,7 +127,7 @@ export default function UsersScreen() {
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Guadar Usuario</button>
+                                <button type="submit" class="btn btn-primary" >Guadar Usuario</button>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -162,6 +138,27 @@ export default function UsersScreen() {
             </div>
 
 
-        </div>
+            {/* modal para la eliminacion de un usuario */}
+
+            <div class="modal fade" id="eliminarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header lign-items-center justify-content-center">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de usuario</h1>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img class="img-fluid" src={advertencia} ></img>
+                            <h5>¿Esta seguro de eliminar permanentemente este usuario?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div >
     )
 }

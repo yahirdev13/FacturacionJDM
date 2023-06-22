@@ -25,28 +25,28 @@ import PreguntasScreen from './screens/client/PreguntasScreen';
 
 function App() {
 
-  
+
   return (
     <Router>{/*se crea el router, el cual controla las rutas*/}
-        <Routes> {/* se crea el espacio donde se van a colocar las rutas */} 
-          <Route path={"/admin"} element={<LoginScreen/>}/>{/* se crea la ruta, la cual se va a mostrar en el path especificado y renderizara el elemento especificado */}
-          <Route path={"/profile"} element={<HomeAdminScreen/>}/>
-          <Route path={"/users"} element={<UsersScreen/>}/>
-          <Route path={"/rol"} element={<RolScreen/>}/>
-          <Route path={"/contact"} element={<ContactScreen/>}/>
-          <Route path={"/facturaControl"} element={<FacturaAdminScreen/>}/>
+      <Routes> {/* se crea el espacio donde se van a colocar las rutas */}
+        <Route path={"/admin"} element={<LoginScreen />} />{/* se crea la ruta, la cual se va a mostrar en el path especificado y renderizara el elemento especificado */}
+        <Route path={"/profile"} element={<HomeAdminScreen />} />
+        <Route path={"/users"} element={<UsersScreen />} />
+        <Route path={"/rol"} element={<RolScreen />} />
+        <Route path={"/contact"} element={<ContactScreen />} />
+        <Route path={"/facturaControl"} element={<FacturaAdminScreen />} />
 
-          
-          <Route path={"/inicio"} element={<HomeScreen/>}/>
-          <Route path={"/factura"} element={<FacturaScreen/>}/>
-          <Route path={"/consulta"} element={<ConsultaScreen/>}/>
-          <Route path={"/nosotros"} element={<NosotrosScreen/>}/>
-          <Route path={"/contactanos"} element={<ContactanosScreen/>}/>
-          <Route path={"/preguntas"} element={<PreguntasScreen/>}/>
-          
-          <Route path='*' element={<Navigate to={"/"}/>}/>
-        </Routes>
-      </Router>
+
+        <Route path={"/inicio"} element={<HomeScreen />} />
+        <Route path={"/factura"} element={<FacturaScreen />} />
+        <Route path={"/consulta"} element={<ConsultaScreen />} />
+        <Route path={"/nosotros"} element={<NosotrosScreen />} />
+        <Route path={"/contactanos"} element={<ContactanosScreen />} />
+        <Route path={"/preguntas"} element={<PreguntasScreen />} />
+
+        <Route path='*' element={<Navigate to={"/"} />} />
+      </Routes>
+    </Router>
   );
 }
 
