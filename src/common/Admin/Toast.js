@@ -4,7 +4,7 @@ import { Toast } from 'react-bootstrap';
 const ToastComponent = ({ showToast, onClose }) => {
     return (
 
-        <Toast show={showToast} onClose={onClose} className="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <Toast show={showToast} onClose={onClose} className="toast align-items-center text-bg-success border-0" autohide="true" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <Toast.Body>
                     Eliminación exitosa!
