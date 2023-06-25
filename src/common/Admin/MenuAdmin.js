@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SideNav, {
     NavItem,
     NavIcon,
@@ -9,21 +9,29 @@ import { BsPersonFill, BsFillPeopleFill, BsFillFileEarmarkBarGraphFill, BsFillEn
 
 import { useNavigate } from 'react-router-dom';
 
+
 export default function MenuAdmin() {
+
     const navigate = useNavigate();
+    const [selectedNavItem, setSelectedNavItem] = useState('profile');
+
+    const handleNavItemSelect = (selected) => {
+        console.log(selected);
+        setSelectedNavItem(selected);
+        navigate('/' + selected);
+        
+    };
 
     return (
         <div>
             <SideNav
                 style={{ backgroundColor: "#2c497f", paddingTop: "4%" }}
-                onSelect={(selected) => {
-                    console.log(selected);
-                    navigate('/' + selected)
-                }}>
+                onSelect={handleNavItemSelect}
+                >
 
                 
                     <SideNav.Toggle />
-                    <SideNav.Nav defaultSelected="profile">
+                    <SideNav.Nav defaultSelected={selectedNavItem}>
 
                         <NavItem eventKey="profile">
                             <NavIcon><i style={{ fontSize: "1.5em" }}><BsPersonFill /></i></NavIcon>
