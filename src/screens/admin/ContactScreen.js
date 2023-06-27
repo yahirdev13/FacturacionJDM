@@ -3,9 +3,8 @@ import MenuAdmin from '../../common/Admin/MenuAdmin'
 import NavAdmin from '../../common/Admin/NavAdmin'
 import ToastComponent from '../../common/Admin/Toast'
 
+import MaterialTable from 'material-table'
 
-
-//gif
 import advertencia from '../../gifs/alerta.gif'
 
 
@@ -21,6 +20,32 @@ export default function ContactScreen() {
   const handleCloseToast = () => {
     setShowToast(false);
   };
+
+  const columns = [
+    {
+      title: '#',
+      field: 'position'
+    },
+    {
+      title: 'Nombre',
+      field: 'name'
+    },
+    {
+      title: 'Teléfono',
+      field: 'phone',
+      type: 'numeric'
+    },
+    {
+      title: 'Correo Electrónico',
+      field: 'email'
+
+    },
+  ];
+
+  const data = [
+    { position: 1, name: 'Yahir Alberto Diaz Gonzalez', phone: '7271083065', email: 'yahird59@gmail.com' }
+  ]
+
 
 
   return (
@@ -71,7 +96,12 @@ export default function ContactScreen() {
               </div>
             </blockquote>
           </div>
+          <MaterialTable
+            columns={columns}
+            data={data}
+          />
         </div>
+
 
 
       </div>
@@ -84,7 +114,7 @@ export default function ContactScreen() {
 
       {/* modal detalles de contacto */}
 
-      <div class="modal fade" id="detallesContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      < div class="modal fade" id="detallesContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header lign-items-center justify-content-center">
@@ -103,11 +133,11 @@ export default function ContactScreen() {
             </div>
           </div>
         </div>
-      </div>
+      </div >
 
       {/* modal para la eliminacion de un contacto */}
 
-      <div class="modal fade" id="eliminarContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      < div class="modal fade" id="eliminarContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header lign-items-center justify-content-center">
@@ -124,10 +154,10 @@ export default function ContactScreen() {
             </div>
           </div>
         </div>
-      </div>
+      </div >
 
 
-    </div>
+    </div >
 
 
 
