@@ -3,8 +3,6 @@ import MenuAdmin from '../../common/Admin/MenuAdmin'
 import NavAdmin from '../../common/Admin/NavAdmin'
 import ToastComponent from '../../common/Admin/Toast'
 
-import MaterialTable from 'material-table'
-
 import advertencia from '../../gifs/alerta.gif'
 
 
@@ -96,10 +94,6 @@ export default function ContactScreen() {
               </div>
             </blockquote>
           </div>
-          <MaterialTable
-            columns={columns}
-            data={data}
-          />
         </div>
 
 
