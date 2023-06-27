@@ -18,7 +18,7 @@ export default function HomeScreen() {
       <div class="saludos">
         <h1>Bienvenidos al sistema de facturacion electrónica</h1>
       </div>
-      
+
       <center>
         <Carousel />
       </center>
@@ -30,9 +30,9 @@ export default function HomeScreen() {
             <p>La fecha de emisión de la factura será la fecha que sea solicitada por el cliente.</p>
 
           </div>
-          <div style={{display:'flex'}} class="box">
+          <div style={{ display: 'flex' }} class="box">
             <h2>¡Importante!</h2>
-            <p style={{textAlign:'justify', margin:"20px 15px 15px 15px" }}>Ahora tienes 15 días para facturar después de la compra. Evita problemas y cumple con el plazo establecido. Utiliza nuestro sistema en línea para generar tu factura fácilmente.</p>
+            <p style={{ textAlign: 'justify', margin: "20px 15px 15px 15px" }}>Ahora tienes 15 días para facturar después de la compra. Evita problemas y cumple con el plazo establecido. Utiliza nuestro sistema en línea para generar tu factura fácilmente.</p>
 
           </div>
           <div class="box">
