@@ -9,15 +9,15 @@ export default function Carousel() {
 
 
     return (
-        <div classNameName="carousel slide" data-bs-ride="carousel" style={{ width: '1600px' }}>
+        <div classNameName="carousel slide" data-bs-ride="carousel">
             <div className="carousel-inner">
                 <div className="carousel-item active" data-bs-interval="10000">
                     <img src={img1} className="d-block w-100" alt="..." />
                 </div>
-                <div className="carousel-item" data-bs-interval="2000">
+                <div className="carousel-item" data-bs-interval="20000">
                     <img src={img2} className="d-block w-100" alt="..." />
                 </div>
-                <div className="carousel-item" data-bs-interval="3000">
+                <div className="carousel-item" data-bs-interval="30000">
                     <img src={img3} className="d-block w-100" alt="..." />
                 </div>
             </div>

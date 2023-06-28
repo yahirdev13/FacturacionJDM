@@ -28,7 +28,7 @@ export default function PreguntasScreen() {
         <p style={styles.pregunta}>¿Qué sucede si perdi mi ticket?</p>
         <p style={styles.respuesta}>Si perdiste tu ticket, no podras facturar.</p>
         <p style={styles.pregunta}>¿Existe alguna guía para poder facturar en línea?</p>
-        <p style={styles.respuesta}>Si, puedes consultar la guía de facturación en línea. <a href='facebook.com'>Haciendo click aquí</a></p>
+        <p style={styles.respuesta}>Si, puedes consultar la guía de facturación en línea. <a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>Haciendo click aquí</a></p>
 
       </div>
       <Footer />

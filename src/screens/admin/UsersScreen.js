@@ -1,5 +1,4 @@
 import React from 'react'
-import "../admin/UserScreenStyle.css"
 
 //Componentes
 import MenuAdmin from '../../common/Admin/MenuAdmin'
@@ -21,7 +20,7 @@ export default function UsersScreen() {
                     >Agregar Usuario</button>
                 </div>
 
-                <div style={{ left: "250px" }}  class="table-responsive" className='container-fluid'>
+                <div style={{ left: "250px" }} class="table-responsive" className='container-fluid'>
                     <table class="table">
                         <thead>
                             <tr>
@@ -146,7 +145,7 @@ export default function UsersScreen() {
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de usuario</h1>
                         </div>
                         <div class="modal-body text-center">
-                            <img class="img-fluid" src={advertencia} style={{width:"50%"}}></img>
+                            <img class="img-fluid" src={advertencia} style={{ width: "50%" }}></img>
                             <h5>¿Está seguro de eliminar permanentemente este usuario?</h5>
                         </div>
                         <div class="modal-footer">

@@ -20,22 +20,22 @@ export default function HomeScreen() {
       </div>
 
       <center>
-        <Carousel />
+        <Carousel style={styles.carrusel} />
       </center>
 
       <div>
         <div style={styles.container}>
-          <div class="box">
+          <div style={styles.box}>
             <h2 style={styles.title}>Disposiciones Fiscales</h2>
             <p style={styles.text}>La fecha de emisión de la factura será la fecha que sea solicitada por el cliente.</p>
           </div>
 
-          <div style={{}} class="box">
+          <div style={styles.box}>
             <h2 style={styles.title}>¡Importante!</h2>
             <p style={styles.text}>Ahora tienes 15 días para facturar después de la compra. Evita problemas y cumple con el plazo establecido. Utiliza nuestro sistema en línea para generar tu factura fácilmente.</p>
           </div>
 
-          <div class="box">
+          <div style={styles.box}>
             <h2 style={styles.title}>¡Atención!</h2>
             <p style={styles.text}>Solo se podrán facturar las compras realizadas dentro del restaurante. No se aceptarán solicitudes de facturación de cualquier otra compra</p>
           </div>
@@ -55,6 +55,10 @@ export default function HomeScreen() {
 }
 
 const styles = {
+  carrusel: {
+    width: "100%",
+    margin: "0px 0px 0px 0px",
+  },
   container: {
     paddingTop: "2%",
     display: "flex",
