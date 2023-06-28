@@ -1,9 +1,9 @@
 /* footer */
 footer {
-    position: fixed;
     width: 100%;
     bottom: 0;
     z-index: 1;
+    margin-top: auto;
 }
 
 .pie-pagina .grupo-2 {
