@@ -16,9 +16,7 @@ export default function Nav() {
         <Link class="link-3" to="/nosotros">Nosotros</Link>
         <Link class="link-3" to="/contactanos">Contáctanos</Link>
         <Link class="link-3" to="/preguntas">Preguntas frecuentes</Link>
-
       </switch>
-
     </nav>
   )
 }
