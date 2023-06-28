@@ -20,7 +20,7 @@ export default function HomeScreen() {
       </div>
 
       <center>
-        <Carousel />
+        <Carousel style={styles.carrusel} />
       </center>
 
       <div>
@@ -55,6 +55,10 @@ export default function HomeScreen() {
 }
 
 const styles = {
+  carrusel: {
+    width: "100%",
+    margin: "0px 0px 0px 0px",
+  },
   container: {
     paddingTop: "2%",
     display: "flex",
