@@ -1,11 +1,11 @@
 import React from 'react'
-import Nav from '../../common/Nav'
+import Navbar from '../../common/client/Navbar'
 import Footer from '../../common/Footer'
 
 export default function PreguntasScreen() {
   return (
     <div>
-      <Nav />
+      <Navbar />
 
       <div style={{ marginLeft: "1%", marginTop: "1%" }}>
         <p style={styles.pregunta}>¿Qué necesito para facturar en línea?</p>
