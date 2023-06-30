@@ -7,6 +7,10 @@ import jdm from '../../images/jdm.png'
 import jdmBoda from '../../images/jdmBoda.png'
 import jdmEsc from '../../images/jdmEsc.png'
 
+import facebook from '../../images/facebook.png'
+import insta from '../../images/instagram.png'
+import maps from '../../images/map.png'
+
 export default function NosotrosScreen() {
   return (
     <div>
@@ -53,6 +57,41 @@ export default function NosotrosScreen() {
           ></iframe>
         </div>
 
+        <div style={styles.container}>
+
+          <div class="card border-white justify-content-center" style={styles.card}>
+            <a href="https://www.facebook.com/jardinesdemexico/">
+              <img src={facebook} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+            </a>
+
+            <div class="card-body">
+              <h5 class="card-title">Facebook</h5>
+            </div>
+          </div>
+
+          <div class="card border-white justify-content-center" style={styles.card}>
+            <img src={insta} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+            <div class="card-body">
+              <h5 class="card-title">instagram</h5>
+            </div>
+          </div>
+
+          <div class="card border-white justify-content-center" style={styles.card}>
+            <img src={maps} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+            <div class="card-body">
+              <h5 class="card-title">Ubcación</h5>
+            </div>
+          </div>
+
+          {/* <div class="card border-white justify-content-center" style={styles.card}>
+            <img src={ } class="card-img-top mx-auto" style={{ width: "80%" }} />
+            <div class="card-body">
+              <h5 class="card-title">Contáctanos</h5>
+              <p class="card-text text-justify">Si tienes alguna duda, solicita ayuda en cualquier red social verificada.</p>
+            </div>
+          </div> */}
+        </div>
+
         <div style={styles.containerContactanos}>
           <a href="mailto:facturamos@jardinesdemexico.org">
             <img className="img33" src="imagenes/correito.png" alt="nosotros" />
@@ -69,11 +108,11 @@ export default function NosotrosScreen() {
             jardinesdemexico
           </a>
         </div>
-      </section>
+      </section >
 
       <div style={styles.containerSites}>
         <div>
-          <h2 style={styles.title2}>Visite nuestros demas sitios</h2>
+          <h2 style={styles.title2}>Visite nuestros démas sitios</h2>
         </div>
         <div style={styles.container}>
           <div style={styles.cardImg}>
@@ -86,11 +125,10 @@ export default function NosotrosScreen() {
             <a style={styles.link} href="https://www.bodasjdm.com/" ><img style={styles.img} src={jdmBoda} alt="Jardines de México" /></a>
           </div>
         </div>
-
       </div>
       <Footer />
 
-    </div>
+    </div >
   )
 }
 
@@ -104,9 +142,10 @@ const styles = {
   },
   containerContactanos: {
     width: "50%",
+
   },
   containerSites: {
-    backgroundColor: "#e3e3e3",
+    backgroundColor: "  white",
   },
   img: {
     width: "100%",
@@ -135,5 +174,10 @@ const styles = {
     textAlign: "center",
     flexWrap: "wrap", // Agregado para permitir envolver las tarjetas
     paddingBottom: "2%",
+  },
+  card: {
+    width: "300px",
+    marginleft: "3%",
+    marginRight: "3%",
   },
 }
