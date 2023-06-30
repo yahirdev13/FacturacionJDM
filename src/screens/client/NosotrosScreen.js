@@ -2,14 +2,27 @@ import React from 'react'
 import Navbar from '../../common/client/Navbar'
 import Footer from '../../common/Footer'
 
+//imagnes
+import jdm from '../../images/jdm.png'
+import jdmBoda from '../../images/jdmBoda.png'
+import jdmEsc from '../../images/jdmEsc.png'
+
 export default function NosotrosScreen() {
   return (
     <div>
       <Navbar />
-      <h1 className="nosotros">Nosotros</h1>
-      <h2 className="nosotros">¿Por qué es importante facturar?</h2>
 
-      <div className="nosotros1">
+
+      <div style={styles.entrada}>
+        <h2 style={styles.title}>Propósito</h2>
+        <p>
+          El propósito de este sistema es realizar tu factura de los pagos
+          realizados, para tener la justificación de los ingresos, acreditando el
+          total del gasto, por lo que solicitar factura no solo es un derecho de
+          los contribuyentes, sino una obligación de todos aquellos que deseen
+          poner su granito de arena al desarrollo de nuestro país.
+        </p>
+        <h2 style={styles.title}>¿Por qué es importante facturar?</h2>
         <p>
           La facturación de alimentos y bebidas en México tiene una serie de
           requisitos legales y fiscales que deben ser cumplidos por los negocios
@@ -24,18 +37,8 @@ export default function NosotrosScreen() {
           3.- Utilizar un software o plataforma autorizada por el SAT para la
           emisión de facturas electrónicas (CFDI)
         </p>
+
       </div>
-
-      <h2 className="nosotros">Propósito</h2>
-      <p>
-        El propósito de este sistema es realizar tu factura de los pagos
-        realizados, para tener la justificación de los ingresos, acreditando el
-        total del gasto, por lo que solicitar factura no solo es un derecho de
-        los contribuyentes, sino una obligación de todos aquellos que deseen
-        poner su granito de arena al desarrollo de nuestro país.
-      </p>
-
-      <br /><br />
 
       <section>
         <div className="content__map content-yellow">
@@ -50,7 +53,7 @@ export default function NosotrosScreen() {
           ></iframe>
         </div>
 
-        <div className="contenedorcontactanos">
+        <div style={styles.containerContactanos}>
           <a href="mailto:facturamos@jardinesdemexico.org">
             <img className="img33" src="imagenes/correito.png" alt="nosotros" />
             facturamos@jardinesdemexico.org
@@ -68,20 +71,69 @@ export default function NosotrosScreen() {
         </div>
       </section>
 
-      <br />
-      <br />
-      <br />
+      <div style={styles.containerSites}>
+        <div>
+          <h2 style={styles.title2}>Visite nuestros demas sitios</h2>
+        </div>
+        <div style={styles.container}>
+          <div style={styles.cardImg}>
+            <a style={styles.link} href="https://jardinesdemexico.com/" ><img style={styles.img} src={jdm} alt="Jardines de México" /></a>
+          </div>
+          <div style={styles.cardImg}>
+            <a style={styles.link} href="https://www.escueladejardineria.com.mx/" ><img style={styles.imgSchool} src={jdmEsc} alt="Jardines de México" /></a>
+          </div>
+          <div style={styles.cardImg}>
+            <a style={styles.link} href="https://www.bodasjdm.com/" ><img style={styles.img} src={jdmBoda} alt="Jardines de México" /></a>
+          </div>
+        </div>
 
-      <div className="containerimg"></div>
-
-      <br /><br />
-
-      <div className="containerimg">
-        <img className="img1" src="imagenes/jdm.png" alt="Jardines" />
-        <img className="img1" src="imagenes/escj.jpeg" alt="Escuela Jdm" />
-        <img className="img1" src="imagenes/bds.png" alt="Bodas Jdm" />
-        <Footer />
       </div>
+      <Footer />
+
     </div>
   )
+}
+
+const styles = {
+  entrada: {
+    padding: "5px 50px",
+    textAlign: "justify",
+  },
+  title: {
+    color: "#23967f",
+  },
+  containerContactanos: {
+    width: "50%",
+  },
+  containerSites: {
+    backgroundColor: "#e3e3e3",
+  },
+  img: {
+    width: "100%",
+    height: "auto",
+    paddingBottom: "40px",
+  },
+  imgSchool: {
+    width: "auto",
+    height: "auto",
+    paddingBottom: "40px",
+  },
+  cardImg: {
+    width: "400px",
+    marginleft: "3%",
+    marginRight: "3%",
+  },
+  title2: {
+    textAlign: "center",
+    marginTop: "20px",
+    paddingTop: "2%"
+  },
+  container: {
+    paddingTop: "2%",
+    display: "flex",
+    justifyContent: "center",
+    textAlign: "center",
+    flexWrap: "wrap", // Agregado para permitir envolver las tarjetas
+    paddingBottom: "2%",
+  },
 }

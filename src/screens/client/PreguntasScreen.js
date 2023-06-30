@@ -44,6 +44,7 @@ const styles = {
     color: "#000000",
   },
   respuesta: {
+    textAling: "justify",
     fontSize: "20px",
     color: "#000000",
   }

@@ -8,8 +8,6 @@ import Carousel from '../../common/Carousel/Carousel'
 import jdm from '../../images/jdm.png'
 import jdmBoda from '../../images/jdmBoda.png'
 import jdmEsc from '../../images/jdmEsc.png'
-import { hover } from '@testing-library/user-event/dist/hover'
-import atencion from '../../images/atencion.png'
 
 //gif
 import advertenciaGif from '../../gifs/advertencia.gif'
@@ -131,7 +129,6 @@ const styles = {
     width: "auto",
     height: "auto",
     paddingBottom: "40px",
-
   },
   link: {
 
