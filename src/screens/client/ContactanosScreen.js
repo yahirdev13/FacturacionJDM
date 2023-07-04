@@ -7,6 +7,13 @@ export default function ContactanosScreen() {
     <div>
       <Navbar />
 
+      <div style={styles.contacto}>
+        <div style={styles.telefono}>
+
+        </div>
+
+      </div>
+
       <div className="saludocontacto">
         <h1>Contactanos</h1>
       </div>
@@ -104,4 +111,11 @@ export default function ContactanosScreen() {
       <Footer />
     </div>
   )
+}
+
+
+const styles = {
+  contacto: {
+
+  }
 }

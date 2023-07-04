@@ -143,7 +143,7 @@ const styles = {
     paddingTop: "2%"
   },
   containerSites: {
-    backgroundColor: "#e3e3e3",
+    backgroundColor: "white",
   },
 }
 
