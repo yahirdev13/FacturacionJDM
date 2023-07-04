@@ -8,7 +8,7 @@ export default function PreguntasScreen() {
       <Navbar />
 
       <div style={{ marginLeft: "1%", marginTop: "1%" }}>
-        <p style={styles.pregunta}>¿Qué necesito para facturar en línea?</p>
+        <h1 style={styles.pregunta}>¿Qué necesito para facturar en línea?</h1>
         <p style={styles.respuesta}>Para facturar en línea, necesitas tener los siguientes requisitos:</p>
         <ul style={styles.respuesta}>
           <li>Acceso a Internet.</li>
@@ -45,7 +45,6 @@ const styles = {
   },
   respuesta: {
     textAling: "justify",
-    fontSize: "20px",
     color: "#000000",
   }
 }

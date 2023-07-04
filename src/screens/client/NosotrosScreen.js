@@ -9,7 +9,10 @@ import jdmEsc from '../../images/jdmEsc.png'
 
 import facebook from '../../images/facebook.png'
 import insta from '../../images/instagram.png'
-import maps from '../../images/map.png'
+import twitter from '../../images/twitter.png'
+import correo from '../../images/gmail.png'
+import youtube from '../../images/youtube.png'
+import pinterest from '../../images/pinterest.png'
 
 export default function NosotrosScreen() {
   return (
@@ -57,56 +60,50 @@ export default function NosotrosScreen() {
           ></iframe>
         </div>
 
-        <div style={styles.container}>
+        <h1 style={styles.title2}>Síguenos en nuestras redes sociales</h1>
 
+        <div style={styles.container}>
           <div class="card border-white justify-content-center" style={styles.card}>
             <a href="https://www.facebook.com/jardinesdemexico/">
               <img src={facebook} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
             </a>
-
             <div class="card-body">
               <h5 class="card-title">Facebook</h5>
             </div>
           </div>
 
           <div class="card border-white justify-content-center" style={styles.card}>
-            <img src={insta} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+            <a href="https://www.instagram.com/jardinesdemexico/">
+              <img src={insta} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+            </a>
             <div class="card-body">
               <h5 class="card-title">instagram</h5>
             </div>
           </div>
-
           <div class="card border-white justify-content-center" style={styles.card}>
-            <img src={maps} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+            <a href="https://www.instagram.com/jardinesdemexico/">
+              <img src={twitter} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+            </a>
             <div class="card-body">
-              <h5 class="card-title">Ubcación</h5>
+              <h5 class="card-title">Twitter</h5>
             </div>
           </div>
-
-          {/* <div class="card border-white justify-content-center" style={styles.card}>
-            <img src={ } class="card-img-top mx-auto" style={{ width: "80%" }} />
+          <div class="card border-white justify-content-center" style={styles.card}>
+            <a href="https://www.instagram.com/jardinesdemexico/">
+              <img src={youtube} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+            </a>
             <div class="card-body">
-              <h5 class="card-title">Contáctanos</h5>
-              <p class="card-text text-justify">Si tienes alguna duda, solicita ayuda en cualquier red social verificada.</p>
+              <h5 class="card-title">YouTube</h5>
             </div>
-          </div> */}
-        </div>
-
-        <div style={styles.containerContactanos}>
-          <a href="mailto:facturamos@jardinesdemexico.org">
-            <img className="img33" src="imagenes/correito.png" alt="nosotros" />
-            facturamos@jardinesdemexico.org
-          </a>
-          <br /><br /><br />
-          <a href="https://www.facebook.com/jardinesdemexico/photos">
-            <img className="img33" src="imagenes/faceimg.png" alt="nosotros" />
-            Rede Social Facebook
-          </a>
-          <br /><br /><br />
-          <a href="https://www.instagram.com/jardinesdemexico/?hl=es">
-            <img className="img33" src="imagenes/instaimg.png" alt="" />
-            jardinesdemexico
-          </a>
+          </div>
+          <div class="card border-white justify-content-center" style={styles.card}>
+            <a href="https://www.instagram.com/jardinesdemexico/">
+              <img src={pinterest} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Pinterest</h5>
+            </div>
+          </div>
         </div>
       </section >
 
@@ -177,7 +174,7 @@ const styles = {
   },
   card: {
     width: "300px",
-    marginleft: "3%",
-    marginRight: "3%",
+    marginleft: "2%",
+    marginRight: "2%",
   },
 }
