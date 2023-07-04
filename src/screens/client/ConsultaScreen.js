@@ -2,6 +2,7 @@ import React from 'react'
 import Nav from '../../common/Nav'
 import Navbar from '../../common/client/Navbar'
 import logo from '../../images/logo-negro.png'
+import Footer from '../../common/Footer'
 
 
 import aprobado from '../../gifs/aprobado.gif'
@@ -44,9 +45,12 @@ export default function ConsultaScreen() {
                         </form>
 
                     </div>
+
                 </div>
 
+
             </div>
+            <Footer />
 
             {/* modal de aprobado */}
 
