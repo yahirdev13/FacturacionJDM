@@ -3,6 +3,7 @@ import Nav from '../../common/Nav'
 import Navbar from '../../common/client/Navbar'
 import logo from '../../images/logo-negro.png'
 import Footer from '../../common/Footer'
+import { Link } from 'react-router-dom'
 
 
 import aprobado from '../../gifs/aprobado.gif'
@@ -63,6 +64,7 @@ export default function ConsultaScreen() {
                         <div class="modal-body text-center">
                             <img class="img-fluid" src={aprobado} style={{ width: "50%" }} ></img>
                             <h5>Tu Ticket es válido para facturar</h5>
+                            <p>Puedes facturar dando click  <Link to={"/factura"}><button type="button" class="btn btn-link" data-bs-dismiss="modal">Aquí</button></Link></p>
                             <div id="liveAlertPlaceholder"></div>
                         </div>
                         <div class="modal-footer">
