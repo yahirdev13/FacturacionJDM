@@ -21,6 +21,21 @@ export default function NosotrosScreen() {
 
 
       <div style={styles.entrada}>
+
+        <h2 style={styles.title}>¿Quiénes somos?</h2>
+        <p>En Jardines de México, nos enorgullece presentarles un lugar donde la naturaleza y la
+          belleza se fusionan en un escenario impresionante. Somos un destino turístico único en su clase,
+          ubicado en el corazón de México, donde los jardines más espectaculares del país se combinan con
+          una amplia gama de servicios y actividades para brindar una experiencia inolvidable.</p>
+
+        <p> Nuestra misión es cautivar y sorprender a nuestros visitantes a través de la exuberancia y
+          la armonía de nuestros jardines temáticos. Con una extensión de más de 170 hectáreas,
+          nuestros jardines cuentan con una variedad inigualable de flora y fauna, así como con esculturas y
+          elementos arquitectónicos únicos que complementan la belleza natural.
+
+          En Jardines de México, hemos creado espacios diseñados para inspirar y deleitar a todos nuestros visitantes.
+          Ya sea que estés buscando un lugar para relajarte y conectarte con la naturaleza, celebrar una ocasión especial o
+          llevar a cabo un evento corporativo, nuestras instalaciones versátiles y nuestro equipo altamente capacitado están listos para hacer realidad tus sueños.</p>
         <h2 style={styles.title}>Propósito</h2>
         <p>
           El propósito de este sistema es realizar tu factura de los pagos
@@ -28,21 +43,6 @@ export default function NosotrosScreen() {
           total del gasto, por lo que solicitar factura no solo es un derecho de
           los contribuyentes, sino una obligación de todos aquellos que deseen
           poner su granito de arena al desarrollo de nuestro país.
-        </p>
-        <h2 style={styles.title}>¿Por qué es importante facturar?</h2>
-        <p>
-          La facturación de alimentos y bebidas en México tiene una serie de
-          requisitos legales y fiscales que deben ser cumplidos por los negocios
-          que operan en esta industria. Entre estos requisitos se encuentran:
-        </p>
-        <p>1.- Contar con un Registro Federal de Contribuyentes (RFC).</p>
-        <p>
-          2.- Estar registrado en el padrón de contribuyentes del Servicio de
-          Administración Tributaria (SAT).
-        </p>
-        <p>
-          3.- Utilizar un software o plataforma autorizada por el SAT para la
-          emisión de facturas electrónicas (CFDI)
         </p>
 
       </div>
@@ -136,6 +136,7 @@ const styles = {
   entrada: {
     padding: "5px 50px",
     textAlign: "justify",
+    paddingTop: "40px",
   },
   title: {
     color: "#23967f",
