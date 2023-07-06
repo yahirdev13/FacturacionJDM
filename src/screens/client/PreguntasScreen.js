@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../../common/client/Navbar'
 import Footer from '../../common/Footer'
+import { Link } from 'react-router-dom'
 
 export default function PreguntasScreen() {
   return (
@@ -31,6 +32,8 @@ export default function PreguntasScreen() {
         <p style={styles.respuesta}>Si perdiste tu ticket, no podras facturar.</p>
         <p style={styles.pregunta}>¿Existe alguna guía para poder facturar en línea?</p>
         <p style={styles.respuesta}>Si, puedes consultar la guía de facturación en línea. <a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>Haciendo click aquí</a></p>
+        <p style={styles.pregunta}>¿Tienes alguna duda?, no dudes y escribenos</p>
+        <p style={styles.respuesta}>Si tines alguna duda escribenos dando <Link to="/contactanos">click aquí</Link></p>
 
       </div>
       <Footer />
