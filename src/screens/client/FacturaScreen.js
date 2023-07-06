@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../common/client/Navbar'
 import logo from '../../images/logo-negro.png'
 import Footer from '../../common/Footer'
@@ -9,21 +9,12 @@ export default function FacturaScreen() {
 
   var f = new Date();
 
-  var name = "";
-  var surName = "";
-  var rfc = "";
-  var email = "";
-  var rz = "";
-  var fecha = f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear();
-
-  function subirDatos() {
-    // var name = document.getElementById('nombre').value;
-    // var surName = document.getElementById('apellidos').value;
-    // var email = document.getElementById('correo').value;
-    // var rfc = document.getElementById('rfc').value;
-    // var rz = document.getElementById('razon').value;
-  }
-
+  const [nombre, setNombre] = useState('');
+  const [apellidos, setApellidos] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [rfc, setRFC] = useState('');
+  const [razon, setRazon] = useState('');
+  const [fecha, setFecha] = useState('');
 
   return (
     <div>
@@ -82,43 +73,45 @@ export default function FacturaScreen() {
               <h1 class="modal-title fs-5" >Datos Fiscales</h1>
             </div>
             <div class="modal-body">
-              <form id=' needs-validation novalidate' name='registrarUsuario' onsubmit="subirDatos">
+              <form id=' needs-validation novalidate' name='registrarUsuario'>
                 <h4>Ingrese sus datos</h4>
                 <div class="mb-3">
                   <label class="form-label">Fecha</label>
                   <input class="form-control" type="text"
-                    placeholder={(f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear())}
-                    aria-label="Disabled input example" disabled />
+                    placeholder={(f.getDate() + " / " + (f.getMonth() + 1) + " / " + f.getFullYear())}
+                    aria-label="Disabled input example" disabled name='fecha' onChange={ev => setFecha(ev.target.value)} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Nombre/s</label>
-                  <input id='nombre' type="text" class="form-control" required />
+                  <input id='nombre' type="text" class="form-control" required name='nombre' onChange={ev => setNombre(ev.target.value)} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Apellido/s</label>
-                  <input id='apellidos' type="text" class="form-control" required />
+                  <input id='apellidos' type="text" class="form-control" required name='apellidos' onChange={ev => setApellidos(ev.target.value)} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">RFC</label>
-                  <input id='rfc' type="text" class="form-control" required />
+                  <input style={styles.rfc} id='rfc' maxlength="13" required type="text" class="form-control" name='rfc' onChange={ev => setRFC(ev.target.value)} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Correo Electrónico</label>
-                  <input id='correo' type="email" class="form-control" aria-describedby="emailHelp" />
+                  <input id='correo' type="email" class="form-control" required aria-describedby="emailHelp" name='correo' onChange={ev => setCorreo(ev.target.value)} />
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label">Razón social</label>
-                  <select id='razon' class="form-select">
+                  <select class="form-select" name='razon' required onChange={ev => setRazon(ev.target.value)}>
                     <option selected>Seleccione una opción</option>
-                    <option value="FIsica">Persona Física</option>
+                    <option value="Persona Física">Persona Física</option>
                     <option value="Moral">Moral</option>
                   </select>
                 </div>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#confirmacion" onClick={subirDatos()}>Continuar</button>
               </form>
 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#confirmacion" >Continuar</button>
             </div>
           </div>
         </div>
@@ -134,24 +127,28 @@ export default function FacturaScreen() {
             </div>
             <div class="modal-body text-center">
               <img class="img-fluid" src={advertencia} style={{ width: "30%" }} ></img>
-              <h5>Confime que sus datos sean correctos</h5>
+              <h5>Confirme que sus datos sean correctos</h5>
               <table class="table table-borderless">
                 <tbody class="text-start">
                   <tr>
+                    <td>Fecha:</td>
+                    <td><label>{(f.getDate() + " / " + (f.getMonth() + 1) + " / " + f.getFullYear())}</label> </td>
+                  </tr>
+                  <tr>
                     <td>Nombre:</td>
-                    <td><label id='labelName'>{name + surName}</label> </td>
+                    <td><label>{nombre + " " + apellidos}</label> </td>
                   </tr>
                   <tr>
                     <td>RFC:</td>
-                    <td>{rfc}</td>
+                    <td><label style={styles.rfc}>{rfc}</label></td>
                   </tr>
                   <tr>
                     <td>Correo:</td>
-                    <td>{email}</td>
+                    <td>{correo}</td>
                   </tr>
                   <tr>
                     <td>Razón social:</td>
-                    <td>{rz}</td>
+                    <td>{razon}</td>
                   </tr>
                 </tbody>
 
@@ -159,7 +156,7 @@ export default function FacturaScreen() {
               <div id="liveAlertPlaceholder"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Regresar</button>
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#generarFactura">Regresar</button>
               <button type="button" class="btn btn-success" data-bs-dismiss="modal">Facturar</button>
             </div>
           </div>
@@ -206,5 +203,8 @@ const styles = {
   },
   inputs: {
     fontWeight: "bold"
+  },
+  rfc: {
+    textTransform: "uppercase"
   }
 }

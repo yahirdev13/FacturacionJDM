@@ -47,65 +47,68 @@ export default function NosotrosScreen() {
 
       </div>
 
-      <section>
-        <div className="content__map content-yellow">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73998.59247746228!2d-99.34105614451926!3d18.7375554302578!2m3!1f0!2f0!3f0!
+
+
+      <center>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73998.59247746228!2d-99.34105614451926!3d18.7375554302578!2m3!1f0!2f0!3f0!
             3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdd36602675007%3A0xc972fcd1047fb9ef!2sJardines%20de%20M%C3%A9xico!5e0!3m2!1ses-419!2smx!4v1645631656113!5m2!1ses-419!2smx"
-            width="100%"
-            height="450"
-            style={{ border: "0" }}
-            allowFullScreen=""
-            loading="lazy"
-          ></iframe>
+          width="90%"
+          height="450"
+          style={{ borderRadius: "20px", marginTop: "80px" }}
+          allowFullScreen=""
+          loading="lazy"
+        ></iframe>
+      </center>
+
+
+
+      <h1 style={styles.title2}>Síguenos en nuestras redes sociales</h1>
+
+      <div style={styles.container}>
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.facebook.com/jardinesdemexico/">
+            <img src={facebook} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Facebook</h5>
+          </div>
         </div>
 
-        <h1 style={styles.title2}>Síguenos en nuestras redes sociales</h1>
-
-        <div style={styles.container}>
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.facebook.com/jardinesdemexico/">
-              <img src={facebook} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Facebook</h5>
-            </div>
-          </div>
-
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.instagram.com/jardinesdemexico/">
-              <img src={insta} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">instagram</h5>
-            </div>
-          </div>
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.instagram.com/jardinesdemexico/">
-              <img src={twitter} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Twitter</h5>
-            </div>
-          </div>
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.instagram.com/jardinesdemexico/">
-              <img src={youtube} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">YouTube</h5>
-            </div>
-          </div>
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.instagram.com/jardinesdemexico/">
-              <img src={pinterest} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Pinterest</h5>
-            </div>
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.instagram.com/jardinesdemexico/">
+            <img src={insta} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">instagram</h5>
           </div>
         </div>
-      </section >
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.twitter.com/jardinesdemex">
+            <img src={twitter} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Twitter</h5>
+          </div>
+        </div>
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.youtube.com/@JardinesdeMexicoOrg" e>
+            <img src={youtube} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">YouTube</h5>
+          </div>
+        </div>
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.pinterest.com.mx/jardinesdemexico/">
+            <img src={pinterest} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Pinterest</h5>
+          </div>
+        </div>
+      </div>
+
 
       <div style={styles.containerSites}>
         <div>
