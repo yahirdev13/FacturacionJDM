@@ -39,7 +39,7 @@ export default function ConsultaScreen() {
                                 </div>
                             </div>
                             <center>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#consultaTicket">Consultar</button>
+                                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#consultaTicket">Consultar Ticket</button>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#NOconsultaTicket">Consultar</button>
                             </center>
 

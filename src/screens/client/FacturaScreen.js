@@ -56,7 +56,7 @@ export default function FacturaScreen() {
               </div>
 
               <center>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generarFactura">Generar Factura</button>
+                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#generarFactura">Generar Factura</button>
               </center>
             </form>
           </div>

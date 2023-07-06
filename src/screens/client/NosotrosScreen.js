@@ -139,6 +139,7 @@ const styles = {
   },
   title: {
     color: "#23967f",
+    fontFamily: "Roboto",
   },
   containerContactanos: {
     width: "50%",
