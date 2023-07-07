@@ -1,121 +1,164 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../common/client/Navbar'
 import Footer from '../../common/Footer'
+import Swal from 'sweetalert2';
+
+
+
+import img from '../../images/banner.png'
 
 export default function ContactanosScreen() {
+
+  const showAlert = () => {
+
+    Swal.fire({
+      title: 'Mensaje enviado!',
+      icon: 'success',
+      timer: 2000, // Duración de la alerta en milisegundos (5 segundos en este caso)
+      showConfirmButton: false // No mostrar el botón de confirmación
+    });
+  };
+
   return (
     <div>
       <Navbar />
-
-      <div style={styles.contacto}>
-        <div style={styles.telefono}>
-
-        </div>
-
+      <div style={styles.banner}>
+        <div style={styles.title}>Contactanos</div>
+        <img clas="img-response" src={img} alt="banner" style={styles.img} />
       </div>
 
-      <div className="saludocontacto">
-        <h1>Contactanos</h1>
-      </div>
+      <div style={styles.container}>
 
-      <br />
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <div class="card-body">
+            <h5 class="card-title">Formulario</h5>
+            <div style={styles.form}>
+              <form>
+                <div class="mb-3">
+                  <label class="form-label">Nombre</label>
+                  <input type="text" class="form-control" placeholder="Nombre completo" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Telefono</label>
+                  <input type="text" class="form-control" placeholder="Teléfono" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Correo Electrónico</label>
+                  <input type="email" class="form-control" placeholder="Correo Electrónico" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Asunto</label>
+                  <input type="text" class="form-control" placeholder="Asunto" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label text-start">Mensaje</label>
+                  <textarea type="text-area" class="form-control" placeholder="Mensaje" style={{ height: "150px" }} />
+                </div>
+                <div class="text-end">
+                  <button type="button" class="btn btn-primary" onClick={showAlert} style={{ width: "150px" }}>Enviar</button>
+                </div>
 
-      <div className="containerimgbaner">
-        <img className="img2" src="imagenes/baner.png" alt="baner" />
-      </div>
+              </form>
+            </div>
 
-      <div className="contacto">
-        <h1>Contacto Facturación</h1>
-        <br />
-        <br />
-
-        <div className="contenedorcontactanos">
-          <a href="https://www.google.com/maps/place/Jardines+de+M%C3%A9xico/@18.6061902,-99.2899811,17z/data=!3m1!4b1!4m6!3m5!1s0x85cdd36602675007:0xc972fcd1047fb9ef!8m2!3d18.6061902!4d-99.2877924!16s%2Fg%2F11h0fh91j?hl=es-419&entry=ttu">
-            <img className="img33" src="imagenes/ubicacion.png" alt="" />
-            Km 129 de la Autopista México - Acapulco a la altura de
-            Tequesquitengo, 62900 Tehuixtla, Mor.
-          </a>
-
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <a href="mailto:facturamos@jardinesdemexico.org">
-            <img className="img33" src="imagenes/correito.png" alt="nosotros" />
-            facturamos@jardinesdemexico.org
-          </a>
-
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-
-          <a href="https://www.facebook.com/jardinesdemexico/photos">
-            <img className="img33" src="imagenes/telefonito.png" alt="nosotros" />
-            ◉7771456935
-            <br />
-            ◉7774596325
-          </a>
-        </div>
-      </div>
-
-      <div className="containerimg"></div>
-
-      <center>
-        <style>
-          {`
-            .formulario label,
-            .formulario input,
-            .formulario textarea {
-              font-size: 18px;
-            }
-          `}
-        </style>
-
-        <div className="containerformulario">
-          <div className="formulario">
-            <h2>Contacto</h2>
-            <br />
-            <label htmlFor="nombre">Nombre completo:</label>
-            <br />
-            <input type="text" id="nombre" name="nombre" required />
-            <br />
-            <label htmlFor="correo">Correo electrónico:</label>
-            <br />
-            <input type="email" id="correo" name="correo" required />
-            <br />
-            <label htmlFor="razon">Razón de contacto:</label>
-            <br />
-            <input type="text" id="razon" name="razon" required />
-            <br />
-            <label htmlFor="mensaje">Mensaje:</label>
-            <br />
-            <textarea id="mensaje" name="mensaje" required></textarea>
-            <br />
-            <button type="submit">Enviar</button>
           </div>
         </div>
-      </center>
 
-      <br />
-      <br />
-      <br />
+        <div class="card border-white justify-content-center" style={styles.card2}>
+          <div class="card-body">
+            <div class=" justify-content-center" style={styles.icons}>
+              <a class="color-bg-2c497f" href="https://www.facebook.com/jardinesdemexico/" style={styles.icon}>
+                <i class="bi bi-facebook" style={styles.icon}></i>
+              </a>
+              <a href="https://www.instagram.com/jardinesdemexico/" style={styles.icon}>
+                <i class="bi bi-instagram" style={styles.icon}></i>
+              </a>
+              <a href="https://www.twitter.com/jardinesdemex" style={styles.icon}>
+                <i class="bi bi-twitter" style={styles.icon}></i>
+              </a>
+              <a href="https://www.youtube.com/@JardinesdeMexicoOrg" style={styles.icon}>
+                <i class="bi bi-youtube" style={styles.icon}></i>
+              </a>
 
-      <div className="containerimg ">
-        <img className="img1" src="imagenes/jdm.png" alt="Jardines" />
-        <img className="img1" src="imagenes/escj.jpeg" alt="Escuela Jdm" />
-        <img className="img1" src="imagenes/bds.png" alt="Bodas Jdm" />
+            </div>
+            <div>
+              <h4>Jardines de México</h4>
+              <h5>Dirección</h5>
+              <p><iAutopista class="bi bi-geo-alt-fill" />iAutopista México -Acapulco  Km 129 a la altura de Tequesquitengo, 62900 Tehuixtla, Mor.</p>
+              <h5>Correo Electrónico</h5>
+              <p><i class="bi bi-envelope-fill" /><a href='mailto:'></a></p>
+              <h5>Teléfono</h5>
+              <p><i class="bi bi-telephone-fill" /><a href='tel:+527773330141'>777 333 0141</a></p>
+              <h5>Horario</h5>
+              <p><i class="bi bi-clock-fill" /></p>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div >
+      <div>
+
+
       </div>
       <Footer />
-    </div>
+    </div >
   )
 }
 
 
 const styles = {
-  contacto: {
+  banner: {
+    width: "100%",
+    height: "auto",
+    position: "relative",
+    display: "inline-block",
+    tetxtAling: "center",
 
+  },
+  img: {
+    width: "100%",
+    height: "auto",
+  },
+  title: {
+    color: "white",
+    fontSize: "300%",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)",
+  },
+  form: {
+    width: "auto",
+  },
+  card: {
+    width: "600px",
+    marginleft: "3%",
+    marginRight: "2%",
+  },
+  card2: {
+    width: "300px",
+    marginleft: "3%",
+    marginRight: "2%",
+    border: "solid red 1px"
+  },
+  container: {
+    paddingTop: "2%",
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap", // Agregado para permitir envolver las tarjetas
+    paddingBottom: "2%",
+  },
+  icon: {
+    fontSize: "180%",
+    marginRight: "5%",
+    TextDecoration: "none",
+    color: "#2c497f"
+  },
+  icons: {
+    marginRight: "2%",
+    display: "flex",
+    justifyContent: "center",
   }
 }

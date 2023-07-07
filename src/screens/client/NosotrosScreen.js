@@ -21,6 +21,21 @@ export default function NosotrosScreen() {
 
 
       <div style={styles.entrada}>
+
+        <h2 style={styles.title}>¿Quiénes somos?</h2>
+        <p>En Jardines de México, nos enorgullece presentarles un lugar donde la naturaleza y la
+          belleza se fusionan en un escenario impresionante. Somos un destino turístico único en su clase,
+          ubicado en el corazón de México, donde los jardines más espectaculares del país se combinan con
+          una amplia gama de servicios y actividades para brindar una experiencia inolvidable.</p>
+
+        <p> Nuestra misión es cautivar y sorprender a nuestros visitantes a través de la exuberancia y
+          la armonía de nuestros jardines temáticos. Con una extensión de más de 170 hectáreas,
+          nuestros jardines cuentan con una variedad inigualable de flora y fauna, así como con esculturas y
+          elementos arquitectónicos únicos que complementan la belleza natural.
+
+          En Jardines de México, hemos creado espacios diseñados para inspirar y deleitar a todos nuestros visitantes.
+          Ya sea que estés buscando un lugar para relajarte y conectarte con la naturaleza, celebrar una ocasión especial o
+          llevar a cabo un evento corporativo, nuestras instalaciones versátiles y nuestro equipo altamente capacitado están listos para hacer realidad tus sueños.</p>
         <h2 style={styles.title}>Propósito</h2>
         <p>
           El propósito de este sistema es realizar tu factura de los pagos
@@ -29,83 +44,71 @@ export default function NosotrosScreen() {
           los contribuyentes, sino una obligación de todos aquellos que deseen
           poner su granito de arena al desarrollo de nuestro país.
         </p>
-        <h2 style={styles.title}>¿Por qué es importante facturar?</h2>
-        <p>
-          La facturación de alimentos y bebidas en México tiene una serie de
-          requisitos legales y fiscales que deben ser cumplidos por los negocios
-          que operan en esta industria. Entre estos requisitos se encuentran:
-        </p>
-        <p>1.- Contar con un Registro Federal de Contribuyentes (RFC).</p>
-        <p>
-          2.- Estar registrado en el padrón de contribuyentes del Servicio de
-          Administración Tributaria (SAT).
-        </p>
-        <p>
-          3.- Utilizar un software o plataforma autorizada por el SAT para la
-          emisión de facturas electrónicas (CFDI)
-        </p>
 
       </div>
 
-      <section>
-        <div className="content__map content-yellow">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73998.59247746228!2d-99.34105614451926!3d18.7375554302578!2m3!1f0!2f0!3f0!
+
+      <h1 style={styles.title2}>Ubicación</h1>
+      <center>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73998.59247746228!2d-99.34105614451926!3d18.7375554302578!2m3!1f0!2f0!3f0!
             3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdd36602675007%3A0xc972fcd1047fb9ef!2sJardines%20de%20M%C3%A9xico!5e0!3m2!1ses-419!2smx!4v1645631656113!5m2!1ses-419!2smx"
-            width="100%"
-            height="450"
-            style={{ border: "0" }}
-            allowFullScreen=""
-            loading="lazy"
-          ></iframe>
+          width="90%"
+          height="450"
+          style={{ borderRadius: "20px", marginTop: "40px" }}
+          allowFullScreen=""
+          loading="lazy"
+        ></iframe>
+      </center>
+
+
+
+      <h1 style={styles.title2}>Síguenos en nuestras redes sociales</h1>
+
+      <div style={styles.container}>
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.facebook.com/jardinesdemexico/">
+            <img src={facebook} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Facebook</h5>
+          </div>
         </div>
 
-        <h1 style={styles.title2}>Síguenos en nuestras redes sociales</h1>
-
-        <div style={styles.container}>
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.facebook.com/jardinesdemexico/">
-              <img src={facebook} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Facebook</h5>
-            </div>
-          </div>
-
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.instagram.com/jardinesdemexico/">
-              <img src={insta} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">instagram</h5>
-            </div>
-          </div>
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.instagram.com/jardinesdemexico/">
-              <img src={twitter} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Twitter</h5>
-            </div>
-          </div>
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.instagram.com/jardinesdemexico/">
-              <img src={youtube} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">YouTube</h5>
-            </div>
-          </div>
-          <div class="card border-white justify-content-center" style={styles.card}>
-            <a href="https://www.instagram.com/jardinesdemexico/">
-              <img src={pinterest} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Pinterest</h5>
-            </div>
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.instagram.com/jardinesdemexico/">
+            <img src={insta} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">instagram</h5>
           </div>
         </div>
-      </section >
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.twitter.com/jardinesdemex">
+            <img src={twitter} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Twitter</h5>
+          </div>
+        </div>
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.youtube.com/@JardinesdeMexicoOrg" e>
+            <img src={youtube} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">YouTube</h5>
+          </div>
+        </div>
+        <div class="card border-white justify-content-center" style={styles.card}>
+          <a href="https://www.pinterest.com.mx/jardinesdemexico/">
+            <img src={pinterest} class="card-img-top mx-auto" style={{ width: "128px", height: "128px" }} />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Pinterest</h5>
+          </div>
+        </div>
+      </div>
+
 
       <div style={styles.containerSites}>
         <div>
@@ -133,9 +136,11 @@ const styles = {
   entrada: {
     padding: "5px 50px",
     textAlign: "justify",
+    paddingTop: "40px",
   },
   title: {
     color: "#23967f",
+    fontFamily: "Roboto",
   },
   containerContactanos: {
     width: "50%",

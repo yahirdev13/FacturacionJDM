@@ -28,7 +28,7 @@ export default function HomeScreen() {
       </div>
 
       <center>
-        <Carousel style={styles.carrusel} />
+        <Carousel />
       </center>
 
       <div>
@@ -94,10 +94,6 @@ export default function HomeScreen() {
 }
 
 const styles = {
-  carrusel: {
-    width: "100%",
-    margin: "0px 0px 0px 0px",
-  },
   card: {
     width: "300px",
     marginleft: "3%",
