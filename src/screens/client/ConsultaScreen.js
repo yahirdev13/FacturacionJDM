@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from '../../common/Nav'
+
 import Navbar from '../../common/client/Navbar'
 import logo from '../../images/logo-negro.png'
 import Footer from '../../common/Footer'
@@ -39,8 +39,8 @@ export default function ConsultaScreen() {
                                 </div>
                             </div>
                             <center>
-                                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#consultaTicket">Consultar Ticket</button>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#NOconsultaTicket">Consultar</button>
+                                <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#consultaTicket" style={{ backgroundColor: "#2c497f", color: "white" }}>Consultar Ticket</button>
+                                <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#NOconsultaTicket" style={{ backgroundColor: "#2c497f", color: "white" }}>Consultar</button>
                             </center>
 
                         </form>

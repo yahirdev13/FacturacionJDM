@@ -1,17 +1,17 @@
 import React from 'react'
 import Footer from '../../common/Footer'
 
-import MenuAdmin from '../../common/Admin/MenuAdmin'
-import NavAdmin from '../../common/Admin/NavAdmin'
+
+import { Link } from 'react-router-dom'
+
+import Menu from '../../common/Admin/Menu'
 
 
 
 export default function HomeAdminScreen() {
     return (
         <div>
-            <NavAdmin/>
-            <MenuAdmin/>
-
+            <Menu />
             {/* <Footer/> */}
         </div>
     )

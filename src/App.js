@@ -33,7 +33,7 @@ function App() {
         <Route path={"/profile"} element={<HomeAdminScreen />} />
         <Route path={"/users"} element={<UsersScreen />} />
         <Route path={"/rol"} element={<RolScreen />} />
-        <Route path={"/contact"} element={<ContactScreen />} />
+        <Route path={"/mensajes"} element={<ContactScreen />} />
         <Route path={"/facturaControl"} element={<FacturaAdminScreen />} />
 
 

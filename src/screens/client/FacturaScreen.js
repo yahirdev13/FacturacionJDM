@@ -5,6 +5,8 @@ import Footer from '../../common/Footer'
 
 import advertencia from '../../gifs/advertencia2.gif'
 
+import Swal from 'sweetalert2';
+
 export default function FacturaScreen() {
 
   var f = new Date();
@@ -15,6 +17,19 @@ export default function FacturaScreen() {
   const [rfc, setRFC] = useState('');
   const [razon, setRazon] = useState('');
   const [fecha, setFecha] = useState('');
+
+  const showAlert = () => {
+
+    Swal.fire({
+      title: 'Datos enviados correctamente',
+      icon: 'success',
+      timer: 2000, // Duración de la alerta en milisegundos (5 segundos en este caso)
+      showConfirmButton: false, // No mostrar el botón de confirmación
+      timerProgressBar: true,
+    });
+  };
+
+
 
   return (
     <div>
@@ -56,7 +71,7 @@ export default function FacturaScreen() {
               </div>
 
               <center>
-                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#generarFactura">Generar Factura</button>
+                <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#generarFactura" style={{ backgroundColor: "#2c497f", color: "white" }}>Generar Factura</button>
               </center>
             </form>
           </div>
@@ -157,7 +172,7 @@ export default function FacturaScreen() {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#generarFactura">Regresar</button>
-              <button type="button" class="btn btn-success" data-bs-dismiss="modal">Facturar</button>
+              <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={showAlert}>Facturar</button>
             </div>
           </div>
         </div>
