@@ -106,17 +106,17 @@ img {
 
 .header__input::-moz-placeholder {
     font-family: var(--body-font);
-    color: var(--text-color);
+    color: var(--container-color);
 }
 
 .header__input:-ms-input-placeholder {
     font-family: var(--body-font);
-    color: var(--text-color);
+    color: var(--container-color);
 }
 
 .header__input::placeholder {
     font-family: var(--body-font);
-    color: var(--text-color);
+    color: var(--container-color);
 }
 
 .header__icon,
@@ -266,7 +266,7 @@ img {
 
 @media screen and (min-width: 768px) {
     body {
-        padding: 1rem 3rem 0 6rem;
+        padding: 0rem 0rem 0 0rem;
     }
 
     .header {

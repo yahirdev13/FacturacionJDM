@@ -1,4 +1,5 @@
 import React from 'react'
+import Menu from '../../common/Admin/Menu'
 
 
 //gif
@@ -7,6 +8,7 @@ import advertencia from '../../gifs/alerta.gif'
 export default function RolScreen() {
   return (
     <div>
+      <Menu />
 
       <div style={{ paddingLeft: "8%", paddingRight: "5%" }}>
         <h1 class="mt-5">Control de Roles</h1>

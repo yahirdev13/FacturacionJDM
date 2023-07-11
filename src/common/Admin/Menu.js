@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './styles/style.css'
 import './styles/styles.scss'
 
@@ -10,27 +10,27 @@ import user from '../../images/usuario.png'
 
 export default function Menu() {
 
+    useEffect(() => {
+        const toggleBtn = document.getElementById('header-toggle');
+        const nav = document.getElementById('navbar');
 
-    const Mostrarmenu = (headerToggle, navbarId) => {
-        const toggleBtn = document.getElementById(headerToggle);
-        const nav = document.getElementById(navbarId);
-        if (headerToggle && navbarId) {
-            toggleBtn.addEventListener("click", () => {
-                nav.classList.toggle("show-menu");
-                toggleBtn.classList.toggle("bx-x");
-            });
-        }
+        const toggleMenu = () => {
+            nav.classList.toggle('show-menu');
+            toggleBtn.classList.toggle('bx-x');
+        };
+
+        toggleBtn.addEventListener('click', toggleMenu);
+
+        return () => {
+            toggleBtn.removeEventListener('click', toggleMenu);
+        };
+    }, []);
+
+    const [activeLink, setActiveLink] = useState('');
+
+    const handleLinkClick = (link) => {
+        setActiveLink(link);
     };
-
-    Mostrarmenu("header-toggle", "navbar");
-
-
-    const linkcolor = document.querySelectorAll(".nav__link");
-    function colorLink() {
-        linkcolor.forEach((item) => item.classList.remove("active"));
-        this.classList.add("active");
-    }
-    linkcolor.forEach((item) => item.addEventListener("click", colorLink));
 
     return (
         <div>
@@ -43,8 +43,10 @@ export default function Menu() {
                             <i class="bi bi-search"></i>
                         </div>
                         <div class="header__toggle">
+                            <button type="button" class="btn">
+                                <i class="bi bi-list" id="header-toggle"></i>
+                            </button>
 
-                            <i class="bi bi-list" id="header-toggle"></i>
                         </div>
                     </div>
                 </header>
@@ -62,7 +64,11 @@ export default function Menu() {
                             <div class="nav__items">
                                 <h3 class="nav__subtitle">Profile</h3>
 
-                                <Link class="nav__link active" to={"/profile"}>
+                                <Link
+                                    class={`nav__link ${activeLink === 'profile' ? 'active' : ''}`}
+                                    to="/profile"
+                                    onClick={() => handleLinkClick('profile')}
+                                >
                                     <i class="bi bi-person-fill nav__icon"></i>
                                     <span class="nav__name">Profile</span>
                                 </Link>
@@ -70,19 +76,35 @@ export default function Menu() {
                             </div>
                             <div class="nav__items">
                                 <h3 class="nav__subtitle">Menu</h3>
-                                <Link class="nav__link" to={"/users"}>
+                                <Link
+                                    class={`nav__link ${activeLink === 'users' ? 'active' : ''}`}
+                                    to="/users"
+                                    onClick={() => handleLinkClick('users')}
+                                >
                                     <i class="bi bi-people-fill nav__icon"></i>
                                     <span class="nav__name">Usuarios</span>
                                 </Link>
-                                <Link class="nav__link" to={"/rol"}>
+                                <Link
+                                    className={`nav__link ${activeLink === 'rol' ? 'active' : ''}`}
+                                    to="/rol"
+                                    onClick={() => handleLinkClick('rol')}
+                                >
                                     <i class="bi bi-grid nav__icon"></i>
                                     <span class="nav__name">Roles</span>
                                 </Link>
-                                <Link class="nav__link" to={"/mensajes"}>
+                                <Link
+                                    className={`nav__link ${activeLink === 'mensajes' ? 'active' : ''}`}
+                                    to="/mensajes"
+                                    onClick={() => handleLinkClick('mensajes')}
+                                >
                                     <i class="bi bi-chat-left-dots nav__icon"></i>
                                     <span class="nav__name">Mensajes</span>
                                 </Link>
-                                <Link class="nav__link" to={"/facturaControl"}>
+                                <Link
+                                    className={`nav__link ${activeLink === 'facturaControl' ? 'active' : ''}`}
+                                    to="/facturaControl"
+                                    onClick={() => handleLinkClick('facturaControl')}
+                                >
                                     <i class="bi bi-files nav__icon"></i>
                                     <span class="nav__name">Facturas</span>
                                 </Link>
@@ -99,8 +121,4 @@ export default function Menu() {
             </div>
         </div >
     )
-}
-
-const styles = {
-
 }
