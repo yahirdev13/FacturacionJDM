@@ -1,8 +1,7 @@
 import React from 'react'
 
 //Componentes
-import MenuAdmin from '../../common/Admin/MenuAdmin'
-import NavAdmin from '../../common/Admin/NavAdmin'
+
 
 //gif
 import advertencia from '../../gifs/alerta.gif'
@@ -10,8 +9,7 @@ import advertencia from '../../gifs/alerta.gif'
 export default function UsersScreen() {
     return (
         <div>
-            <NavAdmin />
-            <MenuAdmin />
+
             <div style={{ paddingLeft: "8%", paddingRight: "5%" }}>
                 <h1 class="mt-5">Control de Usuarios</h1>
                 <div class="d-flex justify-content-end">

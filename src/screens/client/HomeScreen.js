@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Nav from '../../common/Nav'
+
 import Footer from '../../common/Footer'
 import Carousel from '../../common/Carousel/Carousel'
 

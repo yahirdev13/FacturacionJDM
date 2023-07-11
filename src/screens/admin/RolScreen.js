@@ -1,6 +1,5 @@
 import React from 'react'
-import MenuAdmin from '../../common/Admin/MenuAdmin'
-import NavAdmin from '../../common/Admin/NavAdmin'
+
 
 //gif
 import advertencia from '../../gifs/alerta.gif'
@@ -8,8 +7,7 @@ import advertencia from '../../gifs/alerta.gif'
 export default function RolScreen() {
   return (
     <div>
-      <NavAdmin />
-      <MenuAdmin />
+
       <div style={{ paddingLeft: "8%", paddingRight: "5%" }}>
         <h1 class="mt-5">Control de Roles</h1>
         <div style={{ left: "250px" }} className='container-fluid'>

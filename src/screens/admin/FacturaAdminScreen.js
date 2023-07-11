@@ -1,12 +1,10 @@
 import React from 'react'
-import MenuAdmin from '../../common/Admin/MenuAdmin'
-import NavAdmin from '../../common/Admin/NavAdmin'
+
 
 export default function FacturaAdminScreen() {
   return (
     <div>
-      <NavAdmin />
-      <MenuAdmin />
+
       <div style={{ paddingLeft: "8%", paddingRight: "5%" }}>
         <h1 class="mt-5">Control de Facturas</h1>
         <div style={{ left: "250px" }} className='container-fluid'>

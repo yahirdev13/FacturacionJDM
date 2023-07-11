@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from '../../common/Nav'
+
 import Navbar from '../../common/client/Navbar'
 import logo from '../../images/logo-negro.png'
 import Footer from '../../common/Footer'

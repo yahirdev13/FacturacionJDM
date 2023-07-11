@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import MenuAdmin from '../../common/Admin/MenuAdmin'
-import NavAdmin from '../../common/Admin/NavAdmin'
+
 import ToastComponent from '../../common/Admin/Toast'
 
 import advertencia from '../../gifs/alerta.gif'
@@ -48,8 +47,7 @@ export default function ContactScreen() {
 
   return (
     <div>
-      <NavAdmin />
-      <MenuAdmin />
+
       <div style={{ paddingLeft: "8%", paddingRight: "5%", paddingTop: "3%" }}>
         <div class="card">
           <div class="card-header">
