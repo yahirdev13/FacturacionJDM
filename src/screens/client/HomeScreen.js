@@ -21,7 +21,6 @@ export default function HomeScreen() {
 
   return (
     <div>
-      {/* <Nav /> */}
       <Navbar />
       <div style={styles.saludos}>
         <h1>Bienvenidos al sistema de facturacion electrónica</h1>
