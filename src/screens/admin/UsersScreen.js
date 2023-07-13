@@ -2,62 +2,119 @@ import React from 'react'
 import Menu from '../../common/Admin/Menu'
 
 import './style.css'
-
-
-
+import DataTable from 'react-data-table-component'
 
 //gif
 import advertencia from '../../gifs/alerta.gif'
 
+const tableusers = [
+    { id: 1, nombre: 'Yahir Alberto Diaz Gonzalez', usuario: 'yahirdg', correo: 'yahird59@gmail.com', rol: 'Administrador' },
+    { id: 2, nombre: 'Misael Bahena Diaz', usuario: 'misaxd', correo: 'misaxd@gmail.com', rol: 'Gerente' },
+    { id: 3, nombre: 'Martin', usuario: 'martingg', correo: 'martinoli@gmail.com', rol: 'administrador' },
+]
+
+const columnas = [
+    {
+        name: '#',
+        selector: 'id',
+        sortable: true,
+        width: '80px',
+    },
+    {
+        name: 'Nombre',
+        selector: 'nombre',
+        sortable: true
+    },
+    {
+        name: 'Usuario',
+        selector: 'usuario',
+        sortable: true
+    },
+    {
+        name: 'Correo Electrónico',
+        selector: 'correo',
+        sortable: true
+    },
+    {
+        name: 'Rol',
+        selector: 'rol',
+        sortable: true
+    },
+    {
+        name: 'Acciones',
+        width: '180px',
+        cell: row => (
+            <div>
+                <button type="button" class="btn btn-primary me-2 mb-2 mt-1">Editar</button>
+                <button type="button" class="btn btn-danger mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#eliminarUsuario" >Eliminar</button>
+            </div>
+        ),
+        ignoreRowClick: true,
+        allowOverflow: true,
+        button: true,
+    },
+]
+
+const paginacionOpciones = {
+    rowsPerPageText: 'Filas por Página',
+    rangeSeparatorText: 'de',
+    selectAllRowsItem: true,
+    selectAllRowsItemText: 'Todos'
+}
+
+
+
+
+
 export default function UsersScreen() {
+
+    //funciones para buscador
+    // state = {
+    //     busqueda: '',
+    // }
+
+    // onChange = async e => {
+    //     e.persist();
+    //     await this.setState({ busqueda: e.target.value });
+    //     console.log(this.state.busqueda);
+    // }
+
     return (
-        <div>
+        <div className='component'>
             <Menu />
             <section>
-                <div class="container pt-5">
-                    <h1 class="mt-5">Control de Usuarios</h1>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#crearUsuario"
-                        >Agregar Usuario</button>
+
+                <div>
+                    <div class="mx-auto p-2">
+                        <h2>Control de usuarios</h2>
+                    </div>
+                    <div class="d-flex justify-content-end pt-3">
+                        <button type="button" class="btn btn-primary crearUsuario" data-bs-toggle="modal" data-bs-target="#crearUsuario">Agregar Usuario</button>
                     </div>
 
-                    <div class="table-responsive pt-5 ">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Correo Electrónico</th>
-                                    <th scope="col">Rol</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                <tr style={{ verticalAlign: "middle" }}>
-                                    <th scope="row ">1</th>
-                                    <td>Yahir Alberto Diaz Gonzalez</td>
-                                    <td>yahird59@gmail.com</td>
-                                    <td>Administrador</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning mr-2">Editar</button>
-                                        <button type="button" class="btn btn-danger mr-2" data-bs-toggle="modal" data-bs-target="#eliminarUsuario" >Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr style={{ verticalAlign: "middle" }}>
-                                    <th scope="row">2</th>
-                                    <td>Misael Bahena Diaz</td>
-                                    <td>misaxd@hotmail.com</td>
-                                    <td>Gerente</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning " style={{ marginRight: "10px" }}>Editar</button>
-                                        <button type="button" class="btn btn-danger ">Eliminar</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-end mb-2">
+                            <input type='text' placeholder='Buscar...' class='form-control me-2'
+                            // onChange={this.onChange}
+                            />
 
+                        </div>
+                        <div class="table-responsive">
+                            <DataTable
+                                columns={columnas}
+                                data={tableusers}
+                                title="Lista de usuarios"
+                                pagination
+                                highlightOnHover
+                                paginationComponentOptions={paginacionOpciones}
+                                fixedHeader
+                                fixedHeaderScrollHeight="auto"
+                            />
+                        </div>
+
+                    </div>
                 </div>
             </section>
 
