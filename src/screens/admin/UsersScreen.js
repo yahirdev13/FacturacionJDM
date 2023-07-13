@@ -1,6 +1,8 @@
 import React from 'react'
 import Menu from '../../common/Admin/Menu'
 
+import './style.css'
+
 
 
 
@@ -11,51 +13,53 @@ export default function UsersScreen() {
     return (
         <div>
             <Menu />
+            <section>
+                <div class="container pt-5">
+                    <h1 class="mt-5">Control de Usuarios</h1>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#crearUsuario"
+                        >Agregar Usuario</button>
+                    </div>
 
-            <div style={{ paddingLeft: "8%", paddingRight: "5%" }}>
-                <h1 class="mt-5">Control de Usuarios</h1>
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#crearUsuario"
-                    >Agregar Usuario</button>
-                </div>
+                    <div class="table-responsive pt-5 ">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Correo Electrónico</th>
+                                    <th scope="col">Rol</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr style={{ verticalAlign: "middle" }}>
+                                    <th scope="row ">1</th>
+                                    <td>Yahir Alberto Diaz Gonzalez</td>
+                                    <td>yahird59@gmail.com</td>
+                                    <td>Administrador</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning mr-2">Editar</button>
+                                        <button type="button" class="btn btn-danger mr-2" data-bs-toggle="modal" data-bs-target="#eliminarUsuario" >Eliminar</button>
+                                    </td>
+                                </tr>
+                                <tr style={{ verticalAlign: "middle" }}>
+                                    <th scope="row">2</th>
+                                    <td>Misael Bahena Diaz</td>
+                                    <td>misaxd@hotmail.com</td>
+                                    <td>Gerente</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning " style={{ marginRight: "10px" }}>Editar</button>
+                                        <button type="button" class="btn btn-danger ">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <div style={{ left: "250px" }} class="table-responsive" className='container-fluid'>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Correo Electrónico</th>
-                                <th scope="col">Rol</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                            <tr style={{ verticalAlign: "middle" }}>
-                                <th scope="row ">1</th>
-                                <td>Yahir Alberto Diaz Gonzalez</td>
-                                <td>yahird59@gmail.com</td>
-                                <td>Administrador</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning " style={{ marginRight: "10px" }}>Editar</button>
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarUsuario" >Eliminar</button>
-                                </td>
-                            </tr>
-                            <tr style={{ verticalAlign: "middle" }}>
-                                <th scope="row">2</th>
-                                <td>Misael Bahena Diaz</td>
-                                <td>misaxd@hotmail.com</td>
-                                <td>Gerente</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning " style={{ marginRight: "10px" }}>Editar</button>
-                                    <button type="button" class="btn btn-danger ">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-            </div>
+            </section>
 
             {/* modal para la creacion de un nuevo usuario*/}
 

@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 
 import user from '../../images/usuario.png'
 
+import advertencia from '../../gifs/alerta.gif'
+
 
 export default function Menu() {
 
@@ -113,12 +115,35 @@ export default function Menu() {
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="nav__link nav__logout">
+                    <a href="#" class="nav__link nav__logout" data-bs-toggle="modal" data-bs-target="#cerrarSesion" >
                         <i class="bi bi-box-arrow-right nav__icon"></i>
                         <span class="nav__name">Cerrar Sesión</span>
                     </a>
                 </nav>
             </div>
+
+            {/* modal para cerrar sesion */}
+            <div class="modal fade" id="cerrarSesion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header lign-items-center justify-content-center">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Arttención!</h1>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img class="img-fluid" src={advertencia} style={{ width: "50%" }}></img>
+                            <h5>¿Desea cerrar sesión?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar Sesión</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div >
+
+
+
     )
 }
