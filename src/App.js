@@ -23,6 +23,7 @@ import ContactanosScreen from './screens/client/ContactanosScreen';
 import PreguntasScreen from './screens/client/PreguntasScreen';
 
 
+
 function App() {
 
 
@@ -43,6 +44,8 @@ function App() {
         <Route path={"/nosotros"} element={<NosotrosScreen />} />
         <Route path={"/contactanos"} element={<ContactanosScreen />} />
         <Route path={"/preguntas"} element={<PreguntasScreen />} />
+
+        {/* <Route path={"/pruebas"} element={<Pruebas />} /> */}
 
         <Route path='*' element={<Navigate to={"/"} />} />
       </Routes>
