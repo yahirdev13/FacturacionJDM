@@ -129,28 +129,6 @@ export default class UsersScreen extends Component {
         this.setState({ resultados: search });
     };
 
-    // onChange = async e => {
-    //     e.persist();
-    //     await this.setState({ busqueda: e.target.value });
-    //     this.filtrarResultados();
-    // }
-
-    // filtrarResultados = () => {
-    //     var search = usuarios.filter(item => {
-    //         if (item.nombre.toLowerCase().includes(this.state.busqueda) ||
-    //             item.usuario.toLowerCase().includes(this.state.busqueda) ||
-    //             item.correo.toLowerCase().includes(this.state.busqueda) ||
-    //             item.rol.toLowerCase().includes(this.state.busqueda)
-    //         ) {
-    //             return item;
-    //         }
-    //     });
-    //     this.setState({ resultados: search });
-    // }
-
-    // componentDidMount() {
-    //     this.setState({ resultados: tableusers });
-    // }
 
     render() {
 
