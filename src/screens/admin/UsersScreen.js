@@ -9,7 +9,6 @@ import DataTable from 'react-data-table-component'
 //gif
 import advertencia from '../../gifs/alerta.gif'
 
-
 //definicion de la tabla especificamente las columnas
 
 const columnas = [
@@ -86,7 +85,7 @@ export default class UsersScreen extends Component {
         this.fetchUsuarios();
     }
 
-    fetchUsuarios = () => {
+    fetchUsuarios = async () => {
         axios
             .get('http://localhost:8080/api-jdm/usuarios')
             .then(response => {
@@ -166,6 +165,7 @@ export default class UsersScreen extends Component {
                                 paginationComponentOptions={paginacionOpciones}
                                 fixedHeader
                                 fixedHeaderScrollHeight="auto"
+                                noDataComponent="No se encontró ningún usuario"
                             />
                         </div>
 
@@ -186,9 +186,7 @@ export default class UsersScreen extends Component {
                                     <div class="mb-3">
                                         <label class="form-label">Nombre/s</label>
                                         <input type="text" class="form-control" aria-describedby="textHelp" required />
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
+
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Apellido/s</label>
