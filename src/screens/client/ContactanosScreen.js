@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 
 import img from '../../images/banner.png'
 
+
+
 export default function ContactanosScreen() {
 
   const showAlert = () => {
