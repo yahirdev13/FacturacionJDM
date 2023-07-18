@@ -14,8 +14,7 @@ import advertencia from '../../gifs/alerta.gif'
 const columnas = [
     {
         name: '#',
-        selector: 'id',
-        sortable: true,
+        cell: (row, index) => index + 1,
         width: '80px',
     },
     {
@@ -193,7 +192,7 @@ export default class UsersScreen extends Component {
                                         <input type="text" class="form-control" aria-describedby="textHelp" />
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">nombre de suario</label>
+                                        <label class="form-label">Nombre de usuario</label>
                                         <div class="input-group has-validation">
                                             <span class="input-group-text" id="inputGroupPrepend">@</span>
                                             <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required></input>
@@ -219,8 +218,6 @@ export default class UsersScreen extends Component {
                                 <div id="ok" class="alert alert-success ocultar" role="alert">
                                     Contraseña válida
                                 </div> */}
-
-
                                     <div class="mb-3">
                                         <label class="form-label">Rol</label>
                                         <select class="form-select" aria-label="Default select example">
@@ -235,15 +232,15 @@ export default class UsersScreen extends Component {
                                             <option selected>Seleccione una opción</option>
                                             <option value="1">Hombre</option>
                                             <option value="2">Mujer</option>
-                                            <option value="2">Helicóptero Apache</option>
                                         </select>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary" >Guadar Usuario</button>
+
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guadar Usuario</button>
                             </div>
                         </div>
                     </div>

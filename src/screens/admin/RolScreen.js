@@ -11,6 +11,7 @@ import advertencia from '../../gifs/alerta.gif'
 
 const data = [
   { id: 1, rol: 'Administrador', descripcion: 'Tiene acceso a todas las funciones del sistema' },
+  { id: 2, rol: 'Usuario', descripcion: 'Puede entrar al sistema' },
 ]
 
 
@@ -174,7 +175,61 @@ export default function RolScreen() {
               <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Rol</h1>
             </div>
             <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label class="form-label">Nombre del rol</label>
+                  <input type="text" class="form-control" placeholder="Nombre del rol" required></input>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Descripción</label>
+                  <textarea type="text-area" class="form-control" placeholder="Ingrese una descripción breve" style={{ height: "100px" }} required />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Permisos</label>
+                  <table class="table table-borderless align-middle">
+                    <thead>
+                      <tr>
+                        <th scope="col">Módulo</th>
+                        <th scope="col" class="text-center">Ver</th>
+                        <th scope="col" class="text-center">Crear</th>
+                        <th scope="col" class="text-center">Editar</th>
+                        <th scope="col" class="text-center">Eliminar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Usuarios</th>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Roles</th>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Mensajes</th>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" disabled /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" disabled /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Facturas</th>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" disabled /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" disabled /></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
+                      </tr>
+                    </tbody>
 
+                  </table>
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

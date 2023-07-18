@@ -1,114 +1,112 @@
 import React, { useState } from 'react'
-
-import ToastComponent from '../../common/Admin/Toast'
-
+import './style.css'
+import DataTable from 'react-data-table-component'
 import advertencia from '../../gifs/alerta.gif'
 
 import Menu from '../../common/Admin/Menu';
 
 
+const data = [
+  { id: 1, nombre: 'Yahir Alberto Diaz Gonzalez', telefono: '7271083065', correo: 'juan@gmail.com', asunto: 'Tengo dudas con la facturacion' }
+]
+
+const columnas = [
+  {
+    name: '#',
+    selector: 'id',
+    sortable: true,
+    width: '80px',
+  },
+  {
+    name: 'Nombre',
+    selector: 'nombre',
+    sortable: true
+  },
+  {
+    name: 'Teléfono',
+    selector: 'telefono',
+    sortable: true
+  },
+  {
+    name: 'Correo Electrónico',
+    selector: 'correo',
+    width: '200px',
+    sortable: true
+  },
+  {
+    name: 'Asunto',
+    selector: 'asunto',
+    sortable: true
+  },
+  {
+    name: 'Acciones',
+    width: '230px',
+    cell: row => (
+      <div>
+        <button type="button" class="btn btn-primary me-2 mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#detalleMensaje" >Detalles <i class="bi bi-person-lines-fill"></i></button>
+        <button type="button" class="btn btn-danger mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#eliminarMensaje" >Eliminar <i class="bi bi-trash-fill"></i></button>
+      </div >
+    ),
+    ignoreRowClick: true,
+    allowOverflow: true,
+    button: true,
+  },
+]
+
+
+//define la configuracion de la paginacion de la tabla
+
+const paginacionOpciones = {
+  rowsPerPageText: 'Filas por Página',
+  rangeSeparatorText: 'de',
+  selectAllRowsItem: true,
+  selectAllRowsItemText: 'Todos'
+}
 
 export default function ContactScreen() {
-
-  const [showToast, setShowToast] = useState(false);
-
-  const handleShowToast = () => {
-    setShowToast(true);
-  };
-
-  const handleCloseToast = () => {
-    setShowToast(false);
-  };
-
-  const columns = [
-    {
-      title: '#',
-      field: 'position'
-    },
-    {
-      title: 'Nombre',
-      field: 'name'
-    },
-    {
-      title: 'Teléfono',
-      field: 'phone',
-      type: 'numeric'
-    },
-    {
-      title: 'Correo Electrónico',
-      field: 'email'
-
-    },
-  ];
-
-  const data = [
-    { position: 1, name: 'Yahir Alberto Diaz Gonzalez', phone: '7271083065', email: 'yahird59@gmail.com' }
-  ]
-
-
 
   return (
     <div>
       <Menu />
-      <div style={{ paddingLeft: "8%", paddingRight: "5%", paddingTop: "3%" }}>
-        <div class="card">
-          <div class="card-header">
-            <h1 class="">Control de contactos</h1>
-          </div>
-          <div class="card-body">
-            <blockquote class="blockquote mb-0">
-              <div style={{ left: "250px" }} className='container-fluid'>
-                <table class="table ">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Teléfono</th>
-                      <th scope="col">Correo Electrónico</th>
-                      <th scope="col">Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-group-divider">
-                    <tr style={{ verticalAlign: "middle" }}>
-                      <th scope="row ">1</th>
-                      <td>Yahir Alberto Diaz Gonzalez</td>
-                      <td>7271083065</td>
-                      <td>yahird59@gmail.com</td>
-                      <td>
-                        <button type="button" class="btn btn-primary " style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#detallesContacto">Detalles</button>
-                        <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#eliminarContacto">Eliminar</button>
-                      </td>
-                    </tr>
-                    <tr style={{ verticalAlign: "middle" }}>
-                      <th scope="row ">2</th>
-                      <td>Misael Bahena Diaz</td>
-                      <td>7773647629</td>
-                      <td>misaelbd@gmail.com</td>
-                      <td>
-                        <button type="button" class="btn btn-primary " style={{ marginRight: "10px" }}>Detalles</button>
-                        <button type="button" class="btn btn-danger ">Eliminar</button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </blockquote>
+      <div className='component'>
+        <Menu />
+
+
+        <div>
+          <div class="mx-auto p-2">
+            <h2>Control de Mensajes</h2>
           </div>
         </div>
+        <div class="card mt-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-end mb-2">
+              <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
+              // onChange={this.onChange}
+              />
 
+            </div>
+            <div class="table-responsive">
+              <DataTable
+                columns={columnas}
+                data={data}
+                title="Lista de usuarios"
+                pagination
+                highlightOnHover
+                paginationComponentOptions={paginacionOpciones}
+                fixedHeader
+                fixedHeaderScrollHeight="auto"
+                noDataComponent="No se encontró ningún usuario"
+              />
+            </div>
 
-
+          </div>
+        </div>
       </div>
 
-      <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <ToastComponent showToast={showToast} onClose={handleCloseToast} />
-      </div>
 
+      {/* modal detalles de mensaje */}
 
-
-      {/* modal detalles de contacto */}
-
-      < div class="modal fade" id="detallesContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+      < div class="modal fade" id="detalleMensaje" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header lign-items-center justify-content-center">
@@ -116,10 +114,10 @@ export default function ContactScreen() {
             </div>
             <div class="modal-body">
               <h4>Asunto</h4>
-              <p>Dudas sobre la facturacion</p>
+              <p>Aqui va el asunto del cliente</p>
 
               <h4>Mensaje</h4>
-              <p style={{ textAlign: "justify" }}>loremansnais aJSOIIJASDIOJASAAID   iajsdijasd as dajsdiaj sid  iojisasjisj ijaisjdIJ OIJIJASOIDJ IA SDASDH OASHDAI HHDAIS  asiduaisudais uaiusdioa sdjdaufihasd</p>
+              <p style={{ textAlign: "justify" }}>Aqui va el mensaje que el cliente escribira desde el modulo de contactanos</p>
 
             </div>
             <div class="modal-footer">
@@ -129,22 +127,22 @@ export default function ContactScreen() {
         </div>
       </div >
 
-      {/* modal para la eliminacion de un contacto */}
+      {/* modal para la eliminacion de un mensaje */}
 
-      < div class="modal fade" id="eliminarContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+      < div class="modal fade" id="eliminarMensaje" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header lign-items-center justify-content-center">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de contacto</h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminación de mensaje</h1>
             </div>
             <div class="modal-body text-center">
               <img class="img-fluid" src={advertencia} style={{ width: "50%" }} ></img>
-              <h5>¿Está seguro de eliminar permanentemente este contacto?</h5>
+              <h5>¿Está seguro de eliminar permanentemente este mensaje?</h5>
               <div id="liveAlertPlaceholder"></div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={handleShowToast}>Eliminar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Eliminar</button>
             </div>
           </div>
         </div>
