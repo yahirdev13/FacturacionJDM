@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from '../../common/client/Navbar'
 import logo from '../../images/logo-negro.png'
-import Footer from '../../common/Footer'
+import Footer from '../../common/client/Footer'
 
 import advertencia from '../../gifs/advertencia2.gif'
 

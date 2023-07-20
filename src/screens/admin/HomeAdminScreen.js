@@ -1,5 +1,4 @@
 import React from 'react'
-import Footer from '../../common/Footer'
 import './style.css'
 
 import Menu from '../../common/Admin/Menu'

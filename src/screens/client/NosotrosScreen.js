@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../../common/client/Navbar'
-import Footer from '../../common/Footer'
+import Footer from '../../common/client/Footer'
 
 //imagnes
 import jdm from '../../images/jdm.png'
