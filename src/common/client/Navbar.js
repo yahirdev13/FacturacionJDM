@@ -1,5 +1,9 @@
 import React from 'react'
+
+//importacion de libreria para el redireccionamiento de paginas
 import { Link } from 'react-router-dom'
+
+//importacion de logo
 import logo from '../../images/logo-nav.png'
 
 export default function Navbar() {
@@ -49,6 +53,8 @@ export default function Navbar() {
     )
 }
 
+
+//declaracion de estilos
 const styles = {
     nav: {
         backgroundColor: '#2c497f',

@@ -1,6 +1,10 @@
 import React from 'react'
+
+//importacion de componentes
 import Navbar from '../../common/client/Navbar'
 import Footer from '../../common/client/Footer'
+
+//libreria para el redireccionamiento de paginas
 import { Link } from 'react-router-dom'
 
 export default function PreguntasScreen() {
@@ -41,6 +45,7 @@ export default function PreguntasScreen() {
   )
 }
 
+//declaracion de estilos
 const styles = {
   pregunta: {
     fontSize: "30px",

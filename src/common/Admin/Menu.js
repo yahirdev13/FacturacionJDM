@@ -1,13 +1,17 @@
+//importacion de react
 import React from 'react'
 import { useEffect, useState } from 'react'
+
+//importacion de estilos
 import './styles/style.css'
 import './styles/styles.scss'
 
+//importacion de componentes
 import { Link } from 'react-router-dom'
 
-import user from '../../images/usuario.png'
-
+//importacion de gif e imagenes
 import advertencia from '../../gifs/alerta.gif'
+import user from '../../images/usuario.png'
 
 
 export default function Menu() {

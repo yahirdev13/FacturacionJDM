@@ -1,26 +1,31 @@
 import React from 'react';
-import Navbar from '../../common/client/Navbar'
-import Footer from '../../common/client/Footer'
-import Swal from 'sweetalert2';
 
+//importacion de estilos
 import './styleCliente.css'
 
+//importacion de componentes
+import Navbar from '../../common/client/Navbar'
+import Footer from '../../common/client/Footer'
 
-
+//importacion de imagenes
 import img from '../../images/banner.png'
+
+//libreria para alertas
+import Swal from 'sweetalert2';
 
 
 
 export default function ContactanosScreen() {
 
+  //funcion para mostrar alerta de mensaje enviado
   const showAlert = () => {
 
     Swal.fire({
-      title: 'Mensaje enviado!',
-      icon: 'success',
-      timer: 2000, // Duración de la alerta en milisegundos (5 segundos en este caso)
+      title: 'Mensaje enviado!', // Titulo de la alerta
+      icon: 'success', // Icono de la alerta (palomita verde)
+      timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
       showConfirmButton: false, // No mostrar el botón de confirmación
-      timerProgressBar: true,
+      timerProgressBar: true, // Mostrar la barra de tiempo
     });
   };
 
@@ -113,7 +118,7 @@ export default function ContactanosScreen() {
   )
 }
 
-
+//declaracion de estilos
 const styles = {
   banner: {
     width: "100%",
@@ -121,7 +126,6 @@ const styles = {
     position: "relative",
     display: "inline-block",
     tetxtAling: "center",
-
   },
   img: {
     width: "100%",

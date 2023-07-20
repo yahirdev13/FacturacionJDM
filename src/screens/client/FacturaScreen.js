@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
+
+//importacion de componentes
 import Navbar from '../../common/client/Navbar'
-import logo from '../../images/logo-negro.png'
 import Footer from '../../common/client/Footer'
 
+//importacion de imagenes y gifs
 import advertencia from '../../gifs/advertencia2.gif'
+import logo from '../../images/logo-negro.png'
 
+//libreria para las alertas
 import Swal from 'sweetalert2';
 
 export default function FacturaScreen() {
@@ -21,11 +25,11 @@ export default function FacturaScreen() {
   const showAlert = () => {
 
     Swal.fire({
-      title: 'Datos enviados correctamente',
-      icon: 'success',
-      timer: 2000, // Duración de la alerta en milisegundos (5 segundos en este caso)
+      title: 'Datos enviados correctamente', // Titulo de la alerta
+      icon: 'success', // Icono de la alerta
+      timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
       showConfirmButton: false, // No mostrar el botón de confirmación
-      timerProgressBar: true,
+      timerProgressBar: true, // Muestra la barra de tiempo
     });
   };
 
@@ -79,7 +83,7 @@ export default function FacturaScreen() {
       </div>
 
 
-      {/* modal para datos de facturacion */}
+      {/* modal para ingresar datos de facturacion */}
 
       <div class="modal fade" id="generarFactura" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -132,7 +136,7 @@ export default function FacturaScreen() {
         </div>
       </div>
 
-      {/* modal de confirmacion de factura */}
+      {/* modal para la confirmacion de datos para generar factura */}
 
       < div class="modal fade" id="confirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
@@ -178,7 +182,7 @@ export default function FacturaScreen() {
         </div>
       </div >
 
-      {/* modal no aceptado */}
+      {/* modal ticket no valido */}
 
       < div class="modal fade" id="NOconsultaTicket" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
@@ -204,6 +208,7 @@ export default function FacturaScreen() {
   )
 }
 
+//declaracion de estilos
 const styles = {
   card: {
     width: "1000px",

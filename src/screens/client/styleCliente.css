@@ -1,3 +1,4 @@
+/* medidas para ajustar tamaño a moviles */
 @media (max-width: 768px) {
     .banner {
         position: flex;

@@ -1,7 +1,10 @@
 import React from 'react'
+
+//importacion de estlo
 import './styleFooter.css'
 
 export default function Footer() {
+    //regresa el componente footer
     return (
         <div style={styles.piePagina} className='footer '>
             <div className="grupo-2">
@@ -11,6 +14,8 @@ export default function Footer() {
     )
 }
 
+
+//declaracion de estilos
 const styles = {
     piePagina: {
         backgroundColor: '#2c497f',

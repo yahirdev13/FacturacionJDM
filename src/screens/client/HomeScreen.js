@@ -1,21 +1,23 @@
 import React from "react";
 
+//importacion de componentes
+import Navbar from '../../common/client/Navbar'
 import Footer from '../../common/client/Footer'
 import Carousel from '../../common/Carousel/Carousel'
 
 
-//imagnes
+//importacion de imagenes
 import jdm from '../../images/jdm.png'
 import jdmBoda from '../../images/jdmBoda.png'
 import jdmEsc from '../../images/jdmEsc.png'
 
-//gif
+//importacion de gifs
 import advertenciaGif from '../../gifs/advertencia.gif'
 import calendarioGif from '../../gifs/calendario.gif'
 import facturaGift from '../../gifs/factura.gif'
 import contactanosGif from '../../gifs/apoyo-tecnico.gif'
 
-import Navbar from '../../common/client/Navbar'
+
 
 export default function HomeScreen() {
 
@@ -92,6 +94,7 @@ export default function HomeScreen() {
   )
 }
 
+//declaracion de estilos
 const styles = {
   card: {
     width: "300px",
