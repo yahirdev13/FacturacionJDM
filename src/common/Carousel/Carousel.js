@@ -1,15 +1,15 @@
 import React from 'react'
 
-
+//importacion de imagenes (importar la imagen y poner el nombre con el cual se va a llamar)
 import img1 from '../Carousel/carrusel1.png'
 import img2 from '../Carousel/carrusel2.png'
 import img3 from '../Carousel/carrusel3.png'
-import { auto } from '@popperjs/core'
 
 export default function Carousel() {
 
 
     return (
+        //carrusel de bbotstrap 5.3.0
         <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel" style={{ width: "90%" }}>
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

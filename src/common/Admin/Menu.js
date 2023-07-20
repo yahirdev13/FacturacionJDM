@@ -1,13 +1,17 @@
+//importacion de react
 import React from 'react'
 import { useEffect, useState } from 'react'
+
+//importacion de estilos
 import './styles/style.css'
 import './styles/styles.scss'
 
+//importacion de componentes
 import { Link } from 'react-router-dom'
 
-import user from '../../images/usuario.png'
-
+//importacion de gif e imagenes
 import advertencia from '../../gifs/alerta.gif'
+import user from '../../images/usuario.png'
 
 
 export default function Menu() {
@@ -57,13 +61,13 @@ export default function Menu() {
                     <nav class="nav__container">
                         <div>
 
-                            <a href="#" class="nav__link nav__logo">
+                            <Link to={"/profile"} class="nav__link nav__logo">
                                 <i class="bx bxs-disc nav__icon"></i>
                                 <span class="nav__logo-name">Sistema de Facturación</span>
-                            </a>
+                            </Link>
                             <div class="nav__list">
                                 <div class="nav__items">
-                                    <h3 class="nav__subtitle">Profile</h3>
+                                    <h3 class="nav__subtitle">Perfil</h3>
 
                                     <Link
                                         class={`nav__link ${activeLink === 'profile' ? 'active' : ''}`}
@@ -71,7 +75,7 @@ export default function Menu() {
                                         onClick={() => handleLinkClick('profile')}
                                     >
                                         <i class="bi bi-person-fill nav__icon"></i>
-                                        <span class="nav__name">Profile</span>
+                                        <span class="nav__name">Perfil</span>
                                     </Link>
 
                                 </div>

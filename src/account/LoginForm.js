@@ -1,40 +1,22 @@
 import React from 'react'
 
-//componentes de bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css';
+//Importacion de estilos
+import './styleLogin.css'
 
+//importacion de imagen
 import logo from '../images/logo-negro.png'
 
+
+//exporta el componente formulario
 export default function LoginForm() {
 
     return (
         <div>
-
-            <style>
-                {`
-          .divider:after,
-          .divider:before {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: #eee;
-          }
-          .h-custom {
-            height: calc(100% - 73px);
-          }
-          @media (max-width: 450px) {
-            .h-custom {
-              height: 100%;
-            }
-          }
-        `}
-            </style>
-
             <section className="vh-100">
                 <div class="container-fluid h-custom">
                     <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col-md-9 col-lg-6 col-xl-5">
-                            <img class="img-fluid" src={logo}/>
+                            <img class="img-fluid" src={logo} />
                         </div>
                         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                             <form>
@@ -61,7 +43,6 @@ export default function LoginForm() {
                                         style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>Iniciar Sesión</button>
 
                                 </div>
-
                             </form>
                         </div>
                     </div>

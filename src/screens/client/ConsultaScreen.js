@@ -1,20 +1,24 @@
 import React from 'react'
 
+//importacion de componentes
 import Navbar from '../../common/client/Navbar'
-import logo from '../../images/logo-negro.png'
-import Footer from '../../common/Footer'
+import Footer from '../../common/client/Footer'
+
+//importacion de libreria para el redireccionamiento de paginas
 import { Link } from 'react-router-dom'
 
 
+//importacion de imagenes y gifs
 import aprobado from '../../gifs/aprobado.gif'
 import cancelado from '../../gifs/archivo.gif'
+import logo from '../../images/logo-negro.png'
 
 export default function ConsultaScreen() {
     return (
-        <div>
+        <div className="d-flex flex-column min-vh-100">
             <Navbar />
 
-            <div class="d-flex justify-content-center align-items-center" style={{ height: "90vh" }}>
+            <div class="d-flex justify-content-center align-items-center">
                 <div class="card border-white" style={styles.card}>
                     <center>
                         <img style={styles.image} src={logo} class="img-fluid" />
@@ -51,9 +55,9 @@ export default function ConsultaScreen() {
 
 
             </div>
-            <Footer />
 
-            {/* modal de aprobado */}
+
+            {/* modal ticket aprobado */}
 
             < div class="modal fade" id="consultaTicket" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
                 <div class="modal-dialog modal-dialog-centered">
@@ -75,7 +79,7 @@ export default function ConsultaScreen() {
                 </div>
             </div >
 
-            {/* modal detalles */}
+            {/* modal detalles del ticket */}
 
             < div class="modal fade" id="detallesTicket" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
                 <div class="modal-dialog modal-dialog-centered">
@@ -150,7 +154,7 @@ export default function ConsultaScreen() {
                 </div>
             </div >
 
-            {/* modal no aprobado */}
+            {/* modal ticket no aprobado */}
 
             < div class="modal fade" id="NOconsultaTicket" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
                 <div class="modal-dialog modal-dialog-centered">
@@ -169,14 +173,18 @@ export default function ConsultaScreen() {
                     </div>
                 </div>
             </div >
+            <Footer />
         </div>
 
     )
 }
 
+//declaracion de estilos
 const styles = {
     card: {
         width: "1000px",
+        height: "100%",
+        marginBottom: "0",
     },
     image: {
         width: "80%"

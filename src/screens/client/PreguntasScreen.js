@@ -1,6 +1,10 @@
 import React from 'react'
+
+//importacion de componentes
 import Navbar from '../../common/client/Navbar'
-import Footer from '../../common/Footer'
+import Footer from '../../common/client/Footer'
+
+//libreria para el redireccionamiento de paginas
 import { Link } from 'react-router-dom'
 
 export default function PreguntasScreen() {
@@ -9,7 +13,7 @@ export default function PreguntasScreen() {
       <Navbar />
 
       <div style={{
-        marginLeft: "1%", marginTop: "1%", padding: "5px 50px",
+        marginLeft: "1%", marginTop: "1%", padding: "5px 50px", paddingBottom: " 4%",
       }}>
         <h2 style={styles.pregunta}>¿Qué necesito para facturar en línea?</h2>
         <p style={styles.respuesta}>Para facturar en línea, necesitas tener los siguientes requisitos:</p>
@@ -41,6 +45,7 @@ export default function PreguntasScreen() {
   )
 }
 
+//declaracion de estilos
 const styles = {
   pregunta: {
     fontSize: "30px",

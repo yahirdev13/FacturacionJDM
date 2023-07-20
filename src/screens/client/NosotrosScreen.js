@@ -1,16 +1,16 @@
 import React from 'react'
-import Navbar from '../../common/client/Navbar'
-import Footer from '../../common/Footer'
 
-//imagnes
+//importacion de componentes
+import Navbar from '../../common/client/Navbar'
+import Footer from '../../common/client/Footer'
+
+//importacion de imagenes
 import jdm from '../../images/jdm.png'
 import jdmBoda from '../../images/jdmBoda.png'
 import jdmEsc from '../../images/jdmEsc.png'
-
 import facebook from '../../images/facebook.png'
 import insta from '../../images/instagram.png'
 import twitter from '../../images/twitter.png'
-import correo from '../../images/gmail.png'
 import youtube from '../../images/youtube.png'
 import pinterest from '../../images/pinterest.png'
 
@@ -50,7 +50,7 @@ export default function NosotrosScreen() {
 
       <h1 style={styles.title2}>Ubicación</h1>
       <center>
-        <iframe
+        <iframe //mapa de la ubicacion de jardines
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73998.59247746228!2d-99.34105614451926!3d18.7375554302578!2m3!1f0!2f0!3f0!
             3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdd36602675007%3A0xc972fcd1047fb9ef!2sJardines%20de%20M%C3%A9xico!5e0!3m2!1ses-419!2smx!4v1645631656113!5m2!1ses-419!2smx"
           width="90%"
@@ -132,6 +132,7 @@ export default function NosotrosScreen() {
   )
 }
 
+//declaracion de estilos
 const styles = {
   entrada: {
     padding: "5px 50px",
