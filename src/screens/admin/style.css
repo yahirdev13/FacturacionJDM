@@ -3,6 +3,23 @@
     margin: 5rem 0 0 0;
 }
 
+.card__1 {
+    width: 500px;
+    height: 550px;
+}
+
+.card__2 {
+    width: 865px;
+    height: 550px;
+    margin-left: 3%;
+}
+
+.card__3 {
+    width: 320px;
+    height: 550px;
+    margin-left: 3%;
+}
+
 .agregar {
     padding: 0rem 1rem 0rem 0rem;
     margin: 5rem 0 0 0
@@ -12,5 +29,20 @@
     .component {
         padding: 0rem 0rem 0rem 0rem;
         margin: 0rem 0 1rem 0rem;
+    }
+
+    .card {
+        width: 100%;
+        height: auto;
+    }
+
+    .card__2 {
+        margin-left: 0%;
+        height: auto;
+    }
+
+    .card__3 {
+        margin-left: 0%;
+        height: auto;
     }
 }

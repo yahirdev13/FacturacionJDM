@@ -9,7 +9,7 @@ export default function PreguntasScreen() {
       <Navbar />
 
       <div style={{
-        marginLeft: "1%", marginTop: "1%", padding: "5px 50px",
+        marginLeft: "1%", marginTop: "1%", padding: "5px 50px", paddingBottom: " 4%",
       }}>
         <h2 style={styles.pregunta}>¿Qué necesito para facturar en línea?</h2>
         <p style={styles.respuesta}>Para facturar en línea, necesitas tener los siguientes requisitos:</p>

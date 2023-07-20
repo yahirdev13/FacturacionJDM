@@ -66,40 +66,38 @@ const paginacionOpciones = {
 export default function ContactScreen() {
 
   return (
-    <div>
+
+    <div className='component'>
       <Menu />
-      <div className='component'>
-        <Menu />
 
 
-        <div>
-          <div class="mx-auto p-2">
-            <h2>Control de Mensajes</h2>
-          </div>
+      <div>
+        <div class="mx-auto p-2">
+          <h2>Control de Mensajes</h2>
         </div>
-        <div class="card mt-3">
-          <div class="card-body">
-            <div class="d-flex justify-content-end mb-2">
-              <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
-              // onChange={this.onChange}
-              />
-
-            </div>
-            <div class="table-responsive">
-              <DataTable
-                columns={columnas}
-                data={data}
-                title="Lista de usuarios"
-                pagination
-                highlightOnHover
-                paginationComponentOptions={paginacionOpciones}
-                fixedHeader
-                fixedHeaderScrollHeight="auto"
-                noDataComponent="No se encontró ningún usuario"
-              />
-            </div>
+      </div>
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-end mb-2">
+            <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
+            // onChange={this.onChange}
+            />
 
           </div>
+          <div class="table-responsive">
+            <DataTable
+              columns={columnas}
+              data={data}
+              title="Lista de usuarios"
+              pagination
+              highlightOnHover
+              paginationComponentOptions={paginacionOpciones}
+              fixedHeader
+              fixedHeaderScrollHeight="auto"
+              noDataComponent="No se encontró ningún usuario"
+            />
+          </div>
+
         </div>
       </div>
 
@@ -149,9 +147,8 @@ export default function ContactScreen() {
       </div >
 
 
+
     </div >
-
-
 
   )
 }

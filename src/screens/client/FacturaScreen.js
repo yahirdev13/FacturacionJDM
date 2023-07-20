@@ -32,10 +32,10 @@ export default function FacturaScreen() {
 
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <Navbar />
 
-      <div class="d-flex justify-content-center align-items-center" style={{ height: "90vh" }}>
+      <div class="d-flex justify-content-center align-items-center">
         <div class="card border-white" style={styles.card}>
           <center>
             <img style={styles.image} src={logo} class="img-fluid" />
@@ -77,7 +77,7 @@ export default function FacturaScreen() {
           </div>
         </div>
       </div>
-      <Footer />
+
 
       {/* modal para datos de facturacion */}
 
@@ -197,6 +197,7 @@ export default function FacturaScreen() {
           </div>
         </div>
       </div >
+      <Footer />
     </div >
 
 
@@ -206,6 +207,8 @@ export default function FacturaScreen() {
 const styles = {
   card: {
     width: "1000px",
+    height: "600px",
+    marginBottom: "0",
   },
   image: {
     width: "80%"

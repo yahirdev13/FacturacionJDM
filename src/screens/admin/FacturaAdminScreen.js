@@ -43,7 +43,7 @@ const columnas = [
     width: '230px',
     cell: row => (
       <div>
-        <button type="button" class="btn btn-primary me-2 mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#detalleFactura" >Detalles <i class="bi bi-person-lines-fill"></i></button>
+        <button type="button" class="btn btn-primary mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#detalleFactura" >Detalles <i class="bi bi-person-lines-fill"></i></button>
       </div >
     ),
     ignoreRowClick: true,

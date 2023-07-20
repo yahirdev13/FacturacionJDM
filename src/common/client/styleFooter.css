@@ -1,0 +1,10 @@
+@media (max-width: 768px) {
+    .footer {
+        position: flex;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 109%;
+        margin-left: -1rem;
+    }
+}

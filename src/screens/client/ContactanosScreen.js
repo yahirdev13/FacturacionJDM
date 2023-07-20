@@ -3,6 +3,8 @@ import Navbar from '../../common/client/Navbar'
 import Footer from '../../common/Footer'
 import Swal from 'sweetalert2';
 
+import './styleCliente.css'
+
 
 
 import img from '../../images/banner.png'
@@ -25,7 +27,7 @@ export default function ContactanosScreen() {
   return (
     <div>
       <Navbar />
-      <div style={styles.banner}>
+      <div style={styles.banner} className="banner">
         <div style={styles.title}>Contactanos</div>
         <img clas="img-response" src={img} alt="banner" style={styles.img} />
       </div>

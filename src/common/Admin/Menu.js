@@ -57,13 +57,13 @@ export default function Menu() {
                     <nav class="nav__container">
                         <div>
 
-                            <a href="#" class="nav__link nav__logo">
+                            <Link to={"/profile"} class="nav__link nav__logo">
                                 <i class="bx bxs-disc nav__icon"></i>
                                 <span class="nav__logo-name">Sistema de Facturación</span>
-                            </a>
+                            </Link>
                             <div class="nav__list">
                                 <div class="nav__items">
-                                    <h3 class="nav__subtitle">Profile</h3>
+                                    <h3 class="nav__subtitle">Perfil</h3>
 
                                     <Link
                                         class={`nav__link ${activeLink === 'profile' ? 'active' : ''}`}
@@ -71,7 +71,7 @@ export default function Menu() {
                                         onClick={() => handleLinkClick('profile')}
                                     >
                                         <i class="bi bi-person-fill nav__icon"></i>
-                                        <span class="nav__name">Profile</span>
+                                        <span class="nav__name">Perfil</span>
                                     </Link>
 
                                 </div>

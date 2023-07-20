@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Footer from '../../common/Footer'
 import Carousel from '../../common/Carousel/Carousel'
@@ -20,7 +20,7 @@ import Navbar from '../../common/client/Navbar'
 export default function HomeScreen() {
 
   return (
-    <div>
+    <div className="componentCliente">
       <Navbar />
       <div style={styles.saludos}>
         <h1>Bienvenidos al sistema de facturacion electrónica</h1>

@@ -6,15 +6,16 @@ import Footer from '../../common/Footer'
 import { Link } from 'react-router-dom'
 
 
+
 import aprobado from '../../gifs/aprobado.gif'
 import cancelado from '../../gifs/archivo.gif'
 
 export default function ConsultaScreen() {
     return (
-        <div>
+        <div className="d-flex flex-column min-vh-100">
             <Navbar />
 
-            <div class="d-flex justify-content-center align-items-center" style={{ height: "90vh" }}>
+            <div class="d-flex justify-content-center align-items-center">
                 <div class="card border-white" style={styles.card}>
                     <center>
                         <img style={styles.image} src={logo} class="img-fluid" />
@@ -51,7 +52,7 @@ export default function ConsultaScreen() {
 
 
             </div>
-            <Footer />
+
 
             {/* modal de aprobado */}
 
@@ -169,6 +170,7 @@ export default function ConsultaScreen() {
                     </div>
                 </div>
             </div >
+            <Footer />
         </div>
 
     )
@@ -177,6 +179,8 @@ export default function ConsultaScreen() {
 const styles = {
     card: {
         width: "1000px",
+        height: "100%",
+        marginBottom: "0",
     },
     image: {
         width: "80%"
