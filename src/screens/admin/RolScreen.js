@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react';
 import Menu from '../../common/Admin/Menu'
 import './style.css'
 
@@ -9,44 +9,6 @@ import DataTable from 'react-data-table-component'
 import advertencia from '../../gifs/alerta.gif'
 
 
-const data = [
-  { id: 1, rol: 'Administrador', descripcion: 'Tiene acceso a todas las funciones del sistema' },
-  { id: 2, rol: 'Usuario', descripcion: 'Puede entrar al sistema' },
-]
-
-
-const columnas = [
-  {
-    name: '#',
-    selector: 'id',
-    sortable: true,
-    width: '80px',
-  },
-  {
-    name: 'Nombre del rol',
-    selector: 'rol',
-    sortable: true
-  },
-  {
-    name: 'Descripción',
-    selector: 'descripcion',
-    sortable: true
-  },
-  {
-    name: 'Acciones',
-    width: '230px',
-    cell: row => (
-      <div>
-        <button type="button" class="btn btn-primary me-2 mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#editarRol" >Editar <i class="bi bi-pencil-fill"></i></button>
-        <button type="button" class="btn btn-danger mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#eliminarRol" >Eliminar <i class="bi bi-trash-fill"></i></button>
-      </div >
-    ),
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-  },
-]
-
 //define la configuracion de la paginacion de la tabla
 
 const paginacionOpciones = {
@@ -56,7 +18,140 @@ const paginacionOpciones = {
   selectAllRowsItemText: 'Todos'
 }
 
-export default function RolScreen() {
+export default function RolScreen(props) {
+
+  const [idRol, setIdRol] = useState('');
+
+  const handleIdRol = (id) => {
+    setIdRol(id);
+  }
+
+
+  const columnas = [
+    {
+      name: '#',
+      selector: (row) => row.id,
+      sortable: true,
+      width: '80px',
+    },
+    {
+      name: 'Nombre del rol',
+      selector: (row) => row.nombreRol,
+      sortable: true
+    },
+    {
+      name: 'Descripción',
+      selector: (row) => row.descripcion,
+      sortable: true
+    },
+    {
+      name: 'Acciones',
+      width: '230px',
+      cell: row => (
+        <div>
+          <button type="button" class="btn btn-primary me-2 mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#editarRol" >Editar <i class="bi bi-pencil-fill"></i></button>
+          <button type="button" class="btn btn-danger mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#eliminarRol" onClick={() => handleIdRol(row.id)}>Eliminar <i class="bi bi-trash-fill"></i></button>
+        </div >
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+  ]
+
+  const [roles, setRoles] = useState([]);
+  const [busqueda, setBusqueda] = useState('');
+  const [rolesFiltrados, setRolesFiltrados] = useState([]);
+
+  useEffect(() => {
+    getRoles().then((roles) => {
+      setRoles(roles);
+      setRolesFiltrados(roles);
+      console.log("Datos roles: ", roles);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, []);
+
+  const getRoles = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch('http://localhost:8080/api-jdm/roles', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.data !== null) {
+            const rolesC = data.data.map((rol) => ({
+              ...rol
+            }));
+            console.log('Todo bien');
+            resolve(rolesC);
+          } else {
+            console.log('Todo mal');
+            resolve([]);
+          }
+        }
+      } catch (error) {
+        console.log('Error');
+        reject(error);
+      }
+    });
+  };
+
+  const onChange = (e) => {
+    const valorBusqueda = e.target.value.toLowerCase();
+    setBusqueda(valorBusqueda);
+    filtraResultados(valorBusqueda);
+  }
+
+  const filtraResultados = (busqueda) => {
+    const resultados = roles.filter((rol) => {
+      if (
+        rol.nombreRol.toLowerCase().includes(busqueda) ||
+        rol.descripcion.toLowerCase().includes(busqueda)
+      ) {
+        return rol;
+      }
+      return false;
+    });
+    setRolesFiltrados(resultados);
+  }
+
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        const id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
+
+  useInterval(() => {
+    if (busqueda === '') {
+      getRoles().then((roles) => {
+        setRoles(roles);
+        setRolesFiltrados(roles);
+        console.log("Datos roles: ", roles);
+      }).catch((error) => {
+        console.log(error);
+      });
+    } else {
+      console.log("Hay texto xd")
+    }
+  }, 1000);
 
   return (
     <div className='component'>
@@ -74,14 +169,14 @@ export default function RolScreen() {
         <div class="card-body">
           <div class="d-flex justify-content-end mb-2">
             <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
-            // onChange={this.onChange}
+              onChange={onChange}
             />
 
           </div>
           <div class="table-responsive">
             <DataTable
               columns={columnas}
-              data={data}
+              data={rolesFiltrados}
               title="Lista de roles"
               pagination
               highlightOnHover
