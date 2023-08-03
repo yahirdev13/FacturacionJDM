@@ -81,7 +81,7 @@ export default function FacturaAdminScreen() {
               paginationComponentOptions={paginacionOpciones}
               fixedHeader
               fixedHeaderScrollHeight="auto"
-              noDataComponent="No se encontró ningún rol"
+              noDataComponent="No se encontró ningúna factura"
             />
           </div>
 
