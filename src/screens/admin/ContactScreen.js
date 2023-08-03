@@ -240,7 +240,7 @@ export default function ContactScreen() {
               paginationComponentOptions={paginacionOpciones}
               fixedHeader
               fixedHeaderScrollHeight="auto"
-              noDataComponent="No se encontró ningún contacto "
+              noDataComponent="No se encontró ningún mensaje "
             />
           </div>
 
