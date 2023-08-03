@@ -8,8 +8,11 @@ import DataTable from 'react-data-table-component'
 //gif
 import advertencia from '../../gifs/alerta.gif'
 
+//libreria para las alertas
+import Swal from 'sweetalert2';
 
-//define la configuracion de la paginacion de la tabla
+
+//define la configuracion de la paginacion de la tabla 
 
 const paginacionOpciones = {
   rowsPerPageText: 'Filas por Página',
@@ -97,6 +100,41 @@ export default function RolScreen(props) {
         }
       } catch (error) {
         console.log('Error');
+        reject(error);
+      }
+    });
+  };
+
+  const deleteRol = (id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch(`http://localhost:8080/api-jdm/roles/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        if (response.ok) {
+          console.log('Usuario eliminado');
+          Swal.fire({
+            title: 'Usuario eliminado', // Titulo de la alerta
+            text: 'El usuario se eliminó correctamente', // Texto de la alerta
+            icon: 'success', // Icono de la alerta
+            timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
+            showConfirmButton: false, // No mostrar el botón de confirmación
+            timerProgressBar: true, // Muestra la barra de tiempo
+          });
+        }
+      } catch (error) {
+        console.log('Error');
+        Swal.fire({
+          title: 'Error', // Titulo de la alerta
+          text: 'No se pudo eliminar el usuario', // Texto de la alerta
+          icon: 'error', // Icono de la alerta
+          timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
+          showConfirmButton: false, // No mostrar el botón de confirmación
+          timerProgressBar: true, // Muestra la barra de tiempo
+        });
         reject(error);
       }
     });
@@ -349,7 +387,7 @@ export default function RolScreen(props) {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={() => deleteRol(idRol)}>Eliminar</button>
             </div>
           </div>
         </div>
