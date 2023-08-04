@@ -61,7 +61,12 @@ export default function ContactScreen() {
     },
     {
       name: 'Asunto',
-      selector: row => row.asunto,
+      selector: (row) => row.asunto,
+      sortable: true
+    },
+    {
+      name: 'Fecha',
+      selector: (row) => row.fechaEnvio,
       sortable: true
     },
     {
@@ -234,7 +239,7 @@ export default function ContactScreen() {
             <DataTable
               columns={columnas}
               data={contactosFiltrados}
-              title="Lista de usuarios"
+              title="Lista de mensajes"
               pagination
               highlightOnHover
               paginationComponentOptions={paginacionOpciones}
