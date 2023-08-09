@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import './styles/style.css'
 import './styles/styles.scss'
 
-//importacion de componentes
+//importacion de libreria para el redireccionamiento
 import { Link } from 'react-router-dom'
 
 //importacion de gif e imagenes

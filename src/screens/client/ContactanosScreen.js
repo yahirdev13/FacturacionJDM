@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 //importacion de estilos
 import './styleCliente.css'
@@ -29,6 +29,69 @@ export default function ContactanosScreen() {
     });
   };
 
+  const [nombre, setNombre] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [asunto, setAsunto] = useState('');
+  const [mensaje, setMensaje] = useState('');
+
+  const registrarMensaje = (e) => {
+    e.preventDefault();
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch('http://localhost:8080/api-jdm/contactanos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nombre: nombre,
+            telefono: telefono,
+            correo: correo,
+            asunto: asunto,
+            mensaje: mensaje,
+            fechaEnvio: '',
+          })
+        });
+        const data = await response.json();
+        if (data.error === false) {
+          console.log('Mensaje enviado ' + data);
+          Swal.fire({
+            title: 'Datos enviados', // Titulo de la alerta
+            text: data.message, // Texto de la alerta
+            icon: 'success', // Icono de la alerta
+            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+            showConfirmButton: false, // No mostrar el botón de confirmación
+            timerProgressBar: true, // Muestra la barra de tiempo
+          });
+          resolve(true);
+
+
+          //Recargar a pagina despues de 2 segundos
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+
+
+        } else {
+          console.log('NO ENVIADO');
+          Swal.fire({
+            title: 'Datos NO enviados', // Titulo de la alerta
+            text: data.message, // Texto de la alerta
+            icon: 'error', // Icono de la alerta
+            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+            showConfirmButton: false, // No mostrar el botón de confirmación
+            timerProgressBar: true, // Muestra la barra de tiempo
+          });
+          resolve(false);
+        }
+      } catch (error) {
+        console.log('Error');
+        reject(error);
+      }
+    });
+  };
+
   return (
     <div>
       <Navbar />
@@ -43,29 +106,29 @@ export default function ContactanosScreen() {
           <div class="card-body">
             <h5 class="card-title">Formulario</h5>
             <div style={styles.form}>
-              <form>
+              <form name='enviarMensaje' onSubmit={registrarMensaje}>
                 <div class="mb-3">
                   <label class="form-label">Nombre</label>
-                  <input type="text" class="form-control" placeholder="Nombre completo" />
+                  <input id='inputNombre' type="text" class="form-control" placeholder="Nombre completo" onChange={(e) => setNombre(e.target.value)} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Telefono</label>
-                  <input type="text" class="form-control" placeholder="Teléfono" />
+                  <input type="number" class="form-control" placeholder="Teléfono" maxLength={10} onChange={(e) => setTelefono(e.target.value)} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Correo Electrónico</label>
-                  <input type="email" class="form-control" placeholder="Correo Electrónico" />
+                  <input type="email" class="form-control" placeholder="Correo Electrónico" onChange={(e) => setCorreo(e.target.value)} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Asunto</label>
-                  <input type="text" class="form-control" placeholder="Asunto" />
+                  <input type="text" class="form-control" placeholder="Asunto" onChange={(e) => setAsunto(e.target.value)} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label text-start">Mensaje</label>
-                  <textarea type="text-area" class="form-control" placeholder="Mensaje" style={{ height: "150px" }} />
+                  <textarea type="text-area" class="form-control" placeholder="Mensaje" style={{ height: "150px" }} onChange={(e) => setMensaje(e.target.value)} />
                 </div>
                 <div class="text-end">
-                  <button type="button" class="btn" onClick={showAlert} style={{ width: "150px", backgroundColor: "#2c497f", color: "white" }}>Enviar</button>
+                  <button type="submit" class="btn" onClick={showAlert} style={{ width: "150px", backgroundColor: "#2c497f", color: "white" }}>Enviar</button>
                 </div>
 
               </form>

@@ -8,9 +8,6 @@ import Menu from '../../common/Admin/Menu';
 //libreria para las alertas
 import Swal from 'sweetalert2';
 
-
-
-
 //define la configuracion de la paginacion de la tabla
 
 const paginacionOpciones = {
@@ -139,8 +136,8 @@ export default function ContactScreen() {
         if (response.ok) {
           console.log('Contacto eliminado');
           Swal.fire({
-            title: 'Contacto eliminado', // Titulo de la alerta
-            text: 'El contacto se eliminó correctamente', // Texto de la alerta
+            title: 'Mensaje eliminado', // Titulo de la alerta
+            text: 'El mensaje se eliminó correctamente', // Texto de la alerta
             icon: 'success', // Icono de la alerta
             timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
             showConfirmButton: false, // No mostrar el botón de confirmación
@@ -151,7 +148,7 @@ export default function ContactScreen() {
         console.log('Error');
         Swal.fire({
           title: 'Error', // Titulo de la alerta
-          text: 'No se pudo eliminar el usuario', // Texto de la alerta
+          text: 'No se pudo eliminar el mensaje', // Texto de la alerta
           icon: 'error', // Icono de la alerta
           timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
           showConfirmButton: false, // No mostrar el botón de confirmación
