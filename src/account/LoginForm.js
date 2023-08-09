@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+
 
 //Importacion de estilos
 import './styleLogin.css'
@@ -6,9 +7,49 @@ import './styleLogin.css'
 //importacion de imagen
 import logo from '../images/logo-negro.png'
 
+//importacion de componentes
+import { Link } from 'react-router-dom'
 
-//exporta el componente formulario
+//libreria para alertas
+import Swal from 'sweetalert2';
 export default function LoginForm() {
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogin = async () => {
+        const formData = {
+            nombreUsuario: email,
+            contrasena: password
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/api-jdm/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
+
+            const responseData = await response.json();
+            console.log(responseData);
+        } catch (error) {
+            console.error(error);
+            Swal.fire({
+                title: 'Error!', // Titulo de la alerta
+                text: 'Contraseña y/o correo incorrectos!', // Texto de la alerta
+                icon: 'error', // Icono de la alerta (error)
+                timer: 3000, // Duración de la alerta en milisegundos (2 segundos en este caso)
+                showConfirmButton: false, // No mostrar el botón de confirmación
+                timerProgressBar: true, // Mostrar la barra de tiempo
+            });
+        }
+    };
 
     return (
         <div>
@@ -34,13 +75,11 @@ export default function LoginForm() {
                                     <label for="floatingPassword">Contraseña</label>
                                 </div>
 
-                                <div class="d-flex justify-content-between align-items-center" className>
-                                    <a href="#!" class="text-body">¿Olvidaste tu contraseña?</a>
-                                </div>
-
                                 <div class="text-center text-lg-start mt-4 pt-2">
                                     <button type="button" class="btn btn-primary btn-lg"
-                                        style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>Iniciar Sesión</button>
+                                        style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}
+                                        onClick={handleLogin}
+                                    >Iniciar Sesión</button>
 
                                 </div>
                             </form>

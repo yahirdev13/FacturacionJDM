@@ -64,10 +64,6 @@ export default function UsersScreen(props) {
         },
     ];
 
-    const [usuarios, setUsuarios] = useState([]);
-    const [busqueda, setBusqueda] = useState('');
-    const [usuariosFiltrados, setUsuariosFiltrados] = useState([]);
-
     useEffect(() => {
         getUsuarios().then((usuarios) => {
             setUsuarios(usuarios);
@@ -78,12 +74,26 @@ export default function UsersScreen(props) {
         });
     }, []);
 
+    const [nombre, setNombre] = useState('');
+    const [apellidos, setApellidos] = useState('');
+    const [nombreUsuario, setNombreUsuario] = useState('');
+    const [correo, setCorreo] = useState('');
+    const [contrasena, setContrasena] = useState('');
+    const [contrasena2, setContrasena2] = useState('');
+    const [rol, setRol] = useState('');
+    const [nombreRol, setNombreRol] = useState('');
+    const [genero, setGenero] = useState('');
 
+
+    const [usuarios, setUsuarios] = useState([]);
+    const [roles, setRoles] = useState([]);
+    const [busqueda, setBusqueda] = useState('');
+    const [usuariosFiltrados, setUsuariosFiltrados] = useState([]);
 
     const getUsuarios = () => {
         return new Promise(async (resolve, reject) => {
             try {
-                const response = await fetch('http://localhost:8080/api-jdm/usuarios', {
+                const response = await fetch('http://localhost:8080/api-jdm/usuarios/getUsers', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -109,6 +119,117 @@ export default function UsersScreen(props) {
             }
         });
     };
+    const handleRegistro = () => {
+        getRoles().then((roles) => {
+            setRoles(roles);
+            console.log("Datos roles: ", roles);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    const getRoles = () => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await fetch('http://localhost:8080/api-jdm/roles', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.data !== null) {
+                        const roles = data.data.map((rol) => ({
+                            ...rol
+                        }));
+                        console.log('Todo bien');
+                        resolve(roles);
+                    } else {
+                        console.log('Todo mal');
+                        resolve([]);
+                    }
+                }
+            } catch (error) {
+                console.log('Error');
+                reject(error);
+            }
+        });
+    }
+
+    const handleRolChange = (e) => {
+        const selectedRolId = parseInt(e.target.value, 10);
+        setRol(selectedRolId);
+
+        const selectedRol = roles.find((rol) => rol.id === selectedRolId);
+        if (selectedRol) {
+            setNombreRol(selectedRol.nombreRol);
+        } else {
+            setNombreRol('');
+        }
+
+        console.log("Selected Rol ID:", selectedRolId);
+        console.log("Selected Rol:", selectedRol);
+        console.log("Nombre Rol:", selectedRol?.nombreRol);
+    };
+
+    const handleGenChange = (e) => {
+        setGenero(e.target.value);
+        console.log(e.target.value);
+    }
+
+    const registerUsuario = (e) => {
+        e.preventDefault();
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await fetch('http://localhost:8080/api-jdm/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        apellidos: apellidos,
+                        nombreUsuario: nombreUsuario,
+                        correo: correo,
+                        contrasena: contrasena,
+                        idRol: rol,
+                        rol: nombreRol,
+                        genero: genero,
+                        fechaCreacion: '',
+                    })
+                });
+                const data = await response.json();
+                if (data.error === false) {
+                    console.log('Usuario registrado');
+                    Swal.fire({
+                        title: 'Usuario registrado', // Titulo de la alerta
+                        text: 'El usuario se registró correctamente', // Texto de la alerta
+                        icon: 'success', // Icono de la alerta
+                        timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+                        showConfirmButton: false, // No mostrar el botón de confirmación
+                        timerProgressBar: true, // Muestra la barra de tiempo
+                    });
+                    resolve(true);
+                } else {
+                    console.log('Usuario no registrado');
+                    Swal.fire({
+                        title: 'Usuario no registrado', // Titulo de la alerta
+                        text: data.message, // Texto de la alerta
+                        icon: 'error', // Icono de la alerta
+                        timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+                        showConfirmButton: false, // No mostrar el botón de confirmación
+                        timerProgressBar: true, // Muestra la barra de tiempo
+                    });
+                    resolve(false);
+                }
+            } catch (error) {
+                console.log('Error');
+                reject(error);
+            }
+        });
+    };
+
 
     const deleteUsuario = (id) => {
         return new Promise(async (resolve, reject) => {
@@ -125,10 +246,11 @@ export default function UsersScreen(props) {
                         title: 'Usuario eliminado', // Titulo de la alerta
                         text: 'El usuario se eliminó correctamente', // Texto de la alerta
                         icon: 'success', // Icono de la alerta
-                        timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
+                        timer: 3000, // Duración de la alerta en milisegundos (3 segundos en este caso)
                         showConfirmButton: false, // No mostrar el botón de confirmación
                         timerProgressBar: true, // Muestra la barra de tiempo
                     });
+                    resolve(true);
                 }
             } catch (error) {
                 console.log('Error');
@@ -136,7 +258,7 @@ export default function UsersScreen(props) {
                     title: 'Error', // Titulo de la alerta
                     text: 'No se pudo eliminar el usuario', // Texto de la alerta
                     icon: 'error', // Icono de la alerta
-                    timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
+                    timer: 3000, // Duración de la alerta en milisegundos (3 segundos en este caso)
                     showConfirmButton: false, // No mostrar el botón de confirmación
                     timerProgressBar: true, // Muestra la barra de tiempo
                 });
@@ -206,7 +328,7 @@ export default function UsersScreen(props) {
                     <h2>Control de usuarios</h2>
                 </div>
                 <div class="d-flex justify-content-end pt-3">
-                    <button type="button" class="btn btn-primary crearUsuario" data-bs-toggle="modal" data-bs-target="#crearUsuario">Agregar Usuario <i class="bi bi-person-fill-add"></i></button>
+                    <button type="button" class="btn btn-primary crearUsuario" data-bs-toggle="modal" data-bs-target="#crearUsuario" onClick={() => handleRegistro()}>Agregar Usuario <i class="bi bi-person-fill-add"></i></button>
                 </div>
 
             </div>
@@ -245,62 +367,61 @@ export default function UsersScreen(props) {
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar un nuevo usuario</h1>
                         </div>
                         <div class="modal-body">
-                            <form id='registrarUsuario needs-validation novalidate' name='registrarUsuario' onsubmit="verificarPasswords()">
+                            <form id='registrarUsuario needs-validation novalidate' name='registrarUsuario' onSubmit={registerUsuario} >
                                 <div class="mb-3">
                                     <label class="form-label">Nombre/s</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" required />
+                                    <input type="text" class="form-control" aria-describedby="textHelp" onChange={(e) => setNombre(e.target.value)} required />
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Apellido/s</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" />
+                                    <input type="text" class="form-control" aria-describedby="textHelp" onChange={(e) => setApellidos(e.target.value)} />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre de usuario</label>
                                     <div class="input-group has-validation">
                                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required></input>
+                                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" onChange={(e) => setNombreUsuario(e.target.value)} required></input>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" aria-describedby="emailHelp" />
+                                    <input type="email" class="form-control" aria-describedby="emailHelp" onChange={(e) => setCorreo(e.target.value)} />
                                 </div>
                                 <div class="mb-3">
                                     <label for="pass1" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id='pass1' />
+                                    <input type="password" class="form-control" id='pass1' onChange={(e) => setContrasena(e.target.value)} />
                                 </div>
                                 <div class="pass2">
                                     <label for="exampleInputPassword1" class="form-label">Vuelve a escribir la contraseña</label>
-                                    <input type="password" class="form-control" id='pass2' />
+                                    <input type="password" class="form-control" id='pass2' onChange={(e) => setContrasena2(e.target.value)} />
                                 </div>
-
-
-
-                                <div class="mb-3">
-                                    <label class="form-label">Rol</label>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Seleccione una opción</option>
-                                        <option value="1">Administrador</option>
-                                        <option value="2">Gerente</option>
+                                <div className="mb-3">
+                                    <label className="form-label">Rol</label>
+                                    <select className="form-select" aria-label="Default select example" onChange={handleRolChange}>
+                                        <option value="">Seleccione una opción</option>
+                                        {roles.map((rol) => (
+                                            <option key={rol.id} value={rol.id}>
+                                                {rol.nombreRol}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Género</label>
-                                    <select class="form-select" aria-label="Default select example">
+                                    <select class="form-select" aria-label="Default select example" onChange={handleGenChange}>
                                         <option selected>Seleccione una opción</option>
-                                        <option value="1">Hombre</option>
-                                        <option value="2">Mujer</option>
-                                        <option value="2">Helicóptero Apache</option>
+                                        <option value="H">Hombre</option>
+                                        <option value="M">Mujer</option>
                                     </select>
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary" >Guadar Usuario</button>
+                                </div>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" >Guadar Usuario</button>
                         </div>
                     </div>
                 </div>
@@ -315,7 +436,7 @@ export default function UsersScreen(props) {
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuario</h1>
                         </div>
                         <div class="modal-body">
-                            <form id='registrarUsuario needs-validation novalidate' name='registrarUsuario' onsubmit="verificarPasswords()">
+                            <form id='registrarUsuario needs-validation novalidate' name='registrarUsuario' onsubmit={""}>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre/s</label>
                                     <input type="text" class="form-control" aria-describedby="textHelp" required />
@@ -352,13 +473,15 @@ export default function UsersScreen(props) {
                                         <option value="2">Gerente</option>
                                     </select>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Género</label>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Seleccione una opción</option>
-                                        <option value="1">Hombre</option>
-                                        <option value="2">Mujer</option>
-                                        <option value="2">Helicóptero Apache</option>
+                                <div className="mb-3">
+                                    <label className="form-label">Rol</label>
+                                    <select className="form-select" aria-label="Default select example">
+                                        <option value="">Seleccione una opción</option>
+                                        {roles.map((rol) => (
+                                            <option key={rol.id} value={rol.id}>
+                                                {rol.nombreRol}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                             </form>

@@ -117,8 +117,8 @@ export default function RolScreen(props) {
         if (response.ok) {
           console.log('Usuario eliminado');
           Swal.fire({
-            title: 'Usuario eliminado', // Titulo de la alerta
-            text: 'El usuario se eliminó correctamente', // Texto de la alerta
+            title: 'Rol eliminado', // Titulo de la alerta
+            text: 'El rol se eliminó correctamente', // Texto de la alerta
             icon: 'success', // Icono de la alerta
             timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
             showConfirmButton: false, // No mostrar el botón de confirmación
@@ -129,7 +129,7 @@ export default function RolScreen(props) {
         console.log('Error');
         Swal.fire({
           title: 'Error', // Titulo de la alerta
-          text: 'No se pudo eliminar el usuario', // Texto de la alerta
+          text: 'No se pudo eliminar el rol', // Texto de la alerta
           icon: 'error', // Icono de la alerta
           timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
           showConfirmButton: false, // No mostrar el botón de confirmación
