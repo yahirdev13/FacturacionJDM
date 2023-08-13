@@ -6,6 +6,9 @@ import advertencia from '../../gifs/alerta.gif';
 //libreria para las alertas
 import Swal from 'sweetalert2';
 
+//libreria para la exportacion de usuarios
+import { CSVLink } from 'react-csv';
+
 const paginacionOpciones = {
     rowsPerPageText: 'Filas por Página',
     rangeSeparatorText: 'de',
@@ -14,6 +17,7 @@ const paginacionOpciones = {
 }
 
 export default function UsersScreen(props) {
+
 
     const [idUsuario, setIdUsuario] = useState('');
 
@@ -328,6 +332,7 @@ export default function UsersScreen(props) {
                     <h2>Control de usuarios</h2>
                 </div>
                 <div class="d-flex justify-content-end pt-3">
+                    <CSVLink data={usuariosFiltrados} filename="usuarios.csv" className="btn btn-primary me-2">Exportar a CSV <i class="bi bi-filetype-csv"></i></CSVLink>
                     <button type="button" class="btn btn-primary crearUsuario" data-bs-toggle="modal" data-bs-target="#crearUsuario" onClick={() => handleRegistro()}>Agregar Usuario <i class="bi bi-person-fill-add"></i></button>
                 </div>
 

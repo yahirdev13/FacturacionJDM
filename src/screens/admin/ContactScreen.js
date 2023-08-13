@@ -227,9 +227,12 @@ export default function ContactScreen() {
       <div class="card mt-3">
         <div class="card-body">
           <div class="d-flex justify-content-end mb-2">
+            <input type='date' className='form-control me-2' style={{ width: "200px" }}></input>
+            <input type='date' className='form-control me-2' style={{ width: "200px" }}></input>
             <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
             // onChange={this.onChange}
             />
+
 
           </div>
           <div class="table-responsive">

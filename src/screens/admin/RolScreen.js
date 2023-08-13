@@ -11,7 +11,6 @@ import advertencia from '../../gifs/alerta.gif'
 //libreria para las alertas
 import Swal from 'sweetalert2';
 
-
 //define la configuracion de la paginacion de la tabla 
 
 const paginacionOpciones = {
@@ -21,7 +20,57 @@ const paginacionOpciones = {
   selectAllRowsItemText: 'Todos'
 }
 
-export default function RolScreen(props) {
+export default function RolScreen() {
+
+  const [nombreRol, setNombreRol] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+
+  const registrarRol = (e) => {
+    e.preventDefault();
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch('http://localhost:8080/api-jdm/roles', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nombreRol: nombreRol,
+            descripcion: descripcion,
+          })
+        });
+        const data = await response.json();
+        if (data.error === false) {
+          console.log('Rol creado ' + data);
+          Swal.fire({
+            title: 'Rol creado', // Titulo de la alerta
+            text: data.message, // Texto de la alerta
+            icon: 'success', // Icono de la alerta
+            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+            showConfirmButton: false, // No mostrar el botón de confirmación
+            timerProgressBar: true, // Muestra la barra de tiempo
+          });
+          resolve(true);
+
+        } else {
+          console.log('Rol no creado ' + data.message);
+          Swal.fire({
+            title: 'Error', // Titulo de la alerta
+            text: data.message, // Texto de la alerta
+            icon: 'error', // Icono de la alerta
+            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+            showConfirmButton: false, // No mostrar el botón de confirmación
+            timerProgressBar: true, // Muestra la barra de tiempo
+          });
+          resolve(false);
+        }
+      } catch (error) {
+        console.log('Error');
+        reject(error);
+      }
+    });
+  };
+
 
   const [idRol, setIdRol] = useState('');
 
@@ -236,14 +285,15 @@ export default function RolScreen(props) {
               <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar nuevo rol</h1>
             </div>
             <div class="modal-body">
-              <form>
+              <form name='crearRol' onSubmit={registrarRol}>
                 <div class="mb-3">
                   <label class="form-label">Nombre del rol</label>
-                  <input type="text" class="form-control" placeholder="Nombre del rol" required />
+                  <input type="text" class="form-control" placeholder="Nombre del rol" required
+                    onChange={(e) => setNombreRol(e.target.value)} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Descripción</label>
-                  <textarea type="text-area" class="form-control" placeholder="Ingrese una descripción breve" style={{ height: "100px" }} required />
+                  <textarea type="text-area" class="form-control" placeholder="Ingrese una descripción breve" style={{ height: "100px" }} required onChange={(e) => setDescripcion(e.target.value)} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Permisos</label>
@@ -290,11 +340,11 @@ export default function RolScreen(props) {
 
                   </table>
                 </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Guardar nuevo rol</button>
+                </div>
               </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Guardar nuevo rol</button>
             </div>
           </div>
         </div>
@@ -392,7 +442,7 @@ export default function RolScreen(props) {
           </div>
         </div>
       </div>
-    </div>
+    </div >
 
 
 

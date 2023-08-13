@@ -22,9 +22,9 @@ import NosotrosScreen from './screens/client/NosotrosScreen';
 import ContactanosScreen from './screens/client/ContactanosScreen';
 import PreguntasScreen from './screens/client/PreguntasScreen';
 
-
-
 function App() {
+
+  const token = localStorage.getItem('token');
 
 
   return (
@@ -32,6 +32,13 @@ function App() {
       <Routes> {/* se crea el espacio donde se van a colocar las rutas */}
         <Route path={"/admin"} element={<LoginScreen />} />{/* se crea la ruta, la cual se va a mostrar en el path especificado y renderizara el elemento especificado */}
         <Route path={"/profile"} element={<HomeAdminScreen />} />
+
+        {/* <Route path='/admin' exact>
+          {token ? <Navigate to={"/profile"} /> : <Navigate to={"/admin"} />}
+        </Route> */}
+
+
+        {/* <Route path={"/profile"} element={<HomeAdminScreen />} /> */}
         <Route path={"/users"} element={<UsersScreen />} />
         <Route path={"/rol"} element={<RolScreen />} />
         <Route path={"/mensajes"} element={<ContactScreen />} />
