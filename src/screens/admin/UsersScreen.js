@@ -6,7 +6,7 @@ import advertencia from '../../gifs/alerta.gif';
 //libreria para las alertas
 import Swal from 'sweetalert2';
 
-//libreria para la exportacion de usuarios
+//libreria para exportar los usuarios
 import { CSVLink } from 'react-csv';
 
 const paginacionOpciones = {
@@ -16,8 +16,7 @@ const paginacionOpciones = {
     selectAllRowsItemText: 'Todos'
 }
 
-export default function UsersScreen(props) {
-
+export default function UsersScreen() {
 
     const [idUsuario, setIdUsuario] = useState('');
 
@@ -58,7 +57,7 @@ export default function UsersScreen(props) {
             width: '230px',
             cell: row => (
                 <div>
-                    <button type="button" className="btn btn-primary me-2 mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#editarUsuario">Editar <i className="bi bi-pencil-fill"></i></button>
+                    <button type="button" className="btn btn-primary me-2 mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#editarUsuario" onClick={() => handleUsuario(row.id)}>Editar <i className="bi bi-pencil-fill"></i></button>
                     <button type="button" className="btn btn-danger mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#eliminarUsuario" onClick={() => handleIdUsuario(row.id)}>Eliminar <i className="bi bi-trash-fill"></i></button>
                 </div>
             ),
@@ -82,7 +81,7 @@ export default function UsersScreen(props) {
     const [apellidos, setApellidos] = useState('');
     const [nombreUsuario, setNombreUsuario] = useState('');
     const [correo, setCorreo] = useState('');
-    const [contrasena, setContrasena] = useState('');
+    const [contrasena, setContrasena] = useState(null);
     const [contrasena2, setContrasena2] = useState('');
     const [rol, setRol] = useState('');
     const [nombreRol, setNombreRol] = useState('');
@@ -90,14 +89,16 @@ export default function UsersScreen(props) {
 
 
     const [usuarios, setUsuarios] = useState([]);
+    const [usuario, setUsuario] = useState([]);
     const [roles, setRoles] = useState([]);
     const [busqueda, setBusqueda] = useState('');
     const [usuariosFiltrados, setUsuariosFiltrados] = useState([]);
 
+
     const getUsuarios = () => {
         return new Promise(async (resolve, reject) => {
             try {
-                const response = await fetch('http://localhost:8080/api-jdm/usuarios/getUsers', {
+                const response = await fetch('http://localhost:8080/api-jdm/usuarios/getUsuarios', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -214,6 +215,14 @@ export default function UsersScreen(props) {
                         showConfirmButton: false, // No mostrar el botón de confirmación
                         timerProgressBar: true, // Muestra la barra de tiempo
                     });
+                    setNombre('');
+                    setApellidos('');
+                    setNombreUsuario('');
+                    setCorreo('');
+                    setContrasena('');
+                    setContrasena2('');
+                    setRol('');
+                    setGenero('');
                     resolve(true);
                 } else {
                     console.log('Usuario no registrado');
@@ -225,6 +234,127 @@ export default function UsersScreen(props) {
                         showConfirmButton: false, // No mostrar el botón de confirmación
                         timerProgressBar: true, // Muestra la barra de tiempo
                     });
+                    resolve(false);
+                }
+            } catch (error) {
+                console.log('Error');
+                reject(error);
+            }
+        });
+    };
+
+    const handleUsuario = (id) => {
+        setIdUsuario(id);
+        console.log(id)
+        getUsuarioById(id).then((usuario) => {
+            setUsuario(usuario);
+            setNombre(usuario.nombre);
+            setApellidos(usuario.apellidos);
+            setNombreUsuario(usuario.nombreUsuario);
+            setCorreo(usuario.correo);
+            setRol(usuario.idRol.id);
+            setNombreRol(usuario.rol);
+            setGenero(usuario.genero);
+            console.log("Datos usuariobyid: ", usuario);
+        }).catch((error) => {
+            console.log(error);
+        });
+        getRoles().then((roles) => {
+            setRoles(roles);
+            console.log("Datos roles: ", roles);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    const getUsuarioById = (id) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await fetch(`http://localhost:8080/api-jdm/usuarios/getUsuario/${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.data !== null) {
+                        const usuario = data.data;
+                        const usuarioC = {
+                            ...usuario,
+                        }
+                        console.log('Todo bien');
+                        resolve(usuarioC);
+                    } else {
+                        console.log('Todo mal');
+                        resolve([]);
+                    }
+                }
+            } catch (error) {
+                console.log('Error');
+                reject(error);
+            }
+        });
+    }
+
+    const editUsuario = (id, e) => {
+        e.preventDefault();
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await fetch(`http://localhost:8080/api-jdm/auth/update/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        apellidos: apellidos,
+                        nombreUsuario: nombreUsuario,
+                        correo: correo,
+                        contrasena: contrasena,
+                        idRol: rol,
+                        rol: nombreRol,
+                        genero: genero
+                    })
+                });
+                const data = await response.json();
+                if (data.error === false) {
+                    console.log("Usuario actualizado correctamente!")
+                    Swal.fire({
+                        title: 'Usuario actualizado', // Titulo de la alerta
+                        text: data.message, // Texto de la alerta
+                        icon: 'success', // Icono de la alerta
+                        timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
+                        showConfirmButton: false, // No mostrar el botón de confirmación
+                        timerProgressBar: true, // Muestra la barra de tiempo
+                    });
+                    setNombre('');
+                    setApellidos('');
+                    setNombreUsuario('');
+                    setCorreo('');
+                    setContrasena('');
+                    setContrasena2('');
+                    setRol('');
+                    setGenero('');
+                    resolve(true);
+                } else {
+                    console.log("Usuario no actualizado!");
+                    Swal.fire({
+                        title: 'Usuario no actualizado', // Titulo de la alerta
+                        text: data.message, // Texto de la alerta
+                        icon: 'error', // Icono de la alerta
+                        timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
+                        showConfirmButton: false, // No mostrar el botón de confirmación
+                        timerProgressBar: true, // Muestra la barra de tiempo
+                    });
+                    setNombre('');
+                    setApellidos('');
+                    setNombreUsuario('');
+                    setCorreo('');
+                    setContrasena('');
+                    setContrasena2('');
+                    setRol('');
+                    setGenero('');
                     resolve(false);
                 }
             } catch (error) {
@@ -322,7 +452,135 @@ export default function UsersScreen(props) {
         } else {
             console.log("Hay texto xd")
         }
-    }, 1000);
+    }, 2000);
+
+    const inputName = useRef(null);
+    const inputLastName = useRef(null);
+    const inputUserName = useRef(null);
+    const inputEmail = useRef(null);
+    const inputPass = useRef(null);
+    const inputPass2 = useRef(null);
+    const selectGen = useRef(null);
+    const selectRol = useRef(null);
+    const btnCancel = useRef(null);
+
+    const handleDrop = () => {
+        if (nombre !== '' || apellidos !== '' || nombreUsuario !== '' || correo !== '' || contrasena !== '' || contrasena2 !== '' || rol !== '' || genero !== '') {
+            setNombre('');
+            setApellidos('');
+            setNombreUsuario('');
+            setCorreo('');
+            setContrasena('');
+            setContrasena2('');
+            setRol('');
+            setGenero('');
+        }
+    }
+
+    const validateForm = () => {
+        const elementName = inputName.current;
+        const elementLastName = inputLastName.current;
+        const elementUserName = inputUserName.current;
+        const elementEmail = inputEmail.current;
+        const elementPass = inputPass.current;
+        const elementPass2 = inputPass2.current;
+        const elementGen = selectGen.current;
+        const elementRol = selectRol.current;
+
+        const isPassValid = elementPass.value.length < 8;
+        const isPass2Valid = elementPass2.value.length < 8;
+        const isPassMatching = elementPass.value === elementPass2.value;
+
+        if (isPassValid) {
+            elementPass.setCustomValidity("La contraseña debe tener al menos 8 caracteres");
+        } else {
+            elementPass.setCustomValidity("");
+        }
+        if (isPass2Valid) {
+            elementPass2.setCustomValidity("La contraseña debe tener al menos 8 caracteres");
+        } else {
+            elementPass2.setCustomValidity("");
+        }
+
+        if (!isPassValid && !isPass2Valid) {
+            if (!isPassMatching) {
+                elementPass2.setCustomValidity("Las contraseñas no coinciden");
+            } else {
+                elementPass2.setCustomValidity("");
+            }
+        }
+
+
+        if (elementName.checkValidity() && elementLastName.checkValidity() && elementUserName.checkValidity() && elementEmail.checkValidity() && elementPass.checkValidity() && elementPass2.checkValidity() && elementGen.checkValidity() && elementRol.checkValidity()) {
+            btnCancel.current.click();
+            console.log("Formulario validado");
+        } else {
+            console.log("Formulario no validado");
+        }
+    }
+
+    const inputName2 = useRef(null);
+    const inputLastName2 = useRef(null);
+    const inputUserName2 = useRef(null);
+    const inputEmail2 = useRef(null);
+    const inputPassword = useRef(null);
+    const inputPassword2 = useRef(null);
+    const selectGen2 = useRef(null);
+    const selectRol2 = useRef(null);
+    const btnCancel2 = useRef(null);
+
+    const validateForm2 = () => {
+        const elementName2 = inputName2.current;
+        const elementLastName2 = inputLastName2.current;
+        const elementUserName2 = inputUserName2.current;
+        const elementEmail2 = inputEmail2.current;
+        const elementPassword = inputPassword.current;
+        const elementPassword2 = inputPassword2.current;
+        const elementGen2 = selectGen2.current;
+        const elementRol2 = selectRol2.current;
+
+        const isPasswordValid = elementPassword.value.length < 8;
+        const isPassword2Valid = elementPassword2.value.length < 8;
+        const isPasswordMatching = elementPassword.value === elementPassword2.value;
+        const isPasswordNotEmpty = contrasena == null;
+
+        if (isPasswordNotEmpty) {
+            setContrasena("Empty");
+        }
+
+        if (elementPassword.value.length > 0 || elementPassword2.value.length > 0) {
+            if (isPasswordValid) {
+                elementPassword.setCustomValidity("La contraseña debe tener al menos 8 caracteres");
+            } else {
+                elementPassword.setCustomValidity("");
+            }
+            if (isPassword2Valid) {
+                elementPassword2.setCustomValidity("La contraseña debe tener al menos 8 caracteres");
+            }
+            else {
+                elementPassword2.setCustomValidity("");
+            }
+
+            if (!isPasswordValid && !isPassword2Valid) {
+                if (!isPasswordMatching) {
+                    elementPassword2.setCustomValidity("Las contraseñas no coinciden");
+                } else {
+                    elementPassword2.setCustomValidity("");
+                }
+            }
+        } else {
+            elementPassword.setCustomValidity("");
+            elementPassword2.setCustomValidity("");
+        }
+
+        if (elementName2.checkValidity() && elementLastName2.checkValidity() && elementUserName2.checkValidity() && elementEmail2.checkValidity() && elementPassword.checkValidity() && elementPassword2.checkValidity() && elementGen2.checkValidity() && elementRol2.checkValidity()) {
+            btnCancel2.current.click();
+            console.log("Formulario validado");
+        } else {
+            console.log("Formulario no validado");
+        }
+    }
+
 
     return (
         <div className='component'>
@@ -332,7 +590,6 @@ export default function UsersScreen(props) {
                     <h2>Control de usuarios</h2>
                 </div>
                 <div class="d-flex justify-content-end pt-3">
-
                     <button type="button" class="btn btn-primary crearUsuario" data-bs-toggle="modal" data-bs-target="#crearUsuario" onClick={() => handleRegistro()}>Agregar Usuario <i class="bi bi-person-fill-add"></i></button>
                 </div>
 
@@ -340,11 +597,12 @@ export default function UsersScreen(props) {
             <div class="card mt-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-end mb-2">
-
                         <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
                             onChange={onChange}
                         />
-                        <CSVLink data={usuariosFiltrados} filename="usuarios.csv" className="btn btn-primary me-2">Exportar a CSV <i class="bi bi-filetype-csv"></i></CSVLink>
+                        <CSVLink data={usuariosFiltrados} filename='Usuarios.csv' className='btn btn-primary me-2'>
+                            Exportar Usuarios<i className='bi bi-file-csv'></i>
+                        </CSVLink>
 
                     </div>
                     <div class="table-responsive">
@@ -367,7 +625,7 @@ export default function UsersScreen(props) {
 
             {/* modal para la creacion de un nuevo usuario*/}
 
-            <div class="modal fade" id="crearUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="crearUsuario" data-bs-backdrop="static" data-bs-keyboard="true" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header lign-items-center justify-content-center">
@@ -377,38 +635,38 @@ export default function UsersScreen(props) {
                             <form id='registrarUsuario needs-validation novalidate' name='registrarUsuario' onSubmit={registerUsuario} >
                                 <div class="mb-3">
                                     <label class="form-label">Nombre/s</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" onChange={(e) => setNombre(e.target.value)} required />
+                                    <input ref={inputName} type="text" class="form-control" aria-describedby="textHelp" onChange={(e) => setNombre(e.target.value)} value={nombre} required />
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Apellido/s</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" onChange={(e) => setApellidos(e.target.value)} />
+                                    <input ref={inputLastName} type="text" class="form-control" aria-describedby="textHelp" onChange={(e) => setApellidos(e.target.value)} value={apellidos} required />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre de usuario</label>
                                     <div class="input-group has-validation">
                                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" onChange={(e) => setNombreUsuario(e.target.value)} required></input>
+                                        <input ref={inputUserName} type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" onChange={(e) => setNombreUsuario(e.target.value)} value={nombreUsuario} required></input>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" aria-describedby="emailHelp" onChange={(e) => setCorreo(e.target.value)} />
+                                    <input ref={inputEmail} type="email" class="form-control" aria-describedby="emailHelp" onChange={(e) => setCorreo(e.target.value)} value={correo} required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="pass1" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id='pass1' onChange={(e) => setContrasena(e.target.value)} />
+                                    <input ref={inputPass} type="password" class="form-control" id='pass1' onChange={(e) => setContrasena(e.target.value)} value={contrasena} required />
                                 </div>
                                 <div class="pass2">
                                     <label for="exampleInputPassword1" class="form-label">Vuelve a escribir la contraseña</label>
-                                    <input type="password" class="form-control" id='pass2' onChange={(e) => setContrasena2(e.target.value)} />
+                                    <input ref={inputPass2} type="password" class="form-control" id='pass2' onChange={(e) => setContrasena2(e.target.value)} value={contrasena2} required />
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">Rol</label>
-                                    <select className="form-select" aria-label="Default select example" onChange={handleRolChange}>
-                                        <option value="">Seleccione una opción</option>
+                                    <select ref={selectRol} className="form-select" aria-label="Default select example" onChange={handleRolChange} value={rol} required>
+                                        <option value="">Seleccione un rol</option>
                                         {roles.map((rol) => (
                                             <option key={rol.id} value={rol.id}>
                                                 {rol.nombreRol}
@@ -418,15 +676,16 @@ export default function UsersScreen(props) {
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Género</label>
-                                    <select class="form-select" aria-label="Default select example" onChange={handleGenChange}>
-                                        <option selected>Seleccione una opción</option>
+                                    <select ref={selectGen} class="form-select" aria-label="Default select example" placeholder='Seleccione una opción' onChange={handleGenChange} value={genero} required>
+                                        <option value="">Seleccione un genero</option>
                                         <option value="H">Hombre</option>
                                         <option value="M">Mujer</option>
                                     </select>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary" >Guadar Usuario</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={handleDrop}>Cancelar</button>
+                                    <button type="submit" class="btn btn-primary" onClick={validateForm} >Guadar Usuario</button>
+                                    <button ref={btnCancel} type="button" class="invisible-button" data-bs-dismiss="modal" style={{ display: 'none' }}>Botón Invisible</button>
                                 </div>
                             </form>
                         </div>
@@ -434,56 +693,52 @@ export default function UsersScreen(props) {
                 </div>
             </div>
 
+
+
             {/* modal para editar un usuario*/}
 
-            <div class="modal fade" id="editarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="editarUsuario" data-bs-backdrop="static" data-bs-keyboard="true" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header lign-items-center justify-content-center">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuario</h1>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar usuario</h1>
                         </div>
                         <div class="modal-body">
-                            <form id='registrarUsuario needs-validation novalidate' name='registrarUsuario' onsubmit={""}>
+                            <form id='editarUsuario needs-validation novalidate' name='editarUsuario' onSubmit={(e) => editUsuario(idUsuario, e)} >
                                 <div class="mb-3">
                                     <label class="form-label">Nombre/s</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" required />
+                                    <input ref={inputName2} type="text" class="form-control" aria-describedby="textHelp" onChange={(e) => setNombre(e.target.value)} value={nombre} required />
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Apellido/s</label>
-                                    <input type="text" class="form-control" aria-describedby="textHelp" />
+                                    <input ref={inputLastName2} type="text" class="form-control" aria-describedby="textHelp" onChange={(e) => setApellidos(e.target.value)} value={apellidos} required />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre de usuario</label>
                                     <div class="input-group has-validation">
                                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required></input>
+                                        <input ref={inputUserName2} type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" onChange={(e) => setNombreUsuario(e.target.value)} value={nombreUsuario} required></input>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" aria-describedby="emailHelp" />
+                                    <input ref={inputEmail2} type="email" class="form-control" aria-describedby="emailHelp" onChange={(e) => setCorreo(e.target.value)} value={correo} required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="pass1" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id='pass1' />
+                                    <input ref={inputPassword} type="password" class="form-control" id='password1' onChange={(e) => setContrasena(e.target.value)} value={contrasena} />
                                 </div>
                                 <div class="pass2">
                                     <label for="exampleInputPassword1" class="form-label">Vuelve a escribir la contraseña</label>
-                                    <input type="password" class="form-control" id='pass2' />
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Rol</label>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Seleccione una opción</option>
-                                        <option value="1">Administrador</option>
-                                        <option value="2">Gerente</option>
-                                    </select>
+                                    <input ref={inputPassword2} type="password" class="form-control" id='password2' onChange={(e) => setContrasena2(e.target.value)} value={contrasena2} />
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">Rol</label>
-                                    <select className="form-select" aria-label="Default select example">
-                                        <option value="">Seleccione una opción</option>
+                                    <select ref={selectRol2} className="form-select" aria-label="Default select example" onChange={handleRolChange} value={rol} required>
+                                        <option value="">Seleccione un rol</option>
                                         {roles.map((rol) => (
                                             <option key={rol.id} value={rol.id}>
                                                 {rol.nombreRol}
@@ -491,11 +746,20 @@ export default function UsersScreen(props) {
                                         ))}
                                     </select>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Género</label>
+                                    <select ref={selectGen2} class="form-select" aria-label="Default select example" placeholder='Seleccione una opción' onChange={handleGenChange} value={usuario.genero} required>
+                                        <option value="">Seleccione un rol</option>
+                                        <option value="H">Hombre</option>
+                                        <option value="M">Mujer</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={handleDrop}>Cancelar</button>
+                                    <button type="submit" class="btn btn-primary" onClick={validateForm2} >Guadar Usuario</button>
+                                    <button ref={btnCancel2} type="button" class="invisible-button" data-bs-dismiss="modal" style={{ display: 'none' }}>Botón Invisible</button>
+                                </div>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" >Guadar Cambios</button>
                         </div>
                     </div>
                 </div>
@@ -504,7 +768,7 @@ export default function UsersScreen(props) {
 
             {/* modal para la eliminacion de un usuario */}
 
-            <div class="modal fade" id="eliminarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="eliminarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header lign-items-center justify-content-center">

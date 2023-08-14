@@ -166,6 +166,22 @@ export default function ContactScreen() {
     filtraResultados(valorBusqueda);
   }
 
+  //filtro por fechas
+  const [fechaInicio, setFechaInicio] = useState('');
+  const [fechaFin, setFechaFin] = useState('');
+
+  const fechaStart = (e) => {
+    const valorStart = e.target.value;
+    console.log("fecha inicio: " + valorStart);
+    filtraResultados(valorStart);
+  }
+
+  const fechaEnd = (e) => {
+    const valorEnd = e.target.value;
+    console.log("fecha fin: " + valorEnd);
+    filtraResultados(valorEnd);
+  }
+
   const filtraResultados = (busqueda) => {
     const resultados = contactos.filter((contacto) => {
       if (
@@ -228,8 +244,10 @@ export default function ContactScreen() {
       <div class="card mt-3">
         <div class="card-body">
           <div class="d-flex justify-content-end mb-2">
-            <input type='date' className='form-control me-2' style={{ width: "200px" }}></input>
-            <input type='date' className='form-control me-2' style={{ width: "200px" }}></input>
+            <input type='date' className='form-control me-2' style={{ width: "200px" }}
+              onChange={fechaStart}></input>
+            <input type='date' className='form-control me-2' style={{ width: "200px" }}
+              onChange={fechaEnd}></input>
             <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
               onChange={onChange}
             />
