@@ -17,18 +17,6 @@ import Swal from 'sweetalert2';
 
 export default function ContactanosScreen() {
 
-  //funcion para mostrar alerta de mensaje enviado
-  const showAlert = () => {
-
-    Swal.fire({
-      title: 'Mensaje enviado!', // Titulo de la alerta
-      icon: 'success', // Icono de la alerta (palomita verde)
-      timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
-      showConfirmButton: false, // No mostrar el botón de confirmación
-      timerProgressBar: true, // Mostrar la barra de tiempo
-    });
-  };
-
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
   const [correo, setCorreo] = useState('');
@@ -128,7 +116,7 @@ export default function ContactanosScreen() {
                   <textarea type="text-area" class="form-control" placeholder="Mensaje" style={{ height: "150px" }} onChange={(e) => setMensaje(e.target.value)} />
                 </div>
                 <div class="text-end">
-                  <button type="submit" class="btn" onClick={showAlert} style={{ width: "150px", backgroundColor: "#2c497f", color: "white" }}>Enviar</button>
+                  <button type="submit" class="btn" style={{ width: "150px", backgroundColor: "#2c497f", color: "white" }}>Enviar</button>
                 </div>
 
               </form>
