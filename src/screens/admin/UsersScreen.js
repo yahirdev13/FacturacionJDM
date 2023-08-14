@@ -601,7 +601,7 @@ export default function UsersScreen() {
                             onChange={onChange}
                         />
                         <CSVLink data={usuariosFiltrados} filename='Usuarios.csv' className='btn btn-primary me-2'>
-                            Exportar Usuarios<i className='bi bi-file-csv'></i>
+                            Exportar Usuarios <i class="bi bi-filetype-csv"></i>
                         </CSVLink>
 
                     </div>
