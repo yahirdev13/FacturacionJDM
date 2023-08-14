@@ -171,7 +171,8 @@ export default function ContactScreen() {
       if (
         contacto.nombre.toLowerCase().includes(busqueda) ||
         contacto.telefono.toLowerCase().includes(busqueda) ||
-        contacto.correo.toLowerCase().includes(busqueda)
+        contacto.correo.toLowerCase().includes(busqueda) ||
+        contacto.asunto.toLowerCase().includes(busqueda)
       ) {
         return contacto;
       }
@@ -230,7 +231,7 @@ export default function ContactScreen() {
             <input type='date' className='form-control me-2' style={{ width: "200px" }}></input>
             <input type='date' className='form-control me-2' style={{ width: "200px" }}></input>
             <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
-            // onChange={this.onChange}
+              onChange={onChange}
             />
 
 

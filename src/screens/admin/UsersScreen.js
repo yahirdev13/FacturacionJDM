@@ -332,7 +332,7 @@ export default function UsersScreen(props) {
                     <h2>Control de usuarios</h2>
                 </div>
                 <div class="d-flex justify-content-end pt-3">
-                    <CSVLink data={usuariosFiltrados} filename="usuarios.csv" className="btn btn-primary me-2">Exportar a CSV <i class="bi bi-filetype-csv"></i></CSVLink>
+
                     <button type="button" class="btn btn-primary crearUsuario" data-bs-toggle="modal" data-bs-target="#crearUsuario" onClick={() => handleRegistro()}>Agregar Usuario <i class="bi bi-person-fill-add"></i></button>
                 </div>
 
@@ -340,9 +340,11 @@ export default function UsersScreen(props) {
             <div class="card mt-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-end mb-2">
+
                         <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
                             onChange={onChange}
                         />
+                        <CSVLink data={usuariosFiltrados} filename="usuarios.csv" className="btn btn-primary me-2">Exportar a CSV <i class="bi bi-filetype-csv"></i></CSVLink>
 
                     </div>
                     <div class="table-responsive">
