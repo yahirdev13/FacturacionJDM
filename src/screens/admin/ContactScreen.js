@@ -8,8 +8,13 @@ import Menu from '../../common/Admin/Menu';
 //libreria para las alertas
 import Swal from 'sweetalert2';
 
-//define la configuracion de la paginacion de la tabla
+//libreria para formatear fechas
+import { format, set } from 'date-fns';
 
+//libreria para exportar los usuarios
+import { CSVLink } from 'react-csv';
+
+//define la configuracion de la paginacion de la tabla
 const paginacionOpciones = {
   rowsPerPageText: 'Filas por Página',
   rangeSeparatorText: 'de',
@@ -63,7 +68,7 @@ export default function ContactScreen() {
     },
     {
       name: 'Fecha',
-      selector: (row) => row.fechaEnvio,
+      selector: (row) => formatDate(row.fechaEnvio),
       sortable: true
     },
     {
@@ -90,6 +95,10 @@ export default function ContactScreen() {
       setContactos(contactos);
       setContactosFiltrados(contactos);
       console.log("Datos contactos: ", contactos);
+      console.log("Fecha inicio: ", fechaInicio);
+      console.log("Fecha fin: ", fechaFin);
+      console.log("Busqueda: ", busqueda)
+
     }).catch((error) => {
       console.log(error);
     });
@@ -170,32 +179,94 @@ export default function ContactScreen() {
   const [fechaInicio, setFechaInicio] = useState('');
   const [fechaFin, setFechaFin] = useState('');
 
+  const formatDate = (date) => {
+    const [year, month, day] = date.split('-');
+    return `${day}/${month}/${year}`;
+  }
+
   const fechaStart = (e) => {
-    const valorStart = e.target.value;
-    console.log("fecha inicio: " + valorStart);
-    filtraResultados(valorStart);
+    const selectedStartDate = e.target.value;
+
+    setFechaInicio(selectedStartDate);
+    filtraResultados(busqueda, selectedStartDate, fechaFin);
+
   }
 
   const fechaEnd = (e) => {
-    const valorEnd = e.target.value;
-    console.log("fecha fin: " + valorEnd);
-    filtraResultados(valorEnd);
+    const selectedEndDate = e.target.value;
+    if (selectedEndDate >= fechaInicio) {
+      setFechaFin(selectedEndDate);
+      filtraResultados(busqueda, fechaInicio, selectedEndDate);
+    } else {
+      console.log("La fecha de fin no puede ser anterior a la fecha de inicio");
+      Swal.fire({
+        title: 'OOOPS!', // Titulo de la alerta
+        text: "La fecha de fin no puede ser anterior a la fecha de inicio", // Texto de la alerta
+        icon: 'error', // Icono de la alerta
+        timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+        showConfirmButton: false, // No mostrar el botón de confirmación
+        timerProgressBar: true, // Muestra la barra de tiempo
+      });
+    }
   }
 
-  const filtraResultados = (busqueda) => {
+  const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
     const resultados = contactos.filter((contacto) => {
-      if (
+      const buscaEnCampos = (
         contacto.nombre.toLowerCase().includes(busqueda) ||
         contacto.telefono.toLowerCase().includes(busqueda) ||
         contacto.correo.toLowerCase().includes(busqueda) ||
         contacto.asunto.toLowerCase().includes(busqueda)
-      ) {
-        return contacto;
-      }
-      return false;
+      );
+
+      const dentroDeRango = (
+        (!fechaInicio || contacto.fechaEnvio >= fechaInicio) &&
+        (!fechaFin || contacto.fechaEnvio <= fechaFin)
+      );
+
+      return buscaEnCampos && dentroDeRango;
     });
+
     setContactosFiltrados(resultados);
-  }
+  };
+
+
+  // const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
+  //   const fechaInicioObjeto = fechaInicio ? new Date(fechaInicio) : null;
+  //   const fechaFinObjeto = fechaFin ? new Date(fechaFin) : null;
+
+  //   const resultadosPorFechas = filtrarContactosPorRangoDeFechas(contactos, fechaInicioObjeto, fechaFinObjeto);
+
+  //   const resultadosFiltrados = resultadosPorFechas.filter(contacto => {
+
+  //     const coincidenciaBusqueda =
+  //       contacto.nombre.toLowerCase().includes(busqueda) ||
+  //       contacto.telefono.toLowerCase().includes(busqueda) ||
+  //       contacto.correo.toLowerCase().includes(busqueda) ||
+  //       contacto.asunto.toLowerCase().includes(busqueda);
+
+  //     return coincidenciaBusqueda;
+  //   });
+
+  //   setContactosFiltrados(resultadosFiltrados);
+  // };
+
+
+
+  // const filtraResultados = (busqueda) => {
+  //   const resultados = contactos.filter((contacto) => {
+  //     if (
+  //       contacto.nombre.toLowerCase().includes(busqueda) ||
+  //       contacto.telefono.toLowerCase().includes(busqueda) ||
+  //       contacto.correo.toLowerCase().includes(busqueda) ||
+  //       contacto.asunto.toLowerCase().includes(busqueda)
+  //     ) {
+  //       return contacto;
+  //     }
+  //     return false;
+  //   });
+  //   setContactosFiltrados(resultados);
+  // }
 
   function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -216,7 +287,7 @@ export default function ContactScreen() {
   }
 
   useInterval(() => {
-    if (busqueda === '') {
+    if (fechaInicio === '' && fechaFin === '') {
       getContactos().then((contactos) => {
         setContactos(contactos);
         setContactosFiltrados(contactos);
@@ -227,7 +298,7 @@ export default function ContactScreen() {
     } else {
       console.log("Hay texto xd")
     }
-  }, 1000);
+  }, 5000);
 
 
   return (
@@ -244,13 +315,18 @@ export default function ContactScreen() {
       <div class="card mt-3">
         <div class="card-body">
           <div class="d-flex justify-content-end mb-2">
+            <label className='me-2 mt-2'>Desde: </label>
             <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaStart}></input>
+              onChange={fechaStart} id='start' value={fechaInicio} max={fechaFin}></input>
+            <label className='me-2 mt-2'>Hasta: </label>
             <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaEnd}></input>
-            <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
+              onChange={fechaEnd} value={fechaFin} min={fechaInicio}></input>
+            {/* <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
               onChange={onChange}
-            />
+            /> */}
+            <CSVLink data={contactosFiltrados} filename='Mensajes.csv' className='btn btn-primary me-2'>
+              Exportar Mensajes <i class="bi bi-download"></i>
+            </CSVLink>
 
 
           </div>
