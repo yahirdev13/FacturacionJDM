@@ -80,6 +80,38 @@ export default function ContactanosScreen() {
     });
   };
 
+  const inputName = useRef(null);
+  const inputPhone = useRef(null);
+  const inputEmail = useRef(null);
+  const inputAsunto = useRef(null);
+  const inputMensaje = useRef(null);
+
+  const validateForm = () => {
+
+    const elementName = inputName.current;
+    const elementPhone = inputPhone.current;
+    const elementEmail = inputEmail.current;
+    const elementAsunto = inputAsunto.current;
+    const elementMensaje = inputMensaje.current;
+
+
+    const isPhoneValid = elementPhone.value.length === 10;
+
+    if (!isPhoneValid) {
+      elementPhone.setCustomValidity("El teléfono debe tener 10 dígitos");
+    } else {
+      elementPhone.setCustomValidity("");
+    }
+
+    if (elementName.checkValidity() && elementPhone.checkValidity() && elementEmail.checkValidity() && elementAsunto.checkValidity() && elementMensaje.checkValidity()) {
+      console.log("Formulario de mensaje validado");
+      // Aquí puedes realizar la acción correspondiente al envío del formulario
+    } else {
+      console.log("Formulario de mensaje no validado");
+    }
+  }
+
+
   return (
     <div>
       <Navbar />
@@ -97,28 +129,27 @@ export default function ContactanosScreen() {
               <form name='enviarMensaje' onSubmit={registrarMensaje}>
                 <div class="mb-3">
                   <label class="form-label">Nombre</label>
-                  <input id='inputNombre' type="text" class="form-control" placeholder="Nombre completo" onChange={(e) => setNombre(e.target.value)} required />
+                  <input ref={inputName} id='inputNombre' type="text" class="form-control" placeholder="Nombre completo" onChange={(e) => setNombre(e.target.value)} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Telefono</label>
-                  <input type="number" class="form-control" placeholder="Teléfono" maxLength={10} onChange={(e) => setTelefono(e.target.value)} />
+                  <input ref={inputPhone} type="tel" class="form-control" placeholder="Teléfono" maxLength={10} onChange={(e) => setTelefono(e.target.value)} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Correo Electrónico</label>
-                  <input type="email" class="form-control" placeholder="Correo Electrónico" onChange={(e) => setCorreo(e.target.value)} />
+                  <input ref={inputEmail} type="email" class="form-control" placeholder="Correo Electrónico" onChange={(e) => setCorreo(e.target.value)} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Asunto</label>
-                  <input type="text" class="form-control" placeholder="Asunto" onChange={(e) => setAsunto(e.target.value)} />
+                  <input ref={inputAsunto} type="text" class="form-control" placeholder="Asunto" onChange={(e) => setAsunto(e.target.value)} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label text-start">Mensaje</label>
-                  <textarea type="text-area" class="form-control" placeholder="Mensaje" style={{ height: "150px" }} onChange={(e) => setMensaje(e.target.value)} />
+                  <textarea ref={inputMensaje} type="text-area" class="form-control" placeholder="Mensaje" style={{ height: "150px" }} onChange={(e) => setMensaje(e.target.value)} required />
                 </div>
                 <div class="text-end">
-                  <button type="submit" class="btn" style={{ width: "150px", backgroundColor: "#2c497f", color: "white" }}>Enviar</button>
+                  <button type="submit" class="btn" style={{ width: "150px", backgroundColor: "#2c497f", color: "white" }} onClick={validateForm}>Enviar</button>
                 </div>
-
               </form>
             </div>
 

@@ -8,8 +8,10 @@ import Menu from '../../common/Admin/Menu';
 //libreria para las alertas
 import Swal from 'sweetalert2';
 
-//define la configuracion de la paginacion de la tabla
+//libreria para formatear fechas
+import { format, set } from 'date-fns';
 
+//define la configuracion de la paginacion de la tabla
 const paginacionOpciones = {
   rowsPerPageText: 'Filas por Página',
   rangeSeparatorText: 'de',
@@ -90,6 +92,10 @@ export default function ContactScreen() {
       setContactos(contactos);
       setContactosFiltrados(contactos);
       console.log("Datos contactos: ", contactos);
+      console.log("Fecha inicio: ", fechaInicio);
+      console.log("Fecha fin: ", fechaFin);
+      console.log("Busqueda: ", busqueda)
+
     }).catch((error) => {
       console.log(error);
     });
@@ -170,32 +176,84 @@ export default function ContactScreen() {
   const [fechaInicio, setFechaInicio] = useState('');
   const [fechaFin, setFechaFin] = useState('');
 
+  const formatDate = (date) => {
+    const [year, month, day] = date.split('-');
+    return `${day}/${month}/${year}`;
+  }
+
   const fechaStart = (e) => {
-    const valorStart = e.target.value;
-    console.log("fecha inicio: " + valorStart);
-    filtraResultados(valorStart);
+    console.log("Prueba Inicio: " + e.target.value)
+    const fechaStart = (formatDate(e.target.value));
+    setFechaInicio(fechaStart, () => {
+      filtraResultados(busqueda, fechaStart, fechaFin);
+    });
   }
 
   const fechaEnd = (e) => {
-    const valorEnd = e.target.value;
-    console.log("fecha fin: " + valorEnd);
-    filtraResultados(valorEnd);
+    console.log("Prueba Fin: " + e.target.value)
+    const fechaEnd = (formatDate(e.target.value));
+    setFechaFin(fechaEnd, () => {
+      filtraResultados(busqueda, fechaInicio, fechaEnd);
+    });
   }
 
-  const filtraResultados = (busqueda) => {
+  const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
     const resultados = contactos.filter((contacto) => {
-      if (
+      const buscaEnCampos = (
         contacto.nombre.toLowerCase().includes(busqueda) ||
         contacto.telefono.toLowerCase().includes(busqueda) ||
         contacto.correo.toLowerCase().includes(busqueda) ||
         contacto.asunto.toLowerCase().includes(busqueda)
-      ) {
-        return contacto;
-      }
-      return false;
+      );
+
+      const dentroDeRango = (
+        (!fechaInicio || contacto.fechaEnvio >= fechaInicio) &&
+        (!fechaFin || contacto.fechaEnvio <= fechaFin)
+      );
+
+      return buscaEnCampos && dentroDeRango;
     });
+
     setContactosFiltrados(resultados);
-  }
+  };
+
+
+  // const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
+  //   const fechaInicioObjeto = fechaInicio ? new Date(fechaInicio) : null;
+  //   const fechaFinObjeto = fechaFin ? new Date(fechaFin) : null;
+
+  //   const resultadosPorFechas = filtrarContactosPorRangoDeFechas(contactos, fechaInicioObjeto, fechaFinObjeto);
+
+  //   const resultadosFiltrados = resultadosPorFechas.filter(contacto => {
+
+  //     const coincidenciaBusqueda =
+  //       contacto.nombre.toLowerCase().includes(busqueda) ||
+  //       contacto.telefono.toLowerCase().includes(busqueda) ||
+  //       contacto.correo.toLowerCase().includes(busqueda) ||
+  //       contacto.asunto.toLowerCase().includes(busqueda);
+
+  //     return coincidenciaBusqueda;
+  //   });
+
+  //   setContactosFiltrados(resultadosFiltrados);
+  // };
+
+
+
+  // const filtraResultados = (busqueda) => {
+  //   const resultados = contactos.filter((contacto) => {
+  //     if (
+  //       contacto.nombre.toLowerCase().includes(busqueda) ||
+  //       contacto.telefono.toLowerCase().includes(busqueda) ||
+  //       contacto.correo.toLowerCase().includes(busqueda) ||
+  //       contacto.asunto.toLowerCase().includes(busqueda)
+  //     ) {
+  //       return contacto;
+  //     }
+  //     return false;
+  //   });
+  //   setContactosFiltrados(resultados);
+  // }
 
   function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -216,7 +274,7 @@ export default function ContactScreen() {
   }
 
   useInterval(() => {
-    if (busqueda === '') {
+    if (fechaInicio === '' && fechaFin === '') {
       getContactos().then((contactos) => {
         setContactos(contactos);
         setContactosFiltrados(contactos);
@@ -227,7 +285,7 @@ export default function ContactScreen() {
     } else {
       console.log("Hay texto xd")
     }
-  }, 1000);
+  }, 5000);
 
 
   return (
@@ -245,12 +303,12 @@ export default function ContactScreen() {
         <div class="card-body">
           <div class="d-flex justify-content-end mb-2">
             <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaStart}></input>
+              onChange={fechaStart} ></input>
             <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaEnd}></input>
-            <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
+              onChange={fechaEnd} ></input>
+            {/* <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
               onChange={onChange}
-            />
+            /> */}
 
 
           </div>

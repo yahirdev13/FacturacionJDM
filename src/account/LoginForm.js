@@ -30,7 +30,7 @@ export default function LoginForm() {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await fetch('http://localhost:8080/api-jdm/auth/login', {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     },

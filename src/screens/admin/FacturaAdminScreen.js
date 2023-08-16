@@ -3,6 +3,7 @@ import Menu from '../../common/Admin/Menu'
 import './style.css'
 
 import DataTable from 'react-data-table-component'
+import { ro } from 'date-fns/locale'
 
 
 const paginacionOpciones = {
@@ -12,36 +13,41 @@ const paginacionOpciones = {
   selectAllRowsItemText: 'Todos'
 }
 const data = [
-  { id: 1, nombre: 'Yahir Alberto Diaz Gonzalez', ticket: '7271083065', fecha: 'juan@gmail.com' }
+  { id: 1, nombre: 'Yahir Alberto Diaz Gonzalez', correo: "yahird59@gmail.com", ticket: '7384958493', fecha: '19/08/2023' }
 ]
 
 const columnas = [
   {
     name: '#',
-    selector: 'id',
+    selector: (row) => row.id,
     sortable: true,
     width: '80px',
   },
   {
     name: 'Nombre',
-    selector: 'nombre',
+    selector: (row) => row.nombre,
+    sortable: true
+  },
+  {
+    name: 'Correo',
+    selector: (row) => row.correo,
     sortable: true
   },
   {
     name: 'Ticket',
-    selector: 'ticket',
+    selector: (row) => row.ticket,
     sortable: true
   },
   {
     name: 'Fecha',
-    selector: 'fecha',
+    selector: (row) => row.fecha,
     width: '200px',
     sortable: true
   },
   {
     name: 'Acciones',
     width: '230px',
-    cell: row => (
+    cell: (row) => (
       <div>
         <button type="button" class="btn btn-primary mb-2 mt-1" data-bs-toggle="modal" data-bs-target="#detalleFactura" >Detalles <i class="bi bi-person-lines-fill"></i></button>
       </div >
