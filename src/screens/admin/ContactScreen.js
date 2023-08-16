@@ -11,6 +11,9 @@ import Swal from 'sweetalert2';
 //libreria para formatear fechas
 import { format, set } from 'date-fns';
 
+//libreria para exportar los usuarios
+import { CSVLink } from 'react-csv';
+
 //define la configuracion de la paginacion de la tabla
 const paginacionOpciones = {
   rowsPerPageText: 'Filas por Página',
@@ -65,7 +68,7 @@ export default function ContactScreen() {
     },
     {
       name: 'Fecha',
-      selector: (row) => row.fechaEnvio,
+      selector: (row) => formatDate(row.fechaEnvio),
       sortable: true
     },
     {
@@ -182,19 +185,29 @@ export default function ContactScreen() {
   }
 
   const fechaStart = (e) => {
-    console.log("Prueba Inicio: " + e.target.value)
-    const fechaStart = (formatDate(e.target.value));
-    setFechaInicio(fechaStart, () => {
-      filtraResultados(busqueda, fechaStart, fechaFin);
-    });
+    const selectedStartDate = e.target.value;
+
+    setFechaInicio(selectedStartDate);
+    filtraResultados(busqueda, selectedStartDate, fechaFin);
+
   }
 
   const fechaEnd = (e) => {
-    console.log("Prueba Fin: " + e.target.value)
-    const fechaEnd = (formatDate(e.target.value));
-    setFechaFin(fechaEnd, () => {
-      filtraResultados(busqueda, fechaInicio, fechaEnd);
-    });
+    const selectedEndDate = e.target.value;
+    if (selectedEndDate >= fechaInicio) {
+      setFechaFin(selectedEndDate);
+      filtraResultados(busqueda, fechaInicio, selectedEndDate);
+    } else {
+      console.log("La fecha de fin no puede ser anterior a la fecha de inicio");
+      Swal.fire({
+        title: 'OOOPS!', // Titulo de la alerta
+        text: "La fecha de fin no puede ser anterior a la fecha de inicio", // Texto de la alerta
+        icon: 'error', // Icono de la alerta
+        timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+        showConfirmButton: false, // No mostrar el botón de confirmación
+        timerProgressBar: true, // Muestra la barra de tiempo
+      });
+    }
   }
 
   const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
@@ -302,13 +315,18 @@ export default function ContactScreen() {
       <div class="card mt-3">
         <div class="card-body">
           <div class="d-flex justify-content-end mb-2">
+            <label className='me-2 mt-2'>Desde: </label>
             <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaStart} ></input>
+              onChange={fechaStart} id='start' value={fechaInicio} max={fechaFin}></input>
+            <label className='me-2 mt-2'>Hasta: </label>
             <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaEnd} ></input>
+              onChange={fechaEnd} value={fechaFin} min={fechaInicio}></input>
             {/* <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
               onChange={onChange}
             /> */}
+            <CSVLink data={contactosFiltrados} filename='Mensajes.csv' className='btn btn-primary me-2'>
+              Exportar Mensajes <i class="bi bi-download"></i>
+            </CSVLink>
 
 
           </div>

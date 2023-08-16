@@ -116,7 +116,7 @@ export default function ContactanosScreen() {
     <div>
       <Navbar />
       <div style={styles.banner} className="banner">
-        <div style={styles.title}>Contactanos</div>
+        <div style={styles.title}>Contáctanos</div>
         <img clas="img-response" src={img} alt="banner" style={styles.img} />
       </div>
 
@@ -220,6 +220,8 @@ const styles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
+    textShadow: "2px 2px 4px #000000",
+    familyFont: "Arial",
   },
   form: {
     width: "auto",
