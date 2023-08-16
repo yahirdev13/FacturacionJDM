@@ -231,42 +231,6 @@ export default function ContactScreen() {
   };
 
 
-  // const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
-  //   const fechaInicioObjeto = fechaInicio ? new Date(fechaInicio) : null;
-  //   const fechaFinObjeto = fechaFin ? new Date(fechaFin) : null;
-
-  //   const resultadosPorFechas = filtrarContactosPorRangoDeFechas(contactos, fechaInicioObjeto, fechaFinObjeto);
-
-  //   const resultadosFiltrados = resultadosPorFechas.filter(contacto => {
-
-  //     const coincidenciaBusqueda =
-  //       contacto.nombre.toLowerCase().includes(busqueda) ||
-  //       contacto.telefono.toLowerCase().includes(busqueda) ||
-  //       contacto.correo.toLowerCase().includes(busqueda) ||
-  //       contacto.asunto.toLowerCase().includes(busqueda);
-
-  //     return coincidenciaBusqueda;
-  //   });
-
-  //   setContactosFiltrados(resultadosFiltrados);
-  // };
-
-
-
-  // const filtraResultados = (busqueda) => {
-  //   const resultados = contactos.filter((contacto) => {
-  //     if (
-  //       contacto.nombre.toLowerCase().includes(busqueda) ||
-  //       contacto.telefono.toLowerCase().includes(busqueda) ||
-  //       contacto.correo.toLowerCase().includes(busqueda) ||
-  //       contacto.asunto.toLowerCase().includes(busqueda)
-  //     ) {
-  //       return contacto;
-  //     }
-  //     return false;
-  //   });
-  //   setContactosFiltrados(resultados);
-  // }
 
   function useInterval(callback, delay) {
     const savedCallback = useRef();

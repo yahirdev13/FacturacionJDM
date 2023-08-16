@@ -3,6 +3,7 @@ import Menu from '../../common/Admin/Menu';
 import './style.css';
 import DataTable from 'react-data-table-component';
 import advertencia from '../../gifs/alerta.gif';
+
 //libreria para las alertas
 import Swal from 'sweetalert2';
 
