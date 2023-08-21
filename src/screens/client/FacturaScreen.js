@@ -8,8 +8,6 @@ import Footer from '../../common/client/Footer'
 import advertencia from '../../gifs/advertencia2.gif'
 import logo from '../../images/logo-negro.png'
 
-//libreria para las alertas
-import Swal from 'sweetalert2';
 
 export default function FacturaScreen() {
 
@@ -22,16 +20,6 @@ export default function FacturaScreen() {
   const [razon, setRazon] = useState('');
   const [fecha, setFecha] = useState('');
 
-  const showAlert = () => {
-
-    Swal.fire({
-      title: 'Datos enviados correctamente', // Titulo de la alerta
-      icon: 'success', // Icono de la alerta
-      timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
-      showConfirmButton: false, // No mostrar el botón de confirmación
-      timerProgressBar: true, // Muestra la barra de tiempo
-    });
-  };
 
 
 
