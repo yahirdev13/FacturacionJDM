@@ -43,38 +43,33 @@ export default function ContactanosScreen() {
         });
         const data = await response.json();
         if (data.error === false) {
-          console.log('Mensaje enviado ' + data);
           Swal.fire({
-            title: 'Datos enviados', // Titulo de la alerta
-            text: data.message, // Texto de la alerta
-            icon: 'success', // Icono de la alerta
-            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
-            showConfirmButton: false, // No mostrar el botón de confirmación
-            timerProgressBar: true, // Muestra la barra de tiempo
+            title: 'Datos enviados',
+            text: data.message,
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+            timerProgressBar: true,
           });
           resolve(true);
-
 
           //Recargar a pagina despues de 2 segundos
           setTimeout(() => {
             window.location.reload();
           }, 2000);
 
-
         } else {
-          console.log('NO ENVIADO');
           Swal.fire({
-            title: 'Datos NO enviados', // Titulo de la alerta
-            text: data.message, // Texto de la alerta
-            icon: 'error', // Icono de la alerta
-            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
-            showConfirmButton: false, // No mostrar el botón de confirmación
-            timerProgressBar: true, // Muestra la barra de tiempo
+            title: 'Datos NO enviados',
+            text: data.message,
+            icon: 'error',
+            timer: 2000,
+            showConfirmButton: false,
+            timerProgressBar: true,
           });
           resolve(false);
         }
       } catch (error) {
-        console.log('Error');
         reject(error);
       }
     });

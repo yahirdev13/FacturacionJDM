@@ -58,7 +58,7 @@ export default function ContactScreen() {
     {
       name: 'Correo Electrónico',
       selector: (row) => row.correo,
-      width: '200px',
+      width: '250px',
       sortable: true
     },
     {
@@ -85,10 +85,6 @@ export default function ContactScreen() {
       button: true,
     },
   ]
-
-  const [contactos, setContactos] = useState([]);
-  const [busqueda, setBusqueda] = useState('');
-  const [contactosFiltrados, setContactosFiltrados] = useState([]);
 
   useEffect(() => {
     getContactos().then((contactos) => {
@@ -178,6 +174,9 @@ export default function ContactScreen() {
   //filtro por fechas
   const [fechaInicio, setFechaInicio] = useState('');
   const [fechaFin, setFechaFin] = useState('');
+  const [contactos, setContactos] = useState([]);
+  const [busqueda, setBusqueda] = useState('');
+  const [contactosFiltrados, setContactosFiltrados] = useState([]);
 
   const formatDate = (date) => {
     const [year, month, day] = date.split('-');
@@ -203,7 +202,7 @@ export default function ContactScreen() {
         title: 'OOOPS!', // Titulo de la alerta
         text: "La fecha de fin no puede ser anterior a la fecha de inicio", // Texto de la alerta
         icon: 'error', // Icono de la alerta
-        timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+        timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
         showConfirmButton: false, // No mostrar el botón de confirmación
         timerProgressBar: true, // Muestra la barra de tiempo
       });
@@ -229,44 +228,6 @@ export default function ContactScreen() {
 
     setContactosFiltrados(resultados);
   };
-
-
-  // const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
-  //   const fechaInicioObjeto = fechaInicio ? new Date(fechaInicio) : null;
-  //   const fechaFinObjeto = fechaFin ? new Date(fechaFin) : null;
-
-  //   const resultadosPorFechas = filtrarContactosPorRangoDeFechas(contactos, fechaInicioObjeto, fechaFinObjeto);
-
-  //   const resultadosFiltrados = resultadosPorFechas.filter(contacto => {
-
-  //     const coincidenciaBusqueda =
-  //       contacto.nombre.toLowerCase().includes(busqueda) ||
-  //       contacto.telefono.toLowerCase().includes(busqueda) ||
-  //       contacto.correo.toLowerCase().includes(busqueda) ||
-  //       contacto.asunto.toLowerCase().includes(busqueda);
-
-  //     return coincidenciaBusqueda;
-  //   });
-
-  //   setContactosFiltrados(resultadosFiltrados);
-  // };
-
-
-
-  // const filtraResultados = (busqueda) => {
-  //   const resultados = contactos.filter((contacto) => {
-  //     if (
-  //       contacto.nombre.toLowerCase().includes(busqueda) ||
-  //       contacto.telefono.toLowerCase().includes(busqueda) ||
-  //       contacto.correo.toLowerCase().includes(busqueda) ||
-  //       contacto.asunto.toLowerCase().includes(busqueda)
-  //     ) {
-  //       return contacto;
-  //     }
-  //     return false;
-  //   });
-  //   setContactosFiltrados(resultados);
-  // }
 
   function useInterval(callback, delay) {
     const savedCallback = useRef();
