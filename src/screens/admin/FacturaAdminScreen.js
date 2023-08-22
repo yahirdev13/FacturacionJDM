@@ -5,6 +5,9 @@ import './style.css'
 import DataTable from 'react-data-table-component'
 import { ro } from 'date-fns/locale'
 
+//libreria para exportar a excel
+import { CSVLink } from 'react-csv'
+
 
 const paginacionOpciones = {
   rowsPerPageText: 'Filas por Página',
@@ -13,7 +16,17 @@ const paginacionOpciones = {
   selectAllRowsItemText: 'Todos'
 }
 const data = [
-  { id: 1, nombre: 'Yahir Alberto Diaz Gonzalez', correo: "yahird59@gmail.com", ticket: '7384958493', fecha: '19/08/2023' }
+  { id: 1, nombre: 'Yahir Alberto Diaz Gonzalez', correo: "yahird59@gmail.com", ticket: '7384958493', fecha: '19/08/2023' },
+  { id: 2, nombre: 'Ana García Pérez', correo: 'ana.garcia@gmail.com', ticket: '6283719201', fecha: '23/08/2023' },
+  { id: 3, nombre: 'Carlos Martinez Ramirez', correo: 'carlos.martinez@gmail.com', ticket: '9475830123', fecha: '15/08/2023' },
+  { id: 4, nombre: 'Elena Rodríguez Sanchez', correo: 'elena.rodriguez@gmail.com', ticket: '3859201746', fecha: '05/08/2023' },
+  { id: 5, nombre: 'Juan López Herrera', correo: 'juan.lopez@gmail.com', ticket: '7394850217', fecha: '28/08/2023' },
+  { id: 6, nombre: 'María Fernandez Castro', correo: 'maria.fernandez@gmail.com', ticket: '2059138476', fecha: '10/08/2023' },
+  { id: 7, nombre: 'Luis Gomez Ortega', correo: 'luis.gomez@gmail.com', ticket: '5091837462', fecha: '17/08/2023' },
+  { id: 8, nombre: 'Laura Morales Juarez', correo: 'laura.morales@gmail.com', ticket: '6150283974', fecha: '21/08/2023' },
+  { id: 9, nombre: 'Pedro Vargas Mendoza', correo: 'pedro.vargas@gmail.com', ticket: '3847562910', fecha: '12/08/2023' },
+  { id: 10, nombre: 'Sofía Navarro Rios', correo: 'sofia.navarro@gmail.com', ticket: '9384720561', fecha: '07/08/2023' }
+
 ]
 
 const columnas = [
@@ -75,6 +88,9 @@ export default function FacturaAdminScreen() {
             <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
             // onChange={this.onChange}
             />
+            <CSVLink data={data} filename='Mensajes.csv' className='btn btn-primary me-2'>
+              Exportar facturas <i class="bi bi-download"></i>
+            </CSVLink>
 
           </div>
           <div class="table-responsive">

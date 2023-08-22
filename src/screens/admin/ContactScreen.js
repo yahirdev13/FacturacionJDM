@@ -58,7 +58,7 @@ export default function ContactScreen() {
     {
       name: 'Correo Electrónico',
       selector: (row) => row.correo,
-      width: '200px',
+      width: '250px',
       sortable: true
     },
     {
