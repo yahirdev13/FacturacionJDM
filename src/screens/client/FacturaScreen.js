@@ -164,7 +164,7 @@ export default function FacturaScreen() {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#generarFactura">Regresar</button>
-              <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={showAlert}>Facturar</button>
+              <button type="button" class="btn btn-success" data-bs-dismiss="modal" >Facturar</button>
             </div>
           </div>
         </div>
