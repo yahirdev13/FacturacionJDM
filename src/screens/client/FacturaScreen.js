@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 //importacion de componentes
 import Navbar from '../../common/client/Navbar'
@@ -8,10 +8,19 @@ import Footer from '../../common/client/Footer'
 import advertencia from '../../gifs/advertencia2.gif'
 import logo from '../../images/logo-negro.png'
 
+//libreria para la generacion del PDF
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
+
 
 export default function FacturaScreen() {
 
-  var f = new Date();
+  const inputName = useRef(null);
+  const inputApellidos = useRef(null);
+  const inputRFC = useRef(null);
+  const inputEmail = useRef(null);
+  const inputRazon = useRef(null);
 
   const [nombre, setNombre] = useState('');
   const [apellidos, setApellidos] = useState('');
@@ -20,8 +29,45 @@ export default function FacturaScreen() {
   const [razon, setRazon] = useState('');
   const [fecha, setFecha] = useState('');
 
+  const f = new Date();
 
+  // Validar el formulario de los datos que el cliente ingrese
+  const validateForm = () => {
+    const elementName = inputName.current;
+    const elementApellidos = inputApellidos.current;
+    const elementRFC = inputRFC.current;
+    const elementEmail = inputEmail.current;
+    const elementRazon = inputRazon.current;
 
+    if (
+      elementName.checkValidity() &&
+      elementApellidos.checkValidity() &&
+      elementEmail.checkValidity() &&
+      elementRFC.checkValidity() &&
+      elementRazon.checkValidity()
+    ) {
+      setIsValid(true);
+      setShowFormModal(false);
+      setShowInfoModal(true);
+    } else {
+      setIsValid(false);
+    }
+  };
+
+  const closeInfoModal = () => {
+    setShowInfoModal(false);
+  };
+
+  const [showFormModal, setShowFormModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+
+  // Generar PDF con los datos
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    // Agregar contenido al PDF aquí
+    doc.save('factura.pdf');
+  };
 
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -34,7 +80,6 @@ export default function FacturaScreen() {
           </center>
           <div class="card-body">
             <h3 class="card-title" style={styles.title}>Generar Factura</h3>
-
             <form>
               <div class="mb-4 row" style={styles.containers}>
                 <label for="staticEmail" class="col-sm-2 col-form-label" style={styles.inputs}>No. Ticket</label>
@@ -73,60 +118,61 @@ export default function FacturaScreen() {
 
       {/* modal para ingresar datos de facturacion */}
 
-      <div class="modal fade" id="generarFactura" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div className="modal fade" id="generarFactura" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" show={showFormModal} onHide={() => setShowFormModal(false)}>
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header lign-items-center justify-content-center">
               <h1 class="modal-title fs-5" >Datos Fiscales</h1>
             </div>
             <div class="modal-body">
-              <form id=' needs-validation novalidate' name='registrarUsuario'>
+              <form name='registrarUsuario' >
                 <h4>Ingrese sus datos</h4>
                 <div class="mb-3">
                   <label class="form-label">Fecha</label>
                   <input class="form-control" type="text"
                     placeholder={(f.getDate() + " / " + (f.getMonth() + 1) + " / " + f.getFullYear())}
-                    aria-label="Disabled input example" disabled name='fecha' onChange={ev => setFecha(ev.target.value)} />
+                    aria-label="Disabled input example" disabled name='fecha' onChange={(e) => setFecha(e.target.value)} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Nombre/s</label>
-                  <input id='nombre' type="text" class="form-control" required name='nombre' onChange={ev => setNombre(ev.target.value)} />
+                  <input ref={inputName} id='nombre' type="text" class="form-control" name='nombre' onChange={(e) => setNombre(e.target.value)} value={nombre} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Apellido/s</label>
-                  <input id='apellidos' type="text" class="form-control" required name='apellidos' onChange={ev => setApellidos(ev.target.value)} />
+                  <input ref={inputApellidos} id='apellidos' type="text" class="form-control" name='apellidos' onChange={(e) => setApellidos(e.target.value)} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">RFC</label>
-                  <input style={styles.rfc} id='rfc' maxlength="13" required type="text" class="form-control" name='rfc' onChange={ev => setRFC(ev.target.value)} />
+                  <input ref={inputRFC} style={styles.rfc} id='rfc' maxlength="13" type="text" class="form-control" name='rfc' onChange={(e) => setRFC(e.target.value)} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Correo Electrónico</label>
-                  <input id='correo' type="email" class="form-control" required aria-describedby="emailHelp" name='correo' onChange={ev => setCorreo(ev.target.value)} />
+                  <input ref={inputEmail} id='correo' type="email" class="form-control" aria-describedby="emailHelp" name='correo' onChange={(e) => setCorreo(e.target.value)} required />
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label">Razón social</label>
-                  <select class="form-select" name='razon' required onChange={ev => setRazon(ev.target.value)}>
-                    <option selected>Seleccione una opción</option>
+                  <select ref={inputRazon} class="form-select" name='razon' onChange={(e) => setRazon(e.target.value)} required>
+                    <option selected value="">Seleccione una opción</option>
                     <option value="Persona Física">Persona Física</option>
                     <option value="Moral">Moral</option>
                   </select>
                 </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary" data-bs-target="#confirmacion" onClick={validateForm}>Continuar</button>
+                </div>
               </form>
 
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#confirmacion" >Continuar</button>
-            </div>
+
           </div>
         </div>
       </div>
 
       {/* modal para la confirmacion de datos para generar factura */}
 
-      < div class="modal fade" id="confirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+      <div className="modal fade" id="confirmacion" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" show={showInfoModal} onHide={closeInfoModal}>
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header lign-items-center justify-content-center">

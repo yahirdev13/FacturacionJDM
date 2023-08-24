@@ -75,6 +75,7 @@ export default function ContactanosScreen() {
     });
   };
 
+  //validacion del formulario
   const inputName = useRef(null);
   const inputPhone = useRef(null);
   const inputEmail = useRef(null);
