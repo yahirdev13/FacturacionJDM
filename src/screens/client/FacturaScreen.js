@@ -7,14 +7,25 @@ import Footer from '../../common/client/Footer'
 //importacion de imagenes y gifs
 import advertencia from '../../gifs/advertencia2.gif'
 import logo from '../../images/logo-negro.png'
+import JDM from '../../images/jdm.png'
 
 //libreria para la generacion del PDF
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
+function generateRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = 'Fa';
+  for (let i = 0; i < length - 2; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+  return result;
+}
 
 
 export default function FacturaScreen() {
+
 
   const inputName = useRef(null);
   const inputApellidos = useRef(null);
@@ -31,6 +42,8 @@ export default function FacturaScreen() {
 
   const f = new Date();
 
+  const [factura, setFactura] = useState('');
+
   // Validar el formulario de los datos que el cliente ingrese
   const validateForm = () => {
     const elementName = inputName.current;
@@ -46,26 +59,118 @@ export default function FacturaScreen() {
       elementRFC.checkValidity() &&
       elementRazon.checkValidity()
     ) {
-      setIsValid(true);
-      setShowFormModal(false);
-      setShowInfoModal(true);
+
     } else {
-      setIsValid(false);
+
     }
   };
 
-  const closeInfoModal = () => {
-    setShowInfoModal(false);
-  };
-
-  const [showFormModal, setShowFormModal] = useState(false);
-  const [showInfoModal, setShowInfoModal] = useState(false);
-  const [isValid, setIsValid] = useState(false);
 
   // Generar PDF con los datos
   const generatePDF = () => {
+
+    // Generar un número de factura aleatorio
+    const randomFactura = generateRandomString(10);
+    setFactura(randomFactura);
+
     const doc = new jsPDF();
-    // Agregar contenido al PDF aquí
+    doc.setFont('Arial', 'normal');
+    doc.setFontSize(12);
+
+    // Agregar encabezado con el logo
+    doc.addImage(JDM, 'PNG', 15, 15, 90, 25);
+
+    // Agregar título e número de factura
+    doc.setFontSize(18);
+    doc.setFont('arial', 'bold');
+    doc.text(130, 15, 'FACTURA');
+    doc.setFont('arial', 'normal');
+    doc.setFontSize(12);
+    doc.text(130, 25, 'Factura #' + randomFactura);
+    doc.text(130, 35, 'Fecha: ' + (f.getDate() + " / " + (f.getMonth() + 1) + " / " + f.getFullYear()));
+
+    // Colocar información de la empresa debajo del logo
+    doc.text(15, 65, 'Jardines de México');
+    doc.text(15, 75, 'Autopista México -Acapulco  Km 129');
+    doc.text(15, 85, 'Tehuixtla, Morelos');
+    doc.text(15, 95, 'Teléfono: 777-333-0141');
+    doc.text(15, 105, 'Correo: contacto@jardinesdemexico.org');
+
+    // Agregar información del cliente
+    doc.setFontSize(12);
+    doc.text(130, 65, 'Facturar a:');
+    doc.text(130, 75, `${nombre} ${apellidos}`);
+    doc.text(130, 85, `RFC: ${rfc}`);
+    doc.text(130, 95, `Correo: ${correo}`);
+    doc.text(130, 105, `Razón social: ${razon}`);
+
+    // Agregar ejemplos de filas de la tabla (reemplazar con datos reales)
+    const posYHeader = 125;
+    const alturaFila = 15;
+    const items = [
+      { descripcion: 'Producto A', cantidad: 2, precioUnitario: 50, total: 100 },
+      { descripcion: 'Producto B', cantidad: 1, precioUnitario: 100, total: 100 },
+      { descripcion: 'Producto C', cantidad: 3, precioUnitario: 20, total: 60 },
+      { descripcion: 'Producto D', cantidad: 1, precioUnitario: 200, total: 200 }
+      // ... agregar más productos
+    ];
+
+    // Dibujar encabezado de la tabla
+    doc.setDrawColor(0);
+    doc.setFillColor(191, 191, 191); // Color de fondo de encabezado
+    doc.rect(15, posYHeader, 180, alturaFila, 'F'); // Rectángulo de encabezado
+    doc.setTextColor(0);
+    doc.setFontSize(12);
+    doc.text(20, posYHeader + 10, 'Descripción');
+    doc.text(120, posYHeader + 10, 'Cantidad');
+    doc.text(140, posYHeader + 10, 'Precio Unitario');
+    doc.text(175, posYHeader + 10, 'Total');
+
+    // Agregar filas de la tabla con bordes
+    const posYTableStart = posYHeader + alturaFila;
+    let posY = posYTableStart;
+    items.forEach(item => {
+
+      // Dibujar bordes de la fila
+      doc.setDrawColor(0);
+      // doc.rect(15, posY, 170, alturaFila);
+      // doc.line(85, posY, 85, posY + alturaFila);
+      // doc.line(105, posY, 105, posY + alturaFila);
+      // doc.line(150, posY, 150, posY + alturaFila);
+
+      // Agregar contenido de la fila
+      doc.setTextColor(0);
+      doc.setFontSize(12);
+      doc.text(20, posY + 10, item.descripcion);
+      doc.text(128, posY + 10, item.cantidad.toString());
+      doc.text(145, posY + 10, `$ ${item.precioUnitario.toFixed(2)}`);
+      doc.text(175, posY + 10, `$ ${item.total.toFixed(2)}`);
+      posY += alturaFila;
+    });
+
+    doc.line(15, posY, 195, posY); // Línea final de la tabla (abajo
+
+    // Agregar el total
+    const subtotal = items.reduce((suma, item) => suma + item.total, 0);
+    const iva = subtotal * 0.16;
+    const total = subtotal + iva;
+
+
+    doc.setFontSize(12);
+    doc.text(145, posY + 10, 'Subtotal:');
+    doc.text(175, posY + 10, `$ ${subtotal.toFixed(2)}`);
+    doc.text(145, posY + 20, 'IVA (16%):');
+    doc.text(175, posY + 20, `$ ${iva.toFixed(2)}`);
+
+    doc.setFont('arial', 'bold');
+    doc.text(145, posY + 30, 'Total:');
+    doc.text(175, posY + 30, `$ ${total.toFixed(2)}`);
+
+    doc.setFont('arial', 'normal');
+    doc.setFontSize(10);
+    doc.text(15, posY + 90, 'Este documento es una factura válida en México, expedida por Jardines de México.');
+
+    // Guardar el PDF
     doc.save('factura.pdf');
   };
 
@@ -118,7 +223,7 @@ export default function FacturaScreen() {
 
       {/* modal para ingresar datos de facturacion */}
 
-      <div className="modal fade" id="generarFactura" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" show={showFormModal} onHide={() => setShowFormModal(false)}>
+      <div className="modal fade" id="generarFactura" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header lign-items-center justify-content-center">
@@ -160,7 +265,7 @@ export default function FacturaScreen() {
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary" data-bs-target="#confirmacion" onClick={validateForm}>Continuar</button>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmacion" onClick={validateForm}>Continuar</button>
                 </div>
               </form>
 
@@ -172,7 +277,7 @@ export default function FacturaScreen() {
 
       {/* modal para la confirmacion de datos para generar factura */}
 
-      <div className="modal fade" id="confirmacion" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" show={showInfoModal} onHide={closeInfoModal}>
+      <div className="modal fade" id="confirmacion" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header lign-items-center justify-content-center">
@@ -210,7 +315,7 @@ export default function FacturaScreen() {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#generarFactura">Regresar</button>
-              <button type="button" class="btn btn-success" data-bs-dismiss="modal" >Facturar</button>
+              <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={generatePDF}>Facturar</button>
             </div>
           </div>
         </div>
