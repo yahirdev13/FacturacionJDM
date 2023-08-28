@@ -75,6 +75,7 @@ export default function ContactanosScreen() {
     });
   };
 
+  //validacion del formulario
   const inputName = useRef(null);
   const inputPhone = useRef(null);
   const inputEmail = useRef(null);
@@ -171,7 +172,7 @@ export default function ContactanosScreen() {
             <div>
               <h4>Jardines de México</h4>
               <h5>Dirección</h5>
-              <p><iAutopista class="bi bi-geo-alt-fill" /><a href='https://www.google.com/maps/dir/18.6198907,-99.2881415/jardines+de+mexico/@18.6346211,-99.3260737,13z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x85cdd36602675007:0xc972fcd1047fb9ef!2m2!1d-99.2877924!2d18.6061902?entry' style={styles.link}>Autopista México -Acapulco  Km 129, Tehuixtla, Mor.</a></p>
+              <p><iAutopista class="bi bi-geo-alt-fill" /><a href='https://www.google.com/maps/dir/18.6198907,-99.2881415/jardines+de+mexico/@18.6346211,-99.3260737,13z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x85cdd36602675007:0xc972fcd1047fb9ef!2m2!1d-99.2877924!2d18.6061902?entry' style={styles.link}>Autopista México-Acapulco  Km 129, Tehuixtla, Mor.</a></p>
               <h5>Correo Electrónico</h5>
               <p><i class="bi bi-envelope-fill" /><a href='mailto:contacto@jardinesdemexico.org' style={styles.link}> contacto@jardinesdemexico.org</a></p>
               <h5>Teléfono</h5>
