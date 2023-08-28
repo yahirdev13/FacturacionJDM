@@ -26,6 +26,10 @@ function generateRandomString(length) {
 
 export default function FacturaScreen() {
 
+  const [ticket, setTicket] = useState('');
+  const [fechaCompra, setFechaCompra] = useState('');
+  const [monto, setMonto] = useState('')
+
 
   const inputName = useRef(null);
   const inputApellidos = useRef(null);
@@ -43,6 +47,13 @@ export default function FacturaScreen() {
   const f = new Date();
 
   const [factura, setFactura] = useState('');
+
+  //vaalidar el formualrio para saber si es valido el ticket
+  const validateFormTicket = () => {
+
+  }
+
+
 
   // Validar el formulario de los datos que el cliente ingrese
   const validateForm = () => {
@@ -207,7 +218,7 @@ export default function FacturaScreen() {
                 <div class="col-sm-10">
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping">$</span>
-                    <input type="number" class="form-control" placeholder="Importe excato del Ticket" aria-describedby="addon-wrapping" />
+                    <input type="number" class="form-control" placeholder="Importe del ticket" aria-describedby="addon-wrapping" />
                   </div>
                 </div>
               </div>
