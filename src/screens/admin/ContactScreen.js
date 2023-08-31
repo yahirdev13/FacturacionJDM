@@ -186,18 +186,23 @@ export default function ContactScreen() {
 
   const fechaStart = (e) => {
     const selectedStartDate = e.target.value;
-    const fechaI = formatDate(selectedStartDate);
+    const fechaI = selectedStartDate;
     setFechaInicio(fechaI);
-    console.log("Fecha inicio: ", fechaInicio);
-    filtraResultados(fechaI, fechaFin);
+    filtraResultados(busqueda, fechaFin, fechaI);
+    console.log("Fecha I: ", fechaI);
+    console.log("Fecha Inicio: ", fechaInicio);
+
   }
 
   const fechaEnd = (e) => {
     const selectedEndDate = e.target.value;
-    const fechaF = formatDate(selectedEndDate);
+    const fechaF = selectedEndDate;
+
     if (fechaF >= fechaInicio) {
       setFechaFin(fechaF);
       filtraResultados(busqueda, fechaInicio, fechaF);
+      console.log("Fecha F: ", fechaF);
+      console.log("Fecha Fin: ", fechaFin);
     } else {
       console.log("La fecha de fin no puede ser anterior a la fecha de inicio");
       Swal.fire({
@@ -212,7 +217,7 @@ export default function ContactScreen() {
   }
 
   //filtro por fechas y por busqueda
-  const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
+  const filtraResultados = (busqueda, fechaI, fechaFin, fechaInicio) => {
     const resultados = contactos.filter((contacto) => {
       const buscaEnCampos = (
         contacto.nombre.toLowerCase().includes(busqueda) ||
@@ -222,7 +227,7 @@ export default function ContactScreen() {
       );
 
       const dentroDeRango = (
-        (!fechaInicio || contacto.fechaEnvio >= fechaInicio) &&
+        (!fechaInicio || contacto.fechaEnvio >= fechaI) &&
         (!fechaFin || contacto.fechaEnvio <= fechaFin)
       );
 
