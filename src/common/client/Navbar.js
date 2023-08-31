@@ -1,12 +1,22 @@
-import React from 'react'
+import React from 'react';
 
 //importacion de libreria para el redireccionamiento de paginas
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom';
 
 //importacion de logo
 import logo from '../../images/logo-nav.png'
 
+//importacion de estilos
+import '../Admin/styles/style.css'
+
 export default function Navbar() {
+
+    const location = useLocation(); // Obtener la ubicación actual
+
+    const isActive = (path) => {
+        // Comprobar si la ubicación actual coincide con la ruta proporcionada
+        return location.pathname === path ? 'active' : '';
+    };
 
     return (
         <div>
@@ -26,10 +36,10 @@ export default function Navbar() {
 
                         <div class="navbar-collapse collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
+                                <li className={`nav-item ${isActive('/inicio')}`}>
                                     <Link class="nav-link active" aria-current="page" to="/inicio" style={styles.link}>Inicio</Link>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav__link">
                                     <Link class="nav-link active" aria-current="page" to="/factura" style={styles.link}>Facturar</Link>
                                 </li>
                                 <li class="nav-item">
@@ -49,7 +59,7 @@ export default function Navbar() {
                     </div>
                 </nav>
             </header>
-        </div>
+        </div >
     )
 }
 
@@ -64,5 +74,6 @@ const styles = {
         fontSize: '20px',
         fontFamily: 'Roboto',
     },
+
 
 }

@@ -13,6 +13,11 @@ import JDM from '../../images/jdm.png'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
+//libreria para alertas
+import Swal from 'sweetalert2';
+import { set } from 'date-fns'
+
+//funcion generar no. factura aleatorio
 function generateRandomString(length) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let result = 'Fa';
@@ -44,15 +49,126 @@ export default function FacturaScreen() {
   const [razon, setRazon] = useState('');
   const [fecha, setFecha] = useState('');
 
+  const [numTicket, setNumTicket] = useState('');
+  const [fechaC, setFechaC] = useState('');
+  const [importe, setImporte] = useState('');
+  const [productos, setProductos] = useState([]);
+
   const f = new Date();
 
   const [factura, setFactura] = useState('');
 
-  //vaalidar el formualrio para saber si es valido el ticket
-  const validateFormTicket = () => {
+  const btnCancel = useRef(null);
+  const btnCancel2 = useRef(null)
 
+  //vaalidar el formualrio para saber si es valido el ticket
+  const validateTicket = (e) => {
+    e.preventDefault();
+    return new Promise(async (resolve, reject) => {
+      try {
+        const respose = await fetch('http://localhost:8080/api-jdm/tickets', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            numTicket: numTicket,
+            fecha: fechaC,
+            total: importe
+          })
+        });
+        const data = await respose.json();
+        if (data.error === false) {
+          console.log('Ticket valido')
+          Swal.fire({
+            title: 'Ticket valido', // Titulo de la alerta
+            text: 'Ingrese sus datos fiscales', // Texto de la alerta
+            icon: 'success', // Icono de la alerta
+            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+            showConfirmButton: false, // No mostrar el botón de confirmación
+            timerProgressBar: true, // Muestra la barra de tiempo
+          });
+          btnCancel.current.click();
+          resolve(true);
+        } else {
+          Swal.fire({
+            title: 'Ticket no valido', // Titulo de la alerta
+            text: data.message, // Texto de la alerta
+            icon: 'error', // Icono de la alerta
+            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+            showConfirmButton: false, // No mostrar el botón de confirmación
+            timerProgressBar: true, // Muestra la barra de tiempo
+          });
+          resolve(false);
+        }
+      } catch (error) {
+        console.log('Error');
+        reject(error);
+      }
+    });
+  };
+
+  const generateFactura = (e) => {
+    e.preventDefault();
+    return new Promise(async (resolve, reject) => {
+      try {
+        const respose = await fetch('http://localhost:8080/api-jdm/facturas', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nombre: nombre,
+            apellidos: apellidos,
+            correo: correo,
+            rfc: rfc,
+            razonSocial: razon,
+            ticket: {
+              numTicket: numTicket
+            },
+            fecha: '',
+          })
+        });
+        const data = await respose.json();
+        if (data.error === false && data.data !== null) {
+          const facturaData = data.data;
+          const facturaM = {
+            ...factura,
+
+          }
+          setFactura(facturaData);
+          generatePDF(); //genera el PDF
+          console.log("Todo bien")
+          Swal.fire({
+            title: 'Factura generada', // Titulo de la alerta
+            text: 'Por favor espere mientras se complete la descarga', // Texto de la alerta
+            icon: 'success', // Icono de la alerta
+            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+            showConfirmButton: false, // No mostrar el botón de confirmación
+            timerProgressBar: true, // Muestra la barra de tiempo
+          });
+          resolve(facturaM);
+          console.log(facturaM)
+
+        } else {
+          console.log("Todo mal")
+          resolve(false)
+        }
+      } catch (error) {
+        console.log('Error');
+        reject(error)
+      }
+    });
   }
 
+
+
+  const formatDate = (e) => {
+    const fechaRecibida = e.target.value;
+    const [year, month, day] = fechaRecibida.split('-');
+    const nuevaFecha = `${day}/${month}/${year}`;
+    setFechaC(nuevaFecha);
+  }
 
 
   // Validar el formulario de los datos que el cliente ingrese
@@ -63,26 +179,21 @@ export default function FacturaScreen() {
     const elementEmail = inputEmail.current;
     const elementRazon = inputRazon.current;
 
-    if (
-      elementName.checkValidity() &&
-      elementApellidos.checkValidity() &&
-      elementEmail.checkValidity() &&
-      elementRFC.checkValidity() &&
-      elementRazon.checkValidity()
-    ) {
-
-    } else {
-
+    if (elementName.checkValidity() && elementApellidos.checkValidity() && elementEmail.checkValidity() && elementRFC.checkValidity() && elementRazon.checkValidity()) {
+      btnCancel2.current.click();
     }
+
   };
 
+  const prevent = (e) => {
+    e.preventDefault();
+  }
 
   // Generar PDF con los datos
   const generatePDF = () => {
 
     // Generar un número de factura aleatorio
     const randomFactura = generateRandomString(10);
-    setFactura(randomFactura);
 
     const doc = new jsPDF();
     doc.setFont('Arial', 'normal');
@@ -98,7 +209,9 @@ export default function FacturaScreen() {
     doc.setFont('arial', 'normal');
     doc.setFontSize(12);
     doc.text(130, 25, 'Factura #' + randomFactura);
-    doc.text(130, 35, 'Fecha: ' + (f.getDate() + " / " + (f.getMonth() + 1) + " / " + f.getFullYear()));
+    doc.text(130, 35, 'Ticket #' + factura.ticket.numTicket);
+    doc.text(130, 45, 'Fecha: ' + (f.getDate() + " / " + (f.getMonth() + 1) + " / " + f.getFullYear()));
+
 
     // Colocar información de la empresa debajo del logo
     doc.text(15, 65, 'Jardines de México');
@@ -111,24 +224,25 @@ export default function FacturaScreen() {
     doc.setFontSize(12);
     doc.text(130, 65, 'Facturar a:');
     doc.text(130, 75, `${nombre} ${apellidos}`);
-    doc.text(130, 85, `RFC: ${rfc}`);
+    doc.text(130, 85, `RFC: ${rfc.toUpperCase()}`);
     doc.text(130, 95, `Correo: ${correo}`);
     doc.text(130, 105, `Razón social: ${razon}`);
 
     // Agregar ejemplos de filas de la tabla (reemplazar con datos reales)
     const posYHeader = 125;
     const alturaFila = 15;
-    const items = [
-      { descripcion: 'Producto A', cantidad: 2, precioUnitario: 50, total: 100 },
-      { descripcion: 'Producto B', cantidad: 1, precioUnitario: 100, total: 100 },
-      { descripcion: 'Producto C', cantidad: 3, precioUnitario: 20, total: 60 },
-      { descripcion: 'Producto D', cantidad: 1, precioUnitario: 200, total: 200 }
-      // ... agregar más productos
-    ];
+    const items = factura.ticket.productos.map(producto => {
+      return {
+        descripcion: producto.nombre,
+        cantidad: producto.cantidad,
+        precioUnitario: producto.precio,
+        total: producto.total
+      };
+    });
 
     // Dibujar encabezado de la tabla
     doc.setDrawColor(0);
-    doc.setFillColor(191, 191, 191); // Color de fondo de encabezado
+    doc.setFillColor(254, 196, 252); // Color de fondo de encabezado
     doc.rect(15, posYHeader, 180, alturaFila, 'F'); // Rectángulo de encabezado
     doc.setTextColor(0);
     doc.setFontSize(12);
@@ -144,10 +258,6 @@ export default function FacturaScreen() {
 
       // Dibujar bordes de la fila
       doc.setDrawColor(0);
-      // doc.rect(15, posY, 170, alturaFila);
-      // doc.line(85, posY, 85, posY + alturaFila);
-      // doc.line(105, posY, 105, posY + alturaFila);
-      // doc.line(150, posY, 150, posY + alturaFila);
 
       // Agregar contenido de la fila
       doc.setTextColor(0);
@@ -179,7 +289,13 @@ export default function FacturaScreen() {
 
     doc.setFont('arial', 'normal');
     doc.setFontSize(10);
-    doc.text(15, posY + 90, 'Este documento es una factura válida en México, expedida por Jardines de México.');
+
+
+    doc.setFillColor(254, 196, 252); // Color de fondo de encabezado
+    doc.rect(0, posY + 115, 220, alturaFila, 'F'); // Rectángulo del final
+    doc.setTextColor(0);
+    doc.text(15, posY + 122.5, 'Este documento es una factura válida en México, expedida por Jardines de México.');
+
 
     // Guardar el PDF
     doc.save('factura.pdf');
@@ -196,20 +312,20 @@ export default function FacturaScreen() {
           </center>
           <div class="card-body">
             <h3 class="card-title" style={styles.title}>Generar Factura</h3>
-            <form>
+            <form onSubmit={validateTicket}>
               <div class="mb-4 row" style={styles.containers}>
                 <label for="staticEmail" class="col-sm-2 col-form-label" style={styles.inputs}>No. Ticket</label>
                 <div class="col-sm-10">
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping">#</span>
-                    <input type="text" class="form-control" placeholder="Ticket" aria-describedby="addon-wrapping" />
+                    <input type="text" class="form-control" placeholder="Ticket" aria-describedby="addon-wrapping" onChange={(e) => setNumTicket(e.target.value)} value={numTicket} required />
                   </div>
                 </div>
               </div>
               <div class="mb-4 row" style={styles.containers}>
                 <label for="inputDate" class="col-sm-2 col-form-label" style={styles.inputs}>Fecha de compra</label>
                 <div class="col-sm-10">
-                  <input type="date" class="form-control" id="inputDate" />
+                  <input type="date" class="form-control" id="inputDate" onChange={formatDate} required />
                 </div>
 
               </div>
@@ -218,13 +334,14 @@ export default function FacturaScreen() {
                 <div class="col-sm-10">
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping">$</span>
-                    <input type="number" class="form-control" placeholder="Importe del ticket" aria-describedby="addon-wrapping" />
+                    <input type="number" class="form-control" placeholder="Importe del ticket" aria-describedby="addon-wrapping" onChange={(e) => setImporte(e.target.value)} value={importe} required />
                   </div>
                 </div>
               </div>
 
               <center>
-                <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#generarFactura" style={{ backgroundColor: "#2c497f", color: "white" }}>Generar Factura</button>
+                <button type="submit" class="btn btn-lg" style={{ backgroundColor: "#2c497f", color: "white" }}>Generar Factura</button>
+                <button ref={btnCancel} type="button" class="invisible-button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#generarFactura" style={{ display: 'none' }}>Botón Invisible</button>
               </center>
             </form>
           </div>
@@ -241,13 +358,13 @@ export default function FacturaScreen() {
               <h1 class="modal-title fs-5" >Datos Fiscales</h1>
             </div>
             <div class="modal-body">
-              <form name='registrarUsuario' >
+              <form onSubmit={prevent}>
                 <h4>Ingrese sus datos</h4>
                 <div class="mb-3">
                   <label class="form-label">Fecha</label>
                   <input class="form-control" type="text"
                     placeholder={(f.getDate() + " / " + (f.getMonth() + 1) + " / " + f.getFullYear())}
-                    aria-label="Disabled input example" disabled name='fecha' onChange={(e) => setFecha(e.target.value)} required />
+                    aria-label="Disabled input example" disabled name='fecha' onChange={(e) => setFecha(e.target.value)} value={fecha} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Nombre/s</label>
@@ -255,11 +372,11 @@ export default function FacturaScreen() {
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Apellido/s</label>
-                  <input ref={inputApellidos} id='apellidos' type="text" class="form-control" name='apellidos' onChange={(e) => setApellidos(e.target.value)} required />
+                  <input ref={inputApellidos} id='apellidos' type="text" class="form-control" name='apellidos' onChange={(e) => setApellidos(e.target.value)} value={apellidos} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">RFC</label>
-                  <input ref={inputRFC} style={styles.rfc} id='rfc' maxlength="13" type="text" class="form-control" name='rfc' onChange={(e) => setRFC(e.target.value)} required />
+                  <input ref={inputRFC} style={styles.rfc} id='rfc' maxlength="13" type="text" class="form-control" name='rfc' onChange={(e) => setRFC(e.target.value)} value={rfc} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Correo Electrónico</label>
@@ -269,14 +386,15 @@ export default function FacturaScreen() {
                 <div class="mb-3">
                   <label class="form-label">Razón social</label>
                   <select ref={inputRazon} class="form-select" name='razon' onChange={(e) => setRazon(e.target.value)} required>
-                    <option selected value="">Seleccione una opción</option>
-                    <option value="Persona Física">Persona Física</option>
-                    <option value="Moral">Moral</option>
+                    <option value="">Seleccione una opción</option>
+                    <option value="Física">Persona Física</option>
+                    <option value="Moral">Persona Moral</option>
                   </select>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmacion" onClick={validateForm}>Continuar</button>
+                  <button type="submit" class="btn btn-primary" onClick={validateForm}>Continuar</button>
+                  <button ref={btnCancel2} type="button" class="invisible-button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#confirmacion" style={{ display: 'none' }}>Botón Invisible</button>
                 </div>
               </form>
 
@@ -326,7 +444,7 @@ export default function FacturaScreen() {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#generarFactura">Regresar</button>
-              <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={generatePDF}>Facturar</button>
+              <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={generateFactura}>Facturar</button>
             </div>
           </div>
         </div>
