@@ -196,6 +196,7 @@ export default function FacturaScreen() {
     const randomFactura = generateRandomString(10);
 
     const doc = new jsPDF();
+
     doc.setFont('Arial', 'normal');
     doc.setFontSize(12);
 

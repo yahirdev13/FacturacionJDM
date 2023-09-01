@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';//yarn add react-router-dom
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -26,12 +26,11 @@ function App() {
 
   const token = localStorage.getItem('token');
 
-
   return (
     <Router>{/*se crea el router, el cual controla las rutas*/}
       <Routes> {/* se crea el espacio donde se van a colocar las rutas */}
-        <Route path={"/admin"} element={<LoginScreen />} />{/* se crea la ruta, la cual se va a mostrar en el path especificado y renderizara el elemento especificado */}
-        <Route path={"/profile"} element={<HomeAdminScreen />} />
+        <Route path="/admin" element={token === null ? <LoginScreen /> : <Navigate to="/profile" />} />
+        <Route path="/profile" element={token ? <HomeAdminScreen /> : <Navigate to="/admin" />} />
 
         {/* <Route path='/admin' exact>
           {token ? <Navigate to={"/profile"} /> : <Navigate to={"/admin"} />}
@@ -39,10 +38,10 @@ function App() {
 
 
         {/* <Route path={"/profile"} element={<HomeAdminScreen />} /> */}
-        <Route path={"/users"} element={<UsersScreen />} />
-        <Route path={"/rol"} element={<RolScreen />} />
-        <Route path={"/mensajes"} element={<ContactScreen />} />
-        <Route path={"/facturaControl"} element={<FacturaAdminScreen />} />
+        <Route path="/users" element={token ? <UsersScreen /> : <Navigate to="/admin" />} />
+        <Route path="/rol" element={token ? <RolScreen /> : <Navigate to="/admin" />} />
+        <Route path="/mensajes" element={token ? <ContactScreen /> : <Navigate to="/admin" />} />
+        <Route path="/facturaControl" element={token ? <FacturaAdminScreen /> : <Navigate to="/admin" />} />
 
 
         <Route path={"/inicio"} element={<HomeScreen />} />
@@ -54,7 +53,7 @@ function App() {
 
         {/* <Route path={"/pruebas"} element={<Pruebas />} /> */}
 
-        <Route path='*' element={<Navigate to={"/"} />} />
+        <Route path='*' element={<Navigate to={"/admin"} />} />
       </Routes>
     </Router>
   );
