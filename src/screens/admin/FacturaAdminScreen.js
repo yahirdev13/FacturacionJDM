@@ -62,7 +62,7 @@ export default function FacturaAdminScreen() {
     },
     {
       name: 'Fecha',
-      selector: (row) => row.fecha,
+      selector: (row) => formatDate(row.fecha),
       width: '200px',
       sortable: true
     },
@@ -91,7 +91,7 @@ export default function FacturaAdminScreen() {
     }).catch((error) => {
       console.log(error);
     });
-  })
+  }, [])
 
 
   const getFacturas = async () => {
@@ -116,48 +116,59 @@ export default function FacturaAdminScreen() {
               lugar: factura.ticket.lugar,
               productos: factura.ticket.productos,
             }));
-            console.log('Todo bien');
+            console.log('facturas: ' + Facturas);
             resolve(Facturas);
           } else {
-            console.log('Todo mal');
+            console.log('No hay facturas disponibles');
             resolve([]);
           }
         }
       } catch (error) {
-        console.log('Error');
+        console.log('error al obtener facturas' + error);
         reject(error);
       }
     });
   };
 
 
-  //formato de fechas
-  const formatDate = (date) => {
-    const [year, month, day] = date.split('-');
-    return `${day}/${month}/${year}`;
+  const onChange = (e) => {
+    const valorBusqueda = e.target.value.toLowerCase();
+    setBusqueda(valorBusqueda);
+    filtraResultados(valorBusqueda);
   }
 
+
   //filtro por fechas
+
   const [fechaInicio, setFechaInicio] = useState('');
   const [fechaFin, setFechaFin] = useState('');
   const [facturas, setFacturas] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [facturasFiltradas, setFacturasFiltradas] = useState([]);
 
+  //formato de fecha
+  const formatDate = (date) => {
+    const [year, month, day] = date.split('-');
+    return `${day}/${month}/${year}`;
+  }
 
+  //fecha de inicio
   const fechaStart = (e) => {
     const selectedStartDate = e.target.value;
-
     setFechaInicio(selectedStartDate);
     filtraResultados(busqueda, selectedStartDate, fechaFin);
+    console.log("Fecha Inicio: ", selectedStartDate);
 
   }
 
+  //fecha de fin
   const fechaEnd = (e) => {
     const selectedEndDate = e.target.value;
+
     if (selectedEndDate >= fechaInicio) {
       setFechaFin(selectedEndDate);
       filtraResultados(busqueda, fechaInicio, selectedEndDate);
+      console.log("Fecha Fin: ", selectedEndDate);
     } else {
       console.log("La fecha de fin no puede ser anterior a la fecha de inicio");
       Swal.fire({
@@ -171,23 +182,23 @@ export default function FacturaAdminScreen() {
     }
   }
 
-  const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
+  //filtro por fechas y por busqueda
+  const filtraResultados = (busqueda, fechaI, fechaF) => {
     const resultados = facturas.filter((factura) => {
       const buscaEnCampos = (
         factura.nombre.toLowerCase().includes(busqueda) ||
         factura.correo.toLowerCase().includes(busqueda) ||
-        factura.ticket.toLowerCase().includes(busqueda) ||
-        factura.fecha.toLowerCase().includes(busqueda)
-
+        factura.ticket.toLowerCase().includes(busqueda)
       );
 
       const dentroDeRango = (
-        (!fechaInicio || factura.fechaEnvio >= fechaInicio) &&
-        (!fechaFin || factura.fechaEnvio <= fechaFin)
+        (!fechaI || factura.fecha >= fechaI) &&
+        (!fechaF || factura.fecha <= fechaF)
       );
 
       return buscaEnCampos && dentroDeRango;
     });
+
     setFacturasFiltradas(resultados);
   };
 
@@ -209,12 +220,7 @@ export default function FacturaAdminScreen() {
     }, [delay]);
   }
 
-  const onChange = (e) => {
-    const valorBusqueda = e.target.value.toLowerCase();
-    setBusqueda(valorBusqueda);
-    filtraResultados(valorBusqueda);
-  }
-
+  //funciona para pintar las facturas cada 5 segundos
   useInterval(() => {
     if (fechaInicio === '' && fechaFin === '' && busqueda === '') {
       getFacturas().then((facturas) => {

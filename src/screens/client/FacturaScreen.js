@@ -209,8 +209,8 @@ export default function FacturaScreen() {
     doc.setFont('arial', 'normal');
     doc.setFontSize(12);
     doc.text(130, 25, 'Factura #' + randomFactura);
-    doc.text(130, 35, 'Ticket #' + factura.ticket.numTicket);
-    doc.text(130, 45, 'Fecha: ' + (f.getDate() + " / " + (f.getMonth() + 1) + " / " + f.getFullYear()));
+    // doc.text(130, 35, 'Ticket #' + factura.ticket.numTicket);
+    doc.text(130, 35, 'Fecha: ' + (f.getDate() + " / " + (f.getMonth() + 1) + " / " + f.getFullYear()));
 
 
     // Colocar información de la empresa debajo del logo
