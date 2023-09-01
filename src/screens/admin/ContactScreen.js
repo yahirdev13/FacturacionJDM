@@ -30,6 +30,7 @@ export default function ContactScreen() {
     setIdContacto(id);
   }
 
+  //detalles ticket
   const [asunto, setAsunto] = useState('');
   const [mensaje, setMensaje] = useState('');
 
@@ -91,9 +92,7 @@ export default function ContactScreen() {
       setContactos(contactos);
       setContactosFiltrados(contactos);
       console.log("Datos contactos: ", contactos);
-      console.log("Fecha inicio: ", fechaInicio);
-      console.log("Fecha fin: ", fechaFin);
-      console.log("Busqueda: ", busqueda)
+
 
     }).catch((error) => {
       console.log(error);
@@ -144,7 +143,7 @@ export default function ContactScreen() {
             title: 'Mensaje eliminado', // Titulo de la alerta
             text: 'El mensaje se eliminó correctamente', // Texto de la alerta
             icon: 'success', // Icono de la alerta
-            timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+            timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
             showConfirmButton: false, // No mostrar el botón de confirmación
             timerProgressBar: true, // Muestra la barra de tiempo
           });
@@ -155,7 +154,7 @@ export default function ContactScreen() {
           title: 'Error', // Titulo de la alerta
           text: 'No se pudo eliminar el mensaje', // Texto de la alerta
           icon: 'error', // Icono de la alerta
-          timer: 2000, // Duración de la alerta en milisegundos (3 segundos en este caso)
+          timer: 2000, // Duración de la alerta en milisegundos (2 segundos en este caso)
           showConfirmButton: false, // No mostrar el botón de confirmación
           timerProgressBar: true, // Muestra la barra de tiempo
         });
@@ -172,30 +171,36 @@ export default function ContactScreen() {
   }
 
   //filtro por fechas
+
   const [fechaInicio, setFechaInicio] = useState('');
   const [fechaFin, setFechaFin] = useState('');
   const [contactos, setContactos] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [contactosFiltrados, setContactosFiltrados] = useState([]);
 
+  //formato de fecha
   const formatDate = (date) => {
     const [year, month, day] = date.split('-');
     return `${day}/${month}/${year}`;
   }
 
+  //fecha de inicio
   const fechaStart = (e) => {
     const selectedStartDate = e.target.value;
-
     setFechaInicio(selectedStartDate);
     filtraResultados(busqueda, selectedStartDate, fechaFin);
+    console.log("Fecha Inicio: ", selectedStartDate);
 
   }
 
+  //fecha de fin
   const fechaEnd = (e) => {
     const selectedEndDate = e.target.value;
+
     if (selectedEndDate >= fechaInicio) {
       setFechaFin(selectedEndDate);
       filtraResultados(busqueda, fechaInicio, selectedEndDate);
+      console.log("Fecha Fin: ", selectedEndDate);
     } else {
       console.log("La fecha de fin no puede ser anterior a la fecha de inicio");
       Swal.fire({
@@ -209,7 +214,8 @@ export default function ContactScreen() {
     }
   }
 
-  const filtraResultados = (busqueda, fechaInicio, fechaFin) => {
+  //filtro por fechas y por busqueda
+  const filtraResultados = (busqueda, fechaI, fechaF) => {
     const resultados = contactos.filter((contacto) => {
       const buscaEnCampos = (
         contacto.nombre.toLowerCase().includes(busqueda) ||
@@ -219,8 +225,8 @@ export default function ContactScreen() {
       );
 
       const dentroDeRango = (
-        (!fechaInicio || contacto.fechaEnvio >= fechaInicio) &&
-        (!fechaFin || contacto.fechaEnvio <= fechaFin)
+        (!fechaI || contacto.fechaEnvio >= fechaI) &&
+        (!fechaF || contacto.fechaEnvio <= fechaF)
       );
 
       return buscaEnCampos && dentroDeRango;
@@ -248,7 +254,7 @@ export default function ContactScreen() {
   }
 
   useInterval(() => {
-    if (fechaInicio === '' && fechaFin === '') {
+    if (fechaInicio === '' && fechaFin === '' && busqueda === '') {
       getContactos().then((contactos) => {
         setContactos(contactos);
         setContactosFiltrados(contactos);
@@ -267,7 +273,6 @@ export default function ContactScreen() {
     <div className='component'>
       <Menu />
 
-
       <div>
         <div class="mx-auto p-2">
           <h2>Control de Mensajes</h2>
@@ -282,9 +287,9 @@ export default function ContactScreen() {
             <label className='me-2 mt-2'>Hasta: </label>
             <input type='date' className='form-control me-2' style={{ width: "200px" }}
               onChange={fechaEnd} value={fechaFin} min={fechaInicio}></input>
-            {/* <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
+            <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
               onChange={onChange}
-            /> */}
+            />
             <CSVLink data={contactosFiltrados} filename='Mensajes.csv' className='btn btn-primary me-2'>
               Exportar Mensajes <i class="bi bi-download"></i>
             </CSVLink>

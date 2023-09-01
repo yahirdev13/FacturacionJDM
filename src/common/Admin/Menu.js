@@ -70,7 +70,7 @@ export default function Menu() {
                                     <h3 class="nav__subtitle">Perfil</h3>
 
                                     <Link
-                                        class={`nav__link ${activeLink === 'profile' ? 'active' : ''}`}
+                                        className={`nav__link ${activeLink === 'profile' ? 'active' : ''}`}
                                         to="/profile"
                                         onClick={() => handleLinkClick('profile')}
                                     >

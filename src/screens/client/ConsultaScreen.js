@@ -43,7 +43,7 @@ export default function ConsultaScreen() {
                                 </div>
                             </div>
                             <center>
-                                <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#NOconsultaTicket" style={{ backgroundColor: "#2c497f", color: "white" }}>Consultar Ticket</button>
+                                <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#consultaTicket" style={{ backgroundColor: "#2c497f", color: "white" }}>Consultar Ticket</button>
                             </center>
 
                         </form>
