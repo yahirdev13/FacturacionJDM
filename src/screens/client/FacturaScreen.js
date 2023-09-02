@@ -17,16 +17,6 @@ import 'jspdf-autotable';
 import Swal from 'sweetalert2';
 import { set } from 'date-fns'
 
-//funcion generar no. factura aleatorio
-function generateRandomString(length) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = 'Fa';
-  for (let i = 0; i < length - 2; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    result += characters.charAt(randomIndex);
-  }
-  return result;
-}
 
 
 export default function FacturaScreen() {
@@ -53,6 +43,7 @@ export default function FacturaScreen() {
   const [fechaC, setFechaC] = useState('');
   const [importe, setImporte] = useState('');
   const [productos, setProductos] = useState([]);
+
 
   const f = new Date();
 
@@ -137,7 +128,10 @@ export default function FacturaScreen() {
 
           }
           setFactura(facturaData);
-          generatePDF(); //genera el PDF
+
+
+          console.log(facturaData);
+          generatePDF(facturaData); //genera el PDF
           console.log("Todo bien")
           Swal.fire({
             title: 'Factura generada', // Titulo de la alerta
@@ -189,8 +183,20 @@ export default function FacturaScreen() {
     e.preventDefault();
   }
 
+  //funcion generar no. factura aleatorio
+  function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = 'Fa';
+    for (let i = 0; i < length - 2; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+    return result;
+  }
+
+
   // Generar PDF con los datos
-  const generatePDF = () => {
+  const generatePDF = (factura) => {
 
     // Generar un número de factura aleatorio
     const randomFactura = generateRandomString(10);
