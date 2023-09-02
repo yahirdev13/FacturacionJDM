@@ -322,16 +322,17 @@ export default function FacturaAdminScreen() {
                     </tr>
                   ))}
                 </tbody>
-
-                <div>
-                  <h3 className='mt-3'>
-                    Total
-                    <span className='float-end'>
-                      $ {productosFactura.reduce((a, c) => a + c.total, 0)}
-                    </span>
-                  </h3>
-                </div>
               </table>
+              <div className='d-flex justify-content-end mb-2'>
+                <h3 className='mt-2 d-flex justify-content-end mb-2'>
+                  Total:  $
+                </h3>
+                <h3 className='mt-2 d-flex justify-content-end mb-2'>
+                  {productosFactura.reduce((a, c) => a + c.total, 0)}
+                </h3>
+              </div>
+
+
             </div>
 
             <div class="modal-footer">

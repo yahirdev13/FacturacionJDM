@@ -38,6 +38,11 @@ export default function Menu() {
         setActiveLink(link);
     };
 
+    const logout = () => {
+        localStorage.clear();
+        window.location.href = "/admin";
+    }
+
     return (
         <div>
             <header>
@@ -70,7 +75,7 @@ export default function Menu() {
                                     <h3 class="nav__subtitle">Perfil</h3>
 
                                     <Link
-                                        className={`nav__link ${activeLink === 'profile' ? 'active' : ''}`}
+                                        class={`nav__link ${activeLink === 'profile' ? 'active' : ''}`}
                                         to="/profile"
                                         onClick={() => handleLinkClick('profile')}
                                     >
@@ -138,16 +143,11 @@ export default function Menu() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar Sesión</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={logout}>Cerrar Sesión</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div >
-
-
-
     )
 }

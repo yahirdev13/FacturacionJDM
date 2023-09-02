@@ -14,8 +14,8 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Swal from 'sweetalert2';
 export default function LoginForm() {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [nombreUsuario, setNombreUsuario] = useState('')
+    const [contrasena, setContrasena] = useState('')
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -25,7 +25,7 @@ export default function LoginForm() {
     };
 
 
-    const handleLogin = (e) => {
+    const handleSesion = (e) => {
         e.preventDefault();
         return new Promise(async (resolve, reject) => {
             try {
@@ -35,8 +35,8 @@ export default function LoginForm() {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        nombreUsuario: email,
-                        contrasena: password
+                        nombreUsuario: nombreUsuario,
+                        contrasena: contrasena
                     })
                 });
                 const data = await response.json();
@@ -48,6 +48,7 @@ export default function LoginForm() {
 
                     //guardar el token en el local storage
                     localStorage.setItem('token', data.token);
+                    localStorage.setItem('nombreUsuario', nombreUsuario)
 
                     //redirigir a la pagina de inicio
                     window.location.href = "/profile";
@@ -87,18 +88,18 @@ export default function LoginForm() {
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={(e) => setEmail(e.target.value)} />
+                                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={(e) => setNombreUsuario(e.target.value)} />
                                     <label for="floatingInput">Usuario</label>
                                 </div>
 
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" onChange={(e) => setContrasena(e.target.value)} />
                                     <label for="floatingPassword">Contraseña</label>
                                 </div>
                                 <div class="text-center text-lg-start mt-4 pt-2">
                                     <button type="button" class="btn btn-primary btn-lg"
                                         style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}
-                                        onClick={handleLogin}
+                                        onClick={handleSesion}
                                     >Iniciar Sesión</button>
 
                                 </div>
