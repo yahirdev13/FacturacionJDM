@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 
 //importacion de componentes
 import Navbar from '../../common/client/Navbar'
@@ -14,8 +14,56 @@ import cancelado from '../../gifs/archivo.gif'
 import logo from '../../images/logo-negro.png'
 
 export default function ConsultaScreen() {
+
+    const [numTicket, setNumTicket] = useState('');
+    const [fechaC, setFechaC] = useState('');
+    const [importe, setImporte] = useState('');
+
+    //vaalidar el formualrio para saber si es valido el ticket
+    const validateTicket = (e) => {
+        e.preventDefault();
+        return new Promise(async (resolve, reject) => {
+            try {
+                const respose = await fetch('http://localhost:8080/api-jdm/tickets', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        numTicket: numTicket,
+                        fecha: fechaC,
+                        total: importe
+                    })
+                });
+                const data = await respose.json();
+                if (data.error === false) {
+                    btnSI.current.click();
+                } else {
+                    btnNO.current.click();
+                }
+            } catch (error) {
+                console.log('Error');
+                reject(error);
+            }
+        });
+    };
+
+    const btnSI = useRef(null);
+    const btnNO = useRef(null);
+
+
+    const formatDate = (e) => {
+        const fechaRecibida = e.target.value;
+        const [year, month, day] = fechaRecibida.split('-');
+        const nuevaFecha = `${day}/${month}/${year}`;
+        setFechaC(nuevaFecha);
+    }
+
     return (
         <div className="d-flex flex-column min-vh-100">
+            <button ref={btnNO} type="button" id="NOCONSULTA" class="invisible-button" data-bs-toggle="modal" data-bs-target="#NOconsultaTicket" style={{ display: 'none' }}>boton invisible</button>
+            <button ref={btnSI} type="button" id="CONSULTA" class="invisible-button" data-bs-toggle="modal" data-bs-target="#consultaTicket" style={{ display: 'none' }}>boton invisible</button>
+
             <Navbar />
 
             <div class="d-flex justify-content-center align-items-center">
@@ -26,26 +74,36 @@ export default function ConsultaScreen() {
                     <div class="card-body">
                         <h3 class="card-title" style={styles.title}>Consulta tu ticket</h3>
 
-                        <form>
+                        <form onSubmit={validateTicket}>
                             <div class="mb-4 row" style={styles.containers}>
                                 <label for="staticEmail" class="col-sm-2 col-form-label" style={styles.inputs}>No. Ticket</label>
                                 <div class="col-sm-10">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="addon-wrapping">#</span>
-                                        <input type="text" class="form-control" placeholder="Ticket" aria-describedby="addon-wrapping" />
+                                        <input type="text" class="form-control" placeholder="Ticket" aria-describedby="addon-wrapping" onChange={(e) => setNumTicket(e.target.value)} value={numTicket} required />
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-4 row" style={styles.containers}>
                                 <label for="inputDate" class="col-sm-2 col-form-label" style={styles.inputs}>Fecha de compra</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="inputDate" />
+                                    <input type="date" class="form-control" id="inputDate" onChange={formatDate} required />
+                                </div>
+
+                            </div>
+                            <div class="mb-4 row" style={styles.containers}>
+                                <label for="staticEmail" class="col-sm-2 col-form-label" style={styles.inputs}>Importe Total</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text" id="addon-wrapping">$</span>
+                                        <input type="number" class="form-control" placeholder="Importe del ticket" aria-describedby="addon-wrapping" onChange={(e) => setImporte(e.target.value)} value={importe} required />
+                                    </div>
                                 </div>
                             </div>
-                            <center>
-                                <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#consultaTicket" style={{ backgroundColor: "#2c497f", color: "white" }}>Consultar Ticket</button>
-                            </center>
 
+                            <center>
+                                <button type="submit" class="btn btn-lg" style={{ backgroundColor: "#2c497f", color: "white" }}>Consultar Factura</button>
+                            </center>
                         </form>
 
                     </div>

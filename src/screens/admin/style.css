@@ -45,4 +45,8 @@
         margin-left: 0%;
         height: auto;
     }
+
+    .flex-column {
+        flex-direction: column;
+    }
 }

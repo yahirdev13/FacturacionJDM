@@ -129,7 +129,7 @@ export default function ContactanosScreen() {
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Telefono</label>
-                  <input ref={inputPhone} type="tel" class="form-control" placeholder="Teléfono" maxLength={10} onChange={(e) => setTelefono(e.target.value)} required />
+                  <input ref={inputPhone} type="number" class="form-control" placeholder="Teléfono" maxLength={10} onChange={(e) => setTelefono(e.target.value)} required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Correo Electrónico</label>

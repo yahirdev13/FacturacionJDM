@@ -281,6 +281,8 @@ export default function ContactScreen() {
       <div class="card mt-3">
         <div class="card-body">
           <div class="d-flex justify-content-end mb-2">
+
+
             <label className='me-2 mt-2'>Desde: </label>
             <input type='date' className='form-control me-2' style={{ width: "200px" }}
               onChange={fechaStart} id='start' value={fechaInicio} max={fechaFin}></input>
