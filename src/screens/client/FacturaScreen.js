@@ -299,7 +299,7 @@ export default function FacturaScreen() {
 
 
     doc.setFillColor(254, 196, 252); // Color de fondo de encabezado
-    doc.rect(0, posY + 115, 220, alturaFila, 'F'); // Rectángulo del final
+    doc.rect(0, posY + 100, 220, alturaFila, 'F'); // Rectángulo del final
     doc.setTextColor(0);
     doc.text(15, posY + 122.5, 'Este documento es una factura válida en México, expedida por Jardines de México.');
 

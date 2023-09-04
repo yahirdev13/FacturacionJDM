@@ -17,13 +17,14 @@ export default function HomeAdminScreen() {
     const [nombre, setNombre] = useState('');
     const [apellidos, setApellidos] = useState('');
     const [correo, setCorreo] = useState('');
+    const [idUsuario, setIdUsuario] = useState('');
     const token = localStorage.getItem('token');
-    console.log(token);
 
 
     useEffect(() => {
         getUsuarioByUsername().then((usuario) => {
             console.log(usuario);
+            setIdUsuario(usuario.id);
             setNombre(usuario.nombre);
             setApellidos(usuario.apellidos);
             setNuevoUsuario(usuario.nombreUsuario);
@@ -110,9 +111,10 @@ export default function HomeAdminScreen() {
 
     const updateProfile = (e) => {
         e.preventDefault();
+        console.log(idUsuario)
         return new Promise(async (resolve, reject) => {
             try {
-                const response = await fetch(`http://localhost:8080/api-jdm/auth/updateProfile/1`, {
+                const response = await fetch(`http://localhost:8080/api-jdm/auth/updateProfile/${idUsuario}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -138,6 +140,7 @@ export default function HomeAdminScreen() {
                     console.log(nuevoUsuario);
                     console.log(nombreUsuario);
                     nombreUsuario = nuevoUsuario;
+                    localStorage.setItem('nombreUsuario', nombreUsuario);
                     console.log(nombreUsuario);
                     setNombre('');
                     setApellidos('');

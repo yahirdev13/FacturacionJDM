@@ -114,7 +114,7 @@ export default function ContactScreen() {
             const contactosC = data.data.map((contacto) => ({
               ...contacto
             }));
-            console.log('Todo bien');
+            console.log(contactosC);
             resolve(contactosC);
           } else {
             console.log('Todo mal');
@@ -283,12 +283,16 @@ export default function ContactScreen() {
           <div class="d-flex justify-content-end mb-2">
 
 
-            <label className='me-2 mt-2'>Desde: </label>
-            <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaStart} id='start' value={fechaInicio} max={fechaFin}></input>
-            <label className='me-2 mt-2'>Hasta: </label>
-            <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaEnd} value={fechaFin} min={fechaInicio}></input>
+            <div class="d-flex justify-content-end mb-2">
+              <label className='me-2 mt-2'>Desde: </label>
+              <input type='date' className='form-control me-2' style={{ width: "200px" }}
+                onChange={fechaStart} id='start' value={fechaInicio} max={fechaFin}
+              ></input>
+              <label className='me-2 mt-2'>Hasta: </label>
+              <input type='date' className='form-control me-2' style={{ width: "200px" }}
+                onChange={fechaEnd} value={fechaFin} min={fechaInicio}
+              ></input>
+            </div>
             <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
               onChange={onChange}
             />

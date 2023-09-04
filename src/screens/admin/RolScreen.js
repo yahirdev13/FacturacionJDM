@@ -324,49 +324,7 @@ export default function RolScreen() {
                   <textarea type="text-area" class="form-control" placeholder="Ingrese una descripción breve" style={{ height: "100px" }} required />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Permisos</label>
-                  <table class="table table-borderless align-middle">
-                    <thead>
-                      <tr>
-                        <th scope="col">Módulo</th>
-                        <th scope="col" class="text-center">Ver</th>
-                        <th scope="col" class="text-center">Crear</th>
-                        <th scope="col" class="text-center">Editar</th>
-                        <th scope="col" class="text-center">Eliminar</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">Usuarios</th>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Roles</th>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Mensajes</th>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" disabled /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" disabled /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Facturas</th>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" disabled /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" disabled /></td>
-                        <td class="text-center"><input type="checkbox" class="form-check-input" checked /></td>
-                      </tr>
-                    </tbody>
 
-                  </table>
                 </div>
               </form>
             </div>

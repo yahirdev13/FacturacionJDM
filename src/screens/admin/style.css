@@ -49,4 +49,23 @@
     .flex-column {
         flex-direction: column;
     }
+
+    .d-flex {
+        flex-direction: column;
+        /* Cambia la dirección del flexbox a columna */
+        align-items: center;
+        /* Centra los elementos horizontalmente */
+    }
+
+    .form-control {
+        width: 100%;
+        /* Hace que los campos de entrada ocupen todo el ancho disponible */
+        margin-bottom: 10px;
+        /* Agrega un espacio entre los elementos */
+    }
+
+    .me-2 {
+        margin-right: 0 !important;
+        /* Elimina el margen derecho en dispositivos móviles */
+    }
 }

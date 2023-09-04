@@ -38,6 +38,13 @@ export default function FacturaAdminScreen() {
     setProductosFactura(productos)
   }
 
+  // Función para formatear los productos
+  const formatProductos = (productos) => {
+    return productos.map((producto) => {
+      return `${producto.nombre} (${producto.cantidad} x $${producto.precio}) = $${producto.total}`;
+    }).join(', ');
+  };
+
   const columnas = [
     {
       name: '#',
@@ -64,6 +71,11 @@ export default function FacturaAdminScreen() {
       name: 'Fecha',
       selector: (row) => formatDate(row.fecha),
       width: '200px',
+      sortable: true
+    },
+    {
+      name: 'Lugar',
+      selector: (row) => row.lugar,
       sortable: true
     },
     {
@@ -188,7 +200,8 @@ export default function FacturaAdminScreen() {
       const buscaEnCampos = (
         factura.nombre.toLowerCase().includes(busqueda) ||
         factura.correo.toLowerCase().includes(busqueda) ||
-        factura.ticket.toLowerCase().includes(busqueda)
+        factura.ticket.toLowerCase().includes(busqueda) ||
+        factura.lugar.toLowerCase().includes(busqueda)
       );
 
       const dentroDeRango = (
@@ -249,19 +262,35 @@ export default function FacturaAdminScreen() {
       </div>
       <div class="card mt-3">
         <div class="card-body">
+
+
           <div class="d-flex justify-content-end mb-2">
-            <label className='me-2 mt-2'>Desde: </label>
-            <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaStart} id='start' value={fechaInicio} max={fechaFin}
-            ></input>
-            <label className='me-2 mt-2'>Hasta: </label>
-            <input type='date' className='form-control me-2' style={{ width: "200px" }}
-              onChange={fechaEnd} value={fechaFin} min={fechaInicio}
-            ></input>
+            <div class="d-flex justify-content-end mb-2">
+              <label className='me-2 mt-2'>Desde: </label>
+              <input type='date' className='form-control me-2' style={{ width: "200px" }}
+                onChange={fechaStart} id='start' value={fechaInicio} max={fechaFin}
+              ></input>
+              <label className='me-2 mt-2'>Hasta: </label>
+              <input type='date' className='form-control me-2' style={{ width: "200px" }}
+                onChange={fechaEnd} value={fechaFin} min={fechaInicio}
+              ></input>
+            </div>
             <input type='text' placeholder='Buscar...' class='form-control me-2' style={{ width: "300px" }}
               onChange={onChange}
             />
-            <CSVLink data={facturasFiltradas} filename='Facturas.csv' className='btn btn-primary me-2'>
+            <CSVLink
+              data={facturasFiltradas.map((factura) => {
+                // Copiar la factura y reemplazar la columna "Productos" con el formato adecuado
+                const facturaConProductosFormateados = {
+                  ...factura,
+                  productos: formatProductos(factura.productos),
+                };
+                return facturaConProductosFormateados;
+              })}
+              excludeColumns={['productos']}
+              filename='Facturas.csv'
+              className='btn btn-primary me-2'
+            >
               Exportar facturas <i class="bi bi-download"></i>
             </CSVLink>
 
@@ -289,7 +318,7 @@ export default function FacturaAdminScreen() {
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header lign-items-center justify-content-center">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Detalles de factura</h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Detalles del ticket</h1>
             </div>
             <div class="modal-body">
 
