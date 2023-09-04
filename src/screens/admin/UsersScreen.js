@@ -788,4 +788,4 @@ export default function UsersScreen() {
             </div>
         </div >
     );
-};
+}
