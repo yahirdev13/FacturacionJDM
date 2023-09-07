@@ -147,63 +147,47 @@ export default function ConsultaScreen() {
                         <div class="modal-body">
 
                             <h4>Ticket</h4>
-                            <p>123456789</p>
+                            <p>{numTicket}</p>
 
                             <h4>Fecha</h4>
-                            <p>10/03/2023</p>
+                            <p>{fechaC}</p>
 
                             <h4>Lugar</h4>
-                            <p>Restaurante Jardines de Mexico</p>
+                            <p>xd</p>
 
-                            <h4>Desglose</h4>
                             <table class="table ">
                                 <thead>
                                     <tr>
-
-                                        <th scope="col">Producto</th>
+                                        <th scope="col">Nombre</th>
                                         <th scope="col">Cantidad</th>
+                                        <th scope="col">Precio</th>
                                         <th scope="col">Total</th>
                                     </tr>
                                 </thead>
+
                                 <tbody class="table-group-divider">
-                                    <tr>
-
-                                        <td>Agua</td>
-                                        <td>10</td>
-                                        <td>$120</td>
-                                    </tr>
-                                    <tr>
-
-                                        <td>Pastel</td>
-                                        <td>8</td>
-                                        <td>$1200</td>
-                                    </tr>
-                                    <tr>
-
-                                        <td>Hamburguesa</td>
-                                        <td>3</td>
-                                        <td>$800</td>
-                                    </tr>
-                                    <tr>
-
-                                        <td>Helado</td>
-                                        <td>3</td>
-                                        <td>$140</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cerveza Modelo</td>
-                                        <td>8</td>
-                                        <td>$1200</td>
-                                    </tr>
-                                    <tr>
-                                        <td><h3>Total</h3></td>
-                                        <td></td>
-                                        <td><b>$36748</b></td>
-                                    </tr>
+                                    {/* {productosFactura.map((producto) => (
+                                        <tr>
+                                            <td >{producto.nombre}</td>
+                                            <td style={styles.celda}>{producto.cantidad}</td>
+                                            <td style={styles.celda}>{producto.precio}</td>
+                                            <td style={styles.celda}>{producto.total}</td>
+                                        </tr>
+                                    ))} */}
                                 </tbody>
                             </table>
+                            <div className='d-flex justify-content-end mb-2'>
+                                <h3 className='mt-2 d-flex justify-content-end mb-2'>
+                                    Total:  $
+                                </h3>
+                                <h3 className='mt-2 d-flex justify-content-end mb-2'>
+                                    {/* {productosFactura.reduce((a, c) => a + c.total, 0)} */}
+                                </h3>
+                            </div>
+
 
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
                         </div>
